@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.saad.carsales.MainActivity"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
 <RelativeLayout
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
@@ -45,7 +46,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="BUY"
-                android:scaleY="0.8"
+                android:textStyle="bold"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:textSize="50sp"
@@ -80,11 +81,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="SELL"
+                android:textStyle="bold"
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
                 android:textAlignment="center"
                 android:textSize="50sp"
-                android:scaleY="0.8"
                 android:textColor="@android:color/white" />
 
         </RelativeLayout>
