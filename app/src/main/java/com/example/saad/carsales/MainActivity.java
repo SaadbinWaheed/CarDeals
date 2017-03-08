@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Buy = (CardView) findViewById(R.id.card_buy);
-        Sell = (CardView) findViewById(R.id.car_sell);
+        Sell = (CardView) findViewById(R.id.card_sell);
 
         Sell.setOnClickListener(new View.OnClickListener() {
             @Override

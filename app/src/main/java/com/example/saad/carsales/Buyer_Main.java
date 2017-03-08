@@ -26,7 +26,7 @@ public class Buyer_Main extends AppCompatActivity {
         }
 
         adap = new Buyer_Main_Adapter(Buyer_Main.this,ads);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL, false);
         RV.setLayoutManager(mLayoutManager);
         RV.setItemAnimator(new DefaultItemAnimator());
         RV.setAdapter(adap);
