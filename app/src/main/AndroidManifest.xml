@@ -16,7 +16,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".Seller_Login" />
-        <activity android:name=".Buyer_Main"></activity>
+        <activity android:name=".Buyer_Main" />
+        <activity android:name=".AD_details"></activity>
     </application>
 
 </manifest>

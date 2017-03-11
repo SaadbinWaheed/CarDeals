@@ -1,5 +1,6 @@
 package com.example.saad.carsales;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -36,6 +37,8 @@ public class Seller_Login extends AppCompatActivity {
                     if(pass.getText().toString().equals(c_pass.getText().toString())){
                         Toast.makeText(Seller_Login.this, "PROCEED", Toast.LENGTH_SHORT).show();
                         Check();
+                        Intent i = new Intent(Seller_Login.this,AD_details.class);
+                        startActivity(i);
                     }
                     else{
                         Toast.makeText(Seller_Login.this, "Password Confirmation Error ", Toast.LENGTH_SHORT).show();
