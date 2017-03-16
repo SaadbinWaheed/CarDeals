@@ -1,13 +1,11 @@
 package com.example.saad.carsales;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.ListView;
 
 import java.util.ArrayList;
 
@@ -19,17 +17,17 @@ public class Car_details extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_car_details);
         image.add(R.drawable.buyer);
-        image.add(R.drawable.buyer);
-        image.add(R.drawable.buyer);
+        image.add(R.drawable.sell);
+        image.add(R.drawable.car);
         image.add(R.drawable.buyer);
 
+        Image_adapter car_img=new Image_adapter(Car_details.this,image);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         RecyclerView imageList = (RecyclerView) findViewById(R.id.slider);
         imageList.setLayoutManager(layoutManager);
-        Image_adapter car_img=new Image_adapter(Car_details.this,image);
         imageList.setItemAnimator(new DefaultItemAnimator());
         imageList.setAdapter(car_img);
-        car_img.notifyDataSetChanged();
+        //car_img.notifyDataSetChanged();
     }
     @Override
     public void finish() {
