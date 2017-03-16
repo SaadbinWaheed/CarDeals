@@ -47,8 +47,8 @@ public class Buyer_Main_Adapter extends RecyclerView.Adapter<Buyer_Main_Adapter.
 
         public MyViewHolder(View view) {
             super(view);
-            title =  (TextView) view.findViewById(R.id.ad_name);
 
+            title =  (TextView) view.findViewById(R.id.ad_name);
         }
     }
 }
