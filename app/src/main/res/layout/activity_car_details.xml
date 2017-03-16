@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+
+    >
+<RelativeLayout
+    android:id="@+id/activity_car_details"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.saad.carsales.Car_details">
+
+    <TextView
+        android:background="@android:color/white"
+        android:id="@+id/car_name"
+        android:paddingLeft="20dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/primarypurple"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Toyota"/>
+    <TextView
+        android:background="@android:color/white"
+        android:paddingTop="3dp"
+        android:textColor="@android:color/holo_green_dark"
+        android:paddingLeft="20dp"
+        android:layout_width="match_parent"
+        android:textSize="15sp"
+        android:layout_height="wrap_content"
+        android:id="@+id/car_price"
+        android:layout_below="@id/car_name"
+        android:text="PKR 2000000"/>
+
+    <TableRow android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/slider"
+        android:weightSum="1"
+        android:elevation="25dp"
+
+        android:layout_marginTop="10dp"
+        android:id="@+id/tr1">
+        <ImageView
+            android:layout_marginLeft="10dp"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Model"
+            android:layout_weight="0.3"
+            />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mileage"
+            android:layout_weight="0.3"
+            />
+        <ImageView
+            android:layout_weight="0.3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Petrol/Diesel"
+            />
+        <ImageView
+            android:layout_weight="0.3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="transmission"
+            />
+    </TableRow>
+    <TableRow android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tr1"
+        android:id="@+id/tr2"
+        android:weightSum="1">
+        <TextView
+
+            android:background="@android:color/white"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Model"
+            android:layout_weight="0.3"
+            />
+        <TextView
+            android:layout_marginLeft="1dp"
+            android:background="@android:color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mileage"
+            android:layout_weight="0.3"
+            />
+        <TextView
+            android:background="@android:color/white"
+        android:layout_weight="0.3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Petrol/Diesel"
+        />
+        <TextView
+            android:background="@android:color/white"
+            android:layout_weight="0.3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="transmission"
+            />
+    </TableRow>
+    <TextView
+        android:background="@android:color/white"
+        android:paddingTop="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/location"
+        android:text="Islamabad"
+        android:paddingLeft="20dp"
+        android:layout_below="@+id/car_price"
+        android:layout_alignParentStart="true" />
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:id="@+id/slider"
+        android:layout_below="@id/location"
+        />
+
+
+
+</RelativeLayout>
+</ScrollView>
