@@ -1,11 +1,14 @@
 package com.example.saad.carsales;
 
 import android.content.Context;
+import android.content.Intent;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -31,8 +34,16 @@ public class Buyer_Main_Adapter extends RecyclerView.Adapter<Buyer_Main_Adapter.
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(MyViewHolder holder, final int position) {
         holder.title.setText(ads.get(position));
+        holder.ad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(context, "Ad Number "+String.valueOf(position+1), Toast.LENGTH_SHORT).show();
+                Intent details=new Intent(context,Car_details.class);
+                context.startActivity(details);
+            }
+        });
     }
 
 
@@ -44,11 +55,12 @@ public class Buyer_Main_Adapter extends RecyclerView.Adapter<Buyer_Main_Adapter.
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView title;
-
+        CardView ad;
         public MyViewHolder(View view) {
             super(view);
 
             title =  (TextView) view.findViewById(R.id.ad_name);
+            ad = (CardView) view.findViewById(R.id.ad_card);
         }
     }
 }

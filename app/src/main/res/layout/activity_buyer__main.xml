@@ -10,11 +10,16 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.saad.carsales.Buyer_Main">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="150dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:id="@+id/RV"
         android:clipToPadding="false" />
+    </RelativeLayout>
 </RelativeLayout>
