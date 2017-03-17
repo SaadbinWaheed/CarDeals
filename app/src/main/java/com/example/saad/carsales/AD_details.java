@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -30,10 +31,19 @@ public class AD_details extends AppCompatActivity {
     ListView models;
     ArrayAdapter MODELS;
     String[] CAR_MODELS;
+    EditText modelYear, RegCity, Mileage, color, S_Name, S_Contact, S_Address;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ad_details);
+
+        modelYear = (EditText) findViewById(R.id.model_year);
+        RegCity = (EditText) findViewById(R.id.Reg_city);
+        Mileage = (EditText) findViewById(R.id.mileage);
+        color = (EditText) findViewById(R.id.body_color);
+        S_Name = (EditText) findViewById(R.id.name);
+        S_Address = (EditText) findViewById(R.id.seller_address);
+        S_Contact = (EditText) findViewById(R.id.contact);
 
         img1 = (ImageView) findViewById(R.id.img1);
         img2 = (ImageView) findViewById(R.id.img2);
