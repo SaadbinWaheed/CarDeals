@@ -32,6 +32,24 @@
         android:id="@+id/car_price"
         android:layout_below="@id/car_name"
         android:text="PKR 2000000"/>
+    <TextView
+        android:background="@android:color/white"
+        android:paddingTop="3dp"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/location"
+        android:text="Islamabad"
+        android:paddingLeft="20dp"
+        android:layout_below="@+id/car_price"
+        android:layout_alignParentStart="true" />
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:id="@+id/slider"
+        android:background="@android:color/white"
+        android:layout_below="@id/location"
+        />
 
     <TableRow android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -43,7 +61,7 @@
         android:id="@+id/tr1">
         <ImageView
             android:layout_marginLeft="10dp"
-
+            android:background="@drawable/calendar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Model"
@@ -53,10 +71,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Mileage"
+            android:background="@drawable/mileage"
             android:layout_weight="0.3"
             />
         <ImageView
             android:layout_weight="0.3"
+            android:background="@drawable/gas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Petrol/Diesel"
@@ -105,24 +125,140 @@
             android:text="transmission"
             />
     </TableRow>
+
+<TextView
+
+    android:layout_marginTop="5dp"
+    android:background="@android:color/white"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_below="@id/tr2"
+    android:text="Engine Capacity"
+    android:textSize="15sp"
+    android:id="@+id/engine"
+    android:paddingLeft="10dp"
+
+    />
     <TextView
         android:background="@android:color/white"
-        android:paddingTop="3dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/location"
-        android:text="Islamabad"
-        android:paddingLeft="20dp"
-        android:layout_below="@+id/car_price"
-        android:layout_alignParentStart="true" />
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:id="@+id/slider"
-        android:layout_below="@id/location"
+        android:layout_marginTop="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tr2"
+        android:text="8000cc"
+        android:textSize="15sp"
+        android:textAlignment="viewEnd"
+        android:layout_toRightOf="@+id/engine"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/engineshow"
+        android:paddingRight="10dp"
+        android:textColor="@android:color/black"
         />
+    <TextView
+        android:background="@android:color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_below="@id/engine"
+        android:text="Registration city"
+        android:layout_marginTop="1dp"
+        android:textSize="15sp"
+        android:id="@+id/Reg_city"
+        android:paddingLeft="10dp"
+        />
+    <TextView
+        android:textAlignment="viewEnd"
+        android:layout_toRightOf="@+id/Reg_city"
+        android:background="@android:color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_below="@id/engineshow"
+        android:text="Islamabad"
+        android:textSize="15sp"
+        android:layout_marginTop="1dp"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/Reg_cityshow"
+        android:textColor="@android:color/black"
+        android:paddingRight="10dp"
+        />
+    <TextView
+        android:background="@android:color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_below="@id/Reg_city"
+        android:text="Exterior Color"
+        android:textSize="15sp"
+        android:layout_marginTop="1dp"
+        android:id="@+id/exterior_color"
+        android:paddingLeft="10dp"
+        />
+    <TextView
+        android:textColor="@android:color/black"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_below="@id/Reg_city"
+        android:text="Black"
+        android:textSize="15sp"
+        android:textAlignment="viewEnd"
+        android:layout_toRightOf="@+id/exterior_color"
+        android:background="@android:color/white"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/exterior_colorshow"
+        android:paddingRight="10dp"
+        />
+    <TextView
+        android:background="@android:color/white"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="1dp"
+        android:layout_height="match_parent"
+        android:layout_below="@id/exterior_color"
+        android:text="Assembly"
+        android:textSize="15sp"
+        android:id="@+id/assembly"
+        android:paddingLeft="10dp"
 
+        />
+    <TextView
+        android:paddingRight="10dp"
+        android:background="@android:color/white"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="1dp"
+        android:layout_height="match_parent"
+        android:layout_below="@id/exterior_colorshow"
+        android:text="Pakistan"
+        android:textAlignment="viewEnd"
+        android:layout_toRightOf="@+id/assembly"
+        android:textSize="15sp"
+        android:textColor="@android:color/black"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/assemblyshow"
+        />
+    <TextView
+        android:background="@android:color/white"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="1dp"
+        android:layout_height="match_parent"
+        android:layout_below="@id/assembly"
+        android:text="Add ID"
+        android:textSize="15sp"
+        android:id="@+id/add_id"
+        android:paddingLeft="10dp"
 
+        />
+    <TextView
+        android:paddingRight="10dp"
+        android:background="@android:color/white"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="1dp"
+        android:layout_height="match_parent"
+        android:layout_below="@id/assemblyshow"
+        android:text="6871"
+        android:textAlignment="viewEnd"
+        android:layout_toRightOf="@+id/add_id"
+        android:textSize="15sp"
+        android:textColor="@android:color/black"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/add_idshow"
+        />
 
 </RelativeLayout>
 </ScrollView>
