@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.view.View;
 
+import com.firebase.client.Firebase;
+
 public class MainActivity extends AppCompatActivity {
     CardView Buy,Sell;
 
@@ -13,6 +15,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Firebase.setAndroidContext(this);
+
+        Firebase ref= new Firebase("https://car-sales-f4f9c.firebaseio.com/");
+
+
         Buy = (CardView) findViewById(R.id.card_buy);
         Sell = (CardView) findViewById(R.id.car_sell);
 
