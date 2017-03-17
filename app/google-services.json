@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "34796301061",
+    "firebase_url": "https://car-sales-f4f9c.firebaseio.com",
+    "project_id": "car-sales-f4f9c",
+    "storage_bucket": "car-sales-f4f9c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:34796301061:android:71d8a93745e9852e",
+        "android_client_info": {
+          "package_name": "com.example.saad.carsales"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "34796301061-vdepevea2oi6pqnb6mamg0t17jmb6u4l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLjtgIPlLuVEOjWQ3i8f4kl_e1LgjQoIE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
