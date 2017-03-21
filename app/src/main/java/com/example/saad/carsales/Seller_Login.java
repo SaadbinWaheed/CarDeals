@@ -35,7 +35,7 @@ public class Seller_Login extends AppCompatActivity {
                         !contact.getText().toString().equals("") )
                 {
                     if(pass.getText().toString().equals(c_pass.getText().toString())){
-                        Toast.makeText(Seller_Login.this, "PROCEED", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(Seller_Login.this, "PROCEED", Toast.LENGTH_SHORT).show();
                         Check();
                         Intent i = new Intent(Seller_Login.this,AD_details.class);
                         startActivity(i);

@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         Sell.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(MainActivity.this,AD_details.class);
+                Intent i = new Intent(MainActivity.this,Sign_Signup.class);
                 startActivity(i);
             }
         });

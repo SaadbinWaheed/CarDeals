@@ -61,7 +61,7 @@
         android:id="@+id/tr1">
         <ImageView
             android:layout_marginLeft="10dp"
-            android:background="@drawable/calendar"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Model"
@@ -71,7 +71,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Mileage"
-            android:background="@drawable/mileage"
+
             android:layout_weight="0.3"
             />
         <ImageView
