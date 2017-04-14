@@ -23,7 +23,10 @@ import android.widget.Toast;
 import java.io.IOException;
 
 public class AD_details extends AppCompatActivity {
-
+    private Button b_getlocation;
+    private TrackGPS gps;
+    double longitude;
+    double latitude;
     int img_nmbr;
     String car_model;
     ImageView img1,img2,img3;
@@ -127,7 +130,41 @@ public class AD_details extends AppCompatActivity {
 
             }
         });
+        b_getlocation = (Button)findViewById(R.id.location);
+
+
+
+        b_getlocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                gps = new TrackGPS(AD_details.this);
+
+
+                if(gps.canGetLocation()){
+
+
+                    longitude = gps.getLongitude();
+                    latitude = gps .getLatitude();
+
+                    Toast.makeText(getApplicationContext(),"Longitude:"+Double.toString(longitude)+"\nLatitude:"+Double.toString(latitude),Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+
+                    gps.showSettingsAlert();
+                }
+
+            }
+        });
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        gps.stopUsingGPS();
+    }
+
 
     void Image_Pick_Intent(){
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
