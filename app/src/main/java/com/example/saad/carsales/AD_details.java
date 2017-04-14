@@ -2,6 +2,7 @@ package com.example.saad.carsales;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -98,6 +99,30 @@ public class AD_details extends AppCompatActivity {
                         ad.dismiss();
                     }
                 });
+
+
+            }
+        });
+        done.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent passdetails=new Intent(AD_details.this,Car_details.class);
+                String address=S_Address.getText().toString();
+                String mileage=Mileage.getText().toString();
+                String contact=S_Contact.getText().toString();
+                String year=modelYear.getText().toString();
+                String regcity=RegCity.getText().toString();
+                String clr= color.getText().toString();
+                SharedPreferences prefs = getSharedPreferences("my_prefs", MODE_PRIVATE);
+                SharedPreferences.Editor edit = prefs.edit();
+                edit.putString("Model", car_model );
+                edit.putString("Address",address);
+                edit.putString("Color",clr);
+                edit.putString("Mileage",mileage);
+                edit.putString("Contact",contact);
+                edit.putString("Registration_Year",year);
+                edit.putString("Registration_City",regcity);
+                edit.commit();
 
 
             }

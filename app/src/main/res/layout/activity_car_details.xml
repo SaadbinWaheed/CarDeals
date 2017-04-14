@@ -54,38 +54,46 @@
     <TableRow android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/slider"
-        android:weightSum="1"
+        android:weightSum="1.9"
         android:elevation="25dp"
 
         android:layout_marginTop="10dp"
         android:id="@+id/tr1">
         <ImageView
             android:layout_marginLeft="10dp"
-
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="20dp"
             android:text="Model"
+            android:scaleX="0.3"
+            android:background="@drawable/calendar"
             android:layout_weight="0.3"
             />
+
         <ImageView
+            android:scaleX="0.25"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="20dp"
             android:text="Mileage"
 
-            android:layout_weight="0.3"
-            />
+            android:background="@drawable/mileage"
+            android:layout_weight="0.58"
+            android:id="@+id/imageView2" />
+
         <ImageView
+            android:scaleX="0.4"
             android:layout_weight="0.3"
             android:background="@drawable/gas"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="20dp"
             android:text="Petrol/Diesel"
             />
         <ImageView
-            android:layout_weight="0.3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:background="@drawable/transmission1"
+            android:layout_weight="0.5"
+            android:layout_width="3dp"
+            android:layout_height="20dp"
             android:text="transmission"
+            android:scaleX="0.35"
             />
     </TableRow>
     <TableRow android:layout_width="match_parent"
@@ -94,35 +102,41 @@
         android:id="@+id/tr2"
         android:weightSum="1">
         <TextView
-
+            android:textAlignment="center"
             android:background="@android:color/white"
-            android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Model"
             android:layout_weight="0.3"
             />
+
         <TextView
-            android:layout_marginLeft="1dp"
+            android:layout_weight="0.3"
             android:background="@android:color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Mileage"
-            android:layout_weight="0.3"
+            android:id="@+id/miles"
+            android:textAlignment="center"
+
             />
+
         <TextView
+            android:textAlignment="center"
             android:background="@android:color/white"
-        android:layout_weight="0.3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Petrol/Diesel"
-        />
+            android:layout_weight="0.3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Petrol"
+
+            />
         <TextView
             android:background="@android:color/white"
             android:layout_weight="0.3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="transmission"
+            android:text="Transmission"
+
             />
     </TableRow>
 
