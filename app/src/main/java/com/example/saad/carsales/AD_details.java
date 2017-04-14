@@ -1,12 +1,17 @@
 package com.example.saad.carsales;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -22,6 +27,8 @@ import android.widget.Toast;
 
 import java.io.IOException;
 
+import static android.Manifest.permission_group.LOCATION;
+
 public class AD_details extends AppCompatActivity {
     private Button b_getlocation;
     private TrackGPS gps;
@@ -29,13 +36,14 @@ public class AD_details extends AppCompatActivity {
     double latitude;
     int img_nmbr;
     String car_model;
-    ImageView img1,img2,img3;
+    ImageView img1, img2, img3;
     TextView Model;
     Button done;
     ListView models;
     ArrayAdapter MODELS;
     String[] CAR_MODELS;
     EditText modelYear, RegCity, Mileage, color, S_Name, S_Contact, S_Address;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,11 +63,11 @@ public class AD_details extends AppCompatActivity {
         Model = (TextView) findViewById(R.id.car_model);
         done = (Button) findViewById(R.id.details_done);
 
-        CAR_MODELS = new String[]{"Honda Civic","Honda City","Hilux","Corolla","Mehran","Audi","Alto","Cultus","Mercedes","BMW","Vitz","Bolan","Cuore","Kyber",
-                                    "Land Cruiser","Range Rover","Lamborghini","Ferrari","Prius","Prado","Hummer"};
+        CAR_MODELS = new String[]{"Honda Civic", "Honda City", "Hilux", "Corolla", "Mehran", "Audi", "Alto", "Cultus", "Mercedes", "BMW", "Vitz", "Bolan", "Cuore", "Kyber",
+                "Land Cruiser", "Range Rover", "Lamborghini", "Ferrari", "Prius", "Prado", "Hummer"};
 
 
-        MODELS = new ArrayAdapter<String>(this,R.layout.text_view,CAR_MODELS);
+        MODELS = new ArrayAdapter<String>(this, R.layout.text_view, CAR_MODELS);
 
         img1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,7 +95,7 @@ public class AD_details extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 LayoutInflater inflater = LayoutInflater.from(AD_details.this);
-                View dialog_layout = inflater.inflate(R.layout.list,null);
+                View dialog_layout = inflater.inflate(R.layout.list, null);
                 AlertDialog.Builder db = new AlertDialog.Builder(AD_details.this);
 
                 models = (ListView) dialog_layout.findViewById(R.id.list);
@@ -109,30 +117,28 @@ public class AD_details extends AppCompatActivity {
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent passdetails=new Intent(AD_details.this,Car_details.class);
-                String address=S_Address.getText().toString();
-                String mileage=Mileage.getText().toString();
-                String contact=S_Contact.getText().toString();
-                String year=modelYear.getText().toString();
-                String regcity=RegCity.getText().toString();
-                String clr= color.getText().toString();
+                Intent passdetails = new Intent(AD_details.this, Car_details.class);
+                String address = S_Address.getText().toString();
+                String mileage = Mileage.getText().toString();
+                String contact = S_Contact.getText().toString();
+                String year = modelYear.getText().toString();
+                String regcity = RegCity.getText().toString();
+                String clr = color.getText().toString();
                 SharedPreferences prefs = getSharedPreferences("my_prefs", MODE_PRIVATE);
                 SharedPreferences.Editor edit = prefs.edit();
-                edit.putString("Model", car_model );
-                edit.putString("Address",address);
-                edit.putString("Color",clr);
-                edit.putString("Mileage",mileage);
-                edit.putString("Contact",contact);
-                edit.putString("Registration_Year",year);
-                edit.putString("Registration_City",regcity);
+                edit.putString("Model", car_model);
+                edit.putString("Address", address);
+                edit.putString("Color", clr);
+                edit.putString("Mileage", mileage);
+                edit.putString("Contact", contact);
+                edit.putString("Registration_Year", year);
+                edit.putString("Registration_City", regcity);
                 edit.commit();
 
 
             }
         });
-        b_getlocation = (Button)findViewById(R.id.location);
-
-
+        b_getlocation = (Button) findViewById(R.id.location);
 
         b_getlocation.setOnClickListener(new View.OnClickListener() {
             @Override
