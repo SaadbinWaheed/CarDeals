@@ -188,19 +188,19 @@ public class AD_details extends AppCompatActivity {
             }
             else{
                 Uri uri = data.getData();
-                    Bitmap bitmap = null;
-                    try {
-                        bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-                        if(img_nmbr == 1){
-                            img1.setImageBitmap(bitmap);
-                        }else if (img_nmbr == 2){
-                            img2.setImageBitmap(bitmap);
-                        }else if (img_nmbr == 3){
-                            img3.setImageBitmap(bitmap);
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                Bitmap bitmap = null;
+                try {
+                    bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                    if(img_nmbr == 1){
+                        img1.setImageBitmap(bitmap);
+                    }else if (img_nmbr == 2){
+                        img2.setImageBitmap(bitmap);
+                    }else if (img_nmbr == 3){
+                        img3.setImageBitmap(bitmap);
                     }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
 
 

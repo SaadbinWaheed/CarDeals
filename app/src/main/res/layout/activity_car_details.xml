@@ -265,14 +265,18 @@
         android:layout_marginTop="1dp"
         android:layout_height="match_parent"
         android:layout_below="@id/assemblyshow"
-        android:text="6871"
+        android:text="+923005361434"
         android:textAlignment="viewEnd"
         android:layout_toRightOf="@+id/add_id"
-        android:textSize="15sp"
         android:textColor="@android:color/black"
         android:layout_alignParentEnd="true"
         android:id="@+id/add_idshow"
-        />
+        android:autoLink="phone"
+        android:linksClickable="true"
+        android:clickable="true"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textSize="14sp"
+        android:editable="false" />
 
 </RelativeLayout>
 </ScrollView>
