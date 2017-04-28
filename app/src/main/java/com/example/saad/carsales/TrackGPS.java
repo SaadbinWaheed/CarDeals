@@ -1,12 +1,12 @@
 package com.example.saad.carsales;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Service;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -14,10 +14,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.Settings;
-
-
 import android.support.v4.app.ActivityCompat;
-import android.util.Log;
 import android.widget.Toast;
 
 /**
@@ -36,9 +33,9 @@ public class TrackGPS extends Service implements LocationListener {
 
     boolean canGetLocation = false;
 
-    Location loc;
-    double latitude;
-    double longitude;
+    Location loc = null;
+    double latitude = 0;
+    double longitude = 0;
 
 
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10;
@@ -61,15 +58,14 @@ public class TrackGPS extends Service implements LocationListener {
             checkGPS = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
 
             // getting network status
-            checkNetwork = locationManager
-                    .isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+            checkNetwork = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
             if (!checkGPS && !checkNetwork) {
                 Toast.makeText(mContext, "No Service Provider Available", Toast.LENGTH_SHORT).show();
             } else {
                 this.canGetLocation = true;
                 // First get location from Network Provider
-                if (checkNetwork) {
+                /*if (checkNetwork) {
                     Toast.makeText(mContext, "Network", Toast.LENGTH_SHORT).show();
 
                     try {
@@ -79,43 +75,51 @@ public class TrackGPS extends Service implements LocationListener {
                                 MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
                         Log.d("Network", "Network");
                         if (locationManager != null) {
-                            loc = locationManager
-                                    .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                            loc = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
                         }
 
                         if (loc != null) {
                             latitude = loc.getLatitude();
                             longitude = loc.getLongitude();
+
+                            Toast.makeText(mContext,"Longitude:"+String.valueOf(longitude)+"\nLatitude:"+String.valueOf(latitude),Toast.LENGTH_SHORT).show();
                         }
                     } catch (SecurityException e) {
 
                     }
-                }
-            }
-            // if GPS Enabled get lat/long using GPS Services
-            if (checkGPS) {
-                Toast.makeText(mContext, "GPS", Toast.LENGTH_SHORT).show();
-                if (loc == null) {
-                    try {
-                        locationManager.requestLocationUpdates(
-                                LocationManager.GPS_PROVIDER,
-                                MIN_TIME_BW_UPDATES,
-                                MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
-                        Log.d("GPS Enabled", "GPS Enabled");
-                        if (locationManager != null) {
-                            loc = locationManager
-                                    .getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                            if (loc != null) {
-                                latitude = loc.getLatitude();
-                                longitude = loc.getLongitude();
+                }*/
+
+                // if GPS Enabled get lat/long using GPS Services
+                if (checkGPS) {
+                   // Toast.makeText(mContext, "GPS", Toast.LENGTH_SHORT).show();
+                    ActivityCompat.requestPermissions((Activity) mContext,new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+                    //onRequestPermissionsResult(1,new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+                        try {
+                            locationManager.requestLocationUpdates(
+                                    LocationManager.GPS_PROVIDER,
+                                    MIN_TIME_BW_UPDATES,
+                                    MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
+                           // Log.d("GPS Enabled", "GPS Enabled");
+                            Toast.makeText(mContext, "TRYING", Toast.LENGTH_SHORT).show();
+                            if (locationManager != null) {
+                                loc = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                                if (loc != null) {
+                                    latitude = loc.getLatitude();
+                                    longitude = loc.getLongitude();
+                                 //   Toast.makeText(mContext,"Longitude:"+String.valueOf(longitude)+"\nLatitude:"+String.valueOf(latitude),Toast.LENGTH_SHORT).show();
+                                }
                             }
+                            else {
+                                Toast.makeText(mContext, "LOC MANAGER = NULL", Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (SecurityException e) {
+                            Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_LONG).show();
                         }
-                    } catch (SecurityException e) {
 
-                    }
                 }
             }
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -125,16 +129,16 @@ public class TrackGPS extends Service implements LocationListener {
     }
 
     public double getLongitude() {
-        if (loc != null) {
+        /*if (loc != null) {
             longitude = loc.getLongitude();
-        }
+        }*/
         return longitude;
     }
 
     public double getLatitude() {
-        if (loc != null) {
+        /*if (loc != null) {
             latitude = loc.getLatitude();
-        }
+        }*/
         return latitude;
     }
 
@@ -210,5 +214,30 @@ public class TrackGPS extends Service implements LocationListener {
     @Override
     public void onProviderDisabled(String s) {
 
+    }
+
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 1: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                } else {
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+            }
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
+    }
+
+    public boolean checkLocationPermission()
+    {
+        String permission = "android.permission.ACCESS_FINE_LOCATION";
+        int res = this.checkCallingOrSelfPermission(permission);
+        return (res == PackageManager.PERMISSION_GRANTED);
     }
 }

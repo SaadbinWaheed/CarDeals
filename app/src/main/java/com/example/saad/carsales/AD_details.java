@@ -1,17 +1,12 @@
 package com.example.saad.carsales;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -26,8 +21,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
-
-import static android.Manifest.permission_group.LOCATION;
 
 public class AD_details extends AppCompatActivity {
     private Button b_getlocation;
@@ -153,7 +146,7 @@ public class AD_details extends AppCompatActivity {
                     longitude = gps.getLongitude();
                     latitude = gps .getLatitude();
 
-                    Toast.makeText(getApplicationContext(),"Longitude:"+Double.toString(longitude)+"\nLatitude:"+Double.toString(latitude),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AD_details.this,"Longitude:"+String.valueOf(longitude)+"\nLatitude:"+String.valueOf(latitude),Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
@@ -168,7 +161,7 @@ public class AD_details extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        gps.stopUsingGPS();
+//        gps.stopUsingGPS();
     }
 
 
