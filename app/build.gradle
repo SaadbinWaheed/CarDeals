@@ -41,6 +41,7 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha5'
     compile 'com.ramotion.foldingcell:folding-cell:1.1.0'
     compile 'com.github.StevenDXC:DxLoadingButton:1.5'
+    compile 'com.gospelware.liquidbutton:liquidButtonLib:1.1.5'
     testCompile 'junit:junit:4.12'
 
 

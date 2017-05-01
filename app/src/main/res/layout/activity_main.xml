@@ -21,12 +21,13 @@
             android:layout_width="match_parent"
             app:lb_resetAfterFailed="true"
             app:lb_btnRippleColor="#000000"
-            app:lb_btnText="Buy"
             android:layout_below="@+id/Arc"
             app:lb_btnColor="@color/colorPrimary"
             android:layout_height="wrap_content"
             android:minHeight="0dp"
-            android:layout_marginTop="40dp" />
+            android:layout_marginTop="40dp"
+            app:lb_textColor="@android:color/white"
+            app:lb_btnText="Buy" />
         <com.dx.dxloadingbutton.lib.LoadingButton
             android:id="@+id/sell_load"
             android:layout_gravity="center"
@@ -34,10 +35,11 @@
             android:layout_height="wrap_content"
             app:lb_resetAfterFailed="true"
             app:lb_btnRippleColor="#000000"
-            app:lb_btnText="Sell"
             android:layout_below="@+id/buy_load"
             app:lb_btnColor="@color/colorPrimary"
-            android:layout_marginTop="40dp" />
+            android:layout_marginTop="40dp"
+            app:lb_textColor="@android:color/white"
+            app:lb_btnText="Sell" />
         <com.github.florent37.arclayout.ArcLayout
             android:layout_width="match_parent"
             android:layout_height="200dp"

@@ -28,8 +28,11 @@
         <activity android:name=".AD_details" />
         <activity android:name=".Car_details" />
         <activity android:name=".SplashActivity">
+
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"
+                    android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
+                    />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
