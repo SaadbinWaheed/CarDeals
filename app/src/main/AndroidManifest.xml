@@ -35,6 +35,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".Sign_Signup" />
+        <activity android:name=".FoldingCards" />
+        <activity android:name=".FoldingList"></activity>
     </application>
 
 </manifest>
