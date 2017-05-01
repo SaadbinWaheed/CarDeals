@@ -7,29 +7,69 @@
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:elevation="14dp"
-    android:background="@color/cardview_light_background">
-<RelativeLayout
+    android:background="@drawable/mountain">
+
+
+    <RelativeLayout
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="16dp"
-    android:paddingLeft="6dp"
-    android:paddingRight="6dp"
-    android:paddingTop="40dp">
+    android:layout_height="match_parent">
 
+        <com.dx.dxloadingbutton.lib.LoadingButton
+            android:id="@+id/buy_load"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            app:lb_resetAfterFailed="true"
+            app:lb_btnRippleColor="#000000"
+            app:lb_btnText="Buy"
+            android:layout_below="@+id/Arc"
+            app:lb_btnColor="@color/colorPrimary"
+            android:layout_height="wrap_content"
+            android:minHeight="0dp"
+            android:layout_marginTop="40dp" />
+        <com.dx.dxloadingbutton.lib.LoadingButton
+            android:id="@+id/sell_load"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:lb_resetAfterFailed="true"
+            app:lb_btnRippleColor="#000000"
+            app:lb_btnText="Sell"
+            android:layout_below="@+id/buy_load"
+            app:lb_btnColor="@color/colorPrimary"
+            android:layout_marginTop="40dp" />
+        <com.github.florent37.arclayout.ArcLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            app:arc_cropDirection="cropOutside"
+            app:arc_height="90dp"
 
-    <android.support.v7.widget.CardView
+            android:elevation="5dp"
+            android:id="@+id/Arc"
+            app:arc_position="bottom">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/arcpic3" />
+
+        </com.github.florent37.arclayout.ArcLayout>
+
+        <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="200dp"
         app:cardElevation="9dp"
 
         android:id="@+id/card_buy"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="false"
+        android:layout_alignParentStart="false"
 
-        >
+            android:layout_below="@+id/sell_load"
+            android:layout_marginTop="16dp"
+            android:visibility="invisible">
 
-        <RelativeLayout
+            <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             >
@@ -38,8 +78,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/buyer"
-                android:id="@+id/buyimage"
-                />
+                android:id="@+id/buyimage" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -64,7 +103,8 @@
         android:id="@+id/car_sell"
         android:layout_below="@+id/card_buy"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="16dp">
+        android:layout_marginTop="16dp"
+        android:visibility="invisible">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -87,18 +127,19 @@
                 android:textSize="50sp"
                 android:textColor="@android:color/white" />
 
-            <Button
-                android:text="Button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/foldingCards_btn"
-                android:layout_alignTop="@+id/car_sell"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="164dp" />
-
         </RelativeLayout>
 
     </android.support.v7.widget.CardView>
 
-</RelativeLayout>
+        <Button
+            android:text="Folding Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/foldingCards_btn"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="164dp"
+            android:visibility="visible"
+            android:layout_below="@+id/sell_load" />
+
+    </RelativeLayout>
 </ScrollView>
