@@ -8,6 +8,8 @@ public class Add {
 
     private String title, Car_owner, year;
 
+    public Add() {
+    }
 
     public Add(String title, String Car_owner, String year) {
         this.title = title;
