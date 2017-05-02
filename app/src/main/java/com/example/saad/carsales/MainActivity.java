@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                 /* Create an Intent that will start the Menu-Activity. */
-                                Intent mainIntent = new Intent(MainActivity.this,Seller_Login.class);
+                                Intent mainIntent = new Intent(MainActivity.this,AD_details.class);
                                 startActivity(mainIntent);
                                 sell_lb.reset();
                             }

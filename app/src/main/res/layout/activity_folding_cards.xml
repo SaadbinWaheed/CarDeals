@@ -52,18 +52,37 @@
             android:layout_gravity="bottom" />
     </FrameLayout>
     ​
-    <FrameLayout
+    <RelativeLayout
         android:id="@+id/cell_title_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <com.mikhaellopez.circularimageview.CircularImageView
+            android:layout_height="100dp"
+            android:src="@drawable/car"
+            app:civ_border_color="#EEEEEE"
+            app:civ_border_width="4dp"
+            app:civ_shadow="true"
+            app:civ_shadow_radius="10"
+            app:civ_shadow_color="#8BC34A"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:id="@+id/circularImageView"
+            android:layout_width="100dp" />
+
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="100dp"
             android:id="@+id/title"
             android:text="Title"
-            android:textSize="50sp" />
-    </FrameLayout>
+            android:textSize="40sp"
+            android:textAlignment="gravity"
+            android:gravity="center_vertical"
+            android:layout_toRightOf="@+id/circularImageView"
+            android:layout_marginTop="10dp" />
+    </RelativeLayout>
     ​
 </com.ramotion.foldingcell.FoldingCell>
     </RelativeLayout>

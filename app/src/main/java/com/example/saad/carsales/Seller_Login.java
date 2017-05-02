@@ -2,6 +2,7 @@ package com.example.saad.carsales;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,9 +10,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.dx.dxloadingbutton.lib.LoadingButton;
+
 public class Seller_Login extends AppCompatActivity {
     EditText mail,name,pass,c_pass,contact;
-    Button Proceed;
+    LoadingButton Proceed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,36 +25,55 @@ public class Seller_Login extends AppCompatActivity {
         pass = (EditText) findViewById(R.id.s_pass);
         c_pass = (EditText) findViewById(R.id.s_c_pass);
         contact = (EditText) findViewById(R.id.s_contact);
-        Proceed = (Button) findViewById(R.id.btn_proceed);
+        Proceed = (LoadingButton) findViewById(R.id.btn_proceed);
 
         Proceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!mail.getText().toString().equals("") &&
-                        !mail.getText().toString().equals("") &&
-                        !name.getText().toString().equals("") &&
-                        !pass.getText().toString().equals("") &&
-                        !c_pass.getText().toString().equals("") &&
-                        !contact.getText().toString().equals("") )
-                {
-                    if(pass.getText().toString().equals(c_pass.getText().toString())){
-                        //Toast.makeText(Seller_Login.this, "PROCEED", Toast.LENGTH_SHORT).show();
-                        Check();
-                        Intent i = new Intent(Seller_Login.this,AD_details.class);
-                        startActivity(i);
-                    }
-                    else{
-                        Toast.makeText(Seller_Login.this, "Password Confirmation Error ", Toast.LENGTH_SHORT).show();
-                        Check();
-                    }
-                }
-                else{
-                    Toast.makeText(Seller_Login.this, "Please Fill Information", Toast.LENGTH_SHORT).show();
-                    Check();
-                }
+
+                Proceed.startLoading(); //start loading
+                Proceed.setActivated(true);
+                new Handler().postDelayed(new Runnable(){
+                    @Override
+                    public void run() {
+                /* Create an Intent that will start the Menu-Activity. */
+
+
+                        if (!mail.getText().toString().equals("") &&
+                                !mail.getText().toString().equals("") &&
+                                !name.getText().toString().equals("") &&
+                                !pass.getText().toString().equals("") &&
+                                !c_pass.getText().toString().equals("") &&
+                                !contact.getText().toString().equals("")) {
+                            if (pass.getText().toString().equals(c_pass.getText().toString())) {
+                                //Toast.makeText(Seller_Login.this, "PROCEED", Toast.LENGTH_SHORT).show();
+                                Check();
+                                Proceed.loadingSuccessful();
+
+                                Intent i = new Intent(Seller_Login.this, AD_details.class);
+                                startActivity(i);
+                            } else {
+                                Toast.makeText(Seller_Login.this, "Password Confirmation Error ", Toast.LENGTH_SHORT).show();
+                                Check();
+
+
+                            }
+                        } else {
+                            Toast.makeText(Seller_Login.this, "Please Fill Information", Toast.LENGTH_SHORT).show();
+                            Check();
+
+                        }
+
+                        Proceed.loadingFailed();
+
+
+                    }}, 1000);
             }
         });
     }
+
+
+
 
     void Check(){
         if(mail.getText().toString().equals(""))

@@ -80,17 +80,20 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true" />
 
-    <Button
-        android:text="Proceed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="29dp"
+    <com.dx.dxloadingbutton.lib.LoadingButton
         android:id="@+id/btn_proceed"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="21dp"
-        style="@style/Widget.AppCompat.Button"
-        android:background="@color/colorPrimaryDark"
-        android:textColor="@android:color/white" />
+        android:layout_gravity="center"
+        app:lb_resetAfterFailed="true"
+        app:lb_btnRippleColor="#000000"
+        app:lb_btnColor="@color/colorPrimary"
+        android:layout_height="wrap_content"
+        android:minHeight="0dp"
+        android:layout_marginTop="40dp"
+        app:lb_textColor="@android:color/white"
+        app:lb_btnText="Buy"
+        android:layout_width="300dp"
+        android:layout_below="@+id/s_contact"
+        android:layout_centerHorizontal="true" />
+
 
 </RelativeLayout>
