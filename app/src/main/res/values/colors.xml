@@ -7,4 +7,7 @@
     <color name="primarypurple">#c3280d2e</color>
     <color name="year">#999999</color>
     <color name="title">#222222</color>
+    <color name="SplashText">#969191</color>
+
+    <color name="black_overlay">#66000000</color>
 </resources>
