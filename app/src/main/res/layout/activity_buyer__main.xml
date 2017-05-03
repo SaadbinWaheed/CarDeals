@@ -1,25 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.v4.widget.DrawerLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/drawer_layout"
-    android:orientation="vertical"
     style="@style/Base.Widget.AppCompat.Light.ActionBar"
-    >
-
-
-    <ListView
-        android:layout_width="230dp"
-        android:layout_height="match_parent"
-        android:id="@+id/lv_sliding_menu"
-        android:background="#FFFFFF"
-        android:divider="@null"
-        android:dividerHeight="0dp"
-        android:choiceMode="singleChoice"
-        android:layout_gravity="start"/>
+    tools:context="com.example.saad.carsales.Buyer_Main">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -35,5 +22,4 @@
     </RelativeLayout>
 
 
-
-</android.support.v4.widget.DrawerLayout>
+</RelativeLayout>

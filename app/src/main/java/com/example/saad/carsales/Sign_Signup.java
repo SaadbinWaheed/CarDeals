@@ -40,14 +40,14 @@ public class Sign_Signup extends AppCompatActivity {
         Sign_up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(Sign_Signup.this, Seller_Login.class);
+                Intent i = new Intent(Sign_Signup.this, Signup_Form.class);
                 startActivity(i);
             }
         });
         Sign_in.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent signin=new Intent(Sign_Signup.this,AD_details.class);
+                Intent signin=new Intent(Sign_Signup.this,MainActivity.class);
                 startActivity(signin);
             }
         });

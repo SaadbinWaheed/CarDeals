@@ -1,18 +1,9 @@
 package com.example.saad.carsales;
 
 import android.content.Intent;
-import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.DecelerateInterpolator;
-import android.widget.ImageView;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.gospelware.liquidbutton.LiquidButton;
 
@@ -24,7 +15,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        final ImageView img_logo=(ImageView) findViewById(R.id.imageView);
+      //  final ImageView img_logo=(ImageView) findViewById(R.id.imageView);
         LiquidButton liquidButton = (LiquidButton) findViewById(R.id.button);
 
         final TextView progress_txt= (TextView) findViewById(R.id.progress_txt);
@@ -34,7 +25,7 @@ public class SplashActivity extends AppCompatActivity {
         liquidButton.setPourFinishListener(new LiquidButton.PourFinishListener() {
             @Override
             public void onPourFinish() {
-                Intent mainIntent = new Intent(SplashActivity.this,MainActivity.class);
+                Intent mainIntent = new Intent(SplashActivity.this,Sign_Signup.class);
                 SplashActivity.this.startActivity(mainIntent);
                 SplashActivity.this.finish();
             }

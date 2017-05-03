@@ -7,19 +7,16 @@ package com.example.saad.carsales;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Movie;
-        import android.support.v7.widget.RecyclerView;
-        import android.view.LayoutInflater;
-        import android.view.View;
-        import android.view.ViewGroup;
-        import android.widget.TextView;
-import android.widget.Toast;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.ramotion.foldingcell.FoldingCell;
 
 import java.util.List;
-
-import static android.widget.Toast.LENGTH_SHORT;
 
 public class Folder_Adapter extends RecyclerView.Adapter<Folder_Adapter.MyViewHolder> {
 
@@ -51,6 +48,14 @@ public class Folder_Adapter extends RecyclerView.Adapter<Folder_Adapter.MyViewHo
         holder.car_owner.setText("Owner Name: " + current.getCar_owner());
         holder.year.setText("Model year: " + current.getYear());
 
+        holder.info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(context,Car_details.class);
+                context.startActivity(i);
+                holder.fc.toggle(false);
+            }
+        });
 
         holder.year.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,7 +79,9 @@ public class Folder_Adapter extends RecyclerView.Adapter<Folder_Adapter.MyViewHo
     }
 
         public class MyViewHolder extends RecyclerView.ViewHolder {
+
         public TextView title, year, car_owner;
+            public Button info;
             FoldingCell fc;
             //        // attach click listener to folding cell
 //        fc.setOnClickListener(new View.OnClickListener() {
@@ -88,6 +95,7 @@ public class Folder_Adapter extends RecyclerView.Adapter<Folder_Adapter.MyViewHo
             title = (TextView) view.findViewById(R.id.title);
             car_owner = (TextView) view.findViewById(R.id.car_owner);
             year = (TextView) view.findViewById(R.id.year);
+            info = (Button) view.findViewById(R.id.info);
             fc = (FoldingCell) view.findViewById(R.id.folding_cell);
         }
     }

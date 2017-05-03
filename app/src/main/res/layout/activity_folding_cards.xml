@@ -14,75 +14,117 @@
     folding-cell:cameraHeight="10">
 
 
-<com.ramotion.foldingcell.FoldingCell
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/folding_cell"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:clipChildren="false"
-    android:clipToPadding="false">
-    ​
-    <FrameLayout
-        android:id="@+id/cell_content_view"
+    <com.ramotion.foldingcell.FoldingCell
+        android:id="@+id/folding_cell"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/cardview_light_background"
-        android:visibility="gone">
-        <TextView
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+        ​
+        <FrameLayout
+            android:id="@+id/cell_content_view"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:id="@+id/car_owner"
-            android:text="Car Owner"
-            android:textSize="30sp"
-            android:gravity="center_vertical" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:id="@+id/year"
-            android:text="Year"
-            android:textSize="30sp"
-            android:gravity="top" />
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:id="@+id/button"
-            android:text="More Info"
-            android:textSize="12sp"
+            android:layout_height="wrap_content"
 
-            android:layout_gravity="bottom" />
-    </FrameLayout>
-    ​
-    <RelativeLayout
-        android:id="@+id/cell_title_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <com.mikhaellopez.circularimageview.CircularImageView
-            android:layout_height="100dp"
-            android:src="@drawable/civic"
-            app:civ_border_color="#EEEEEE"
-            app:civ_border_width="4dp"
-            app:civ_shadow="true"
-            app:civ_shadow_radius="20"
-            app:civ_shadow_color="#b74a4cc3"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
-            android:id="@+id/circularImageView"
-            android:layout_width="100dp" />
+            android:visibility="gone">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="100dp"
-            android:id="@+id/title"
-            android:text="Title"
-            android:textSize="40sp"
-            android:textAlignment="gravity"
-            android:gravity="center_vertical"
-            android:layout_toRightOf="@+id/circularImageView"
-            android:layout_marginTop="10dp" />
-    </RelativeLayout>
-    ​
-</com.ramotion.foldingcell.FoldingCell>
-    </RelativeLayout>
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:id="@+id/car_owner"
+                android:text="Car Owner"
+                android:textSize="20sp"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:textAlignment="center"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:id="@+id/year"
+                android:text="Year"
+                android:textSize="20sp"
+                android:gravity="top"
+                android:layout_marginLeft="20dp"
+                android:textAlignment="center"/>
+
+            <!--<com.dx.dxloadingbutton.lib.LoadingButton
+                android:id="@+id/button"
+                android:layout_gravity="center"
+                app:lb_resetAfterFailed="true"
+                app:lb_btnRippleColor="#000000"
+                app:lb_btnColor="@color/colorPrimary"
+                android:layout_height="60dp"
+                android:minHeight="0dp"
+                android:layout_marginTop="40dp"
+                app:lb_textColor="@android:color/white"
+                app:lb_btnText="More Info"
+                android:layout_width="300dp"
+                android:layout_below="@+id/year"
+                android:layout_centerHorizontal="true" />-->
+            <Button
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:id="@+id/info"
+                android:text="More Info"
+                android:textSize="12sp"
+                android:layout_gravity="bottom"
+                android:elevation="7dp"
+                android:layout_marginBottom="8dp"
+                android:background="@color/colorPrimary"
+                android:textColor="#FFFFFF"/>
+        </FrameLayout>
+        ​
+        <RelativeLayout
+            android:id="@+id/cell_title_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.mikhaellopez.circularimageview.CircularImageView
+                android:layout_height="100dp"
+                android:src="@drawable/civic"
+                app:civ_border_color="#EEEEEE"
+                app:civ_border_width="4dp"
+                app:civ_shadow="true"
+                app:civ_shadow_radius="20"
+                app:civ_shadow_color="#b74a4cc3"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:id="@+id/circularImageView"
+                android:layout_width="100dp" />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/title"
+                android:text="Title"
+                android:gravity="center_vertical"
+                android:layout_toRightOf="@+id/circularImageView"
+                android:layout_marginTop="22dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                android:textColor="@android:color/black"
+                android:textSize="22sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/price"
+
+                android:text="PKR 2 lacs"
+                android:layout_below="@+id/title"
+                android:layout_toEndOf="@+id/circularImageView"
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                android:textSize="16sp"
+                android:textColor="@android:color/holo_green_dark" />
+        </RelativeLayout>
+        ​
+    </com.ramotion.foldingcell.FoldingCell>
+</RelativeLayout>
