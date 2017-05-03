@@ -9,9 +9,9 @@
     tools:context="com.example.saad.carsales.FoldingList"
 
     folding-cell:animationDuration="1000"
-    folding-cell:backSideColor="@color/year"
+    folding-cell:backSideColor="#b74a4cc3"
     folding-cell:additionalFlipsCount="1"
-    folding-cell:cameraHeight="300">
+    folding-cell:cameraHeight="10">
 
 
 <com.ramotion.foldingcell.FoldingCell

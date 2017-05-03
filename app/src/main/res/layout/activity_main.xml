@@ -6,7 +6,8 @@
     tools:context="com.example.saad.carsales.MainActivity"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    android:elevation="14dp">
+    android:elevation="14dp"
+    android:background="#eae6ef">
 
 
     <RelativeLayout
@@ -20,7 +21,7 @@
             app:arc_cropDirection="cropOutside"
             app:arc_height="90dp"
 
-            android:elevation="5dp"
+            android:elevation="15dp"
             android:id="@+id/Arc"
             app:arc_position="bottom">
 
@@ -122,7 +123,7 @@
             android:layout_gravity="center"
             app:lb_resetAfterFailed="true"
             app:lb_btnRippleColor="#000000"
-            app:lb_btnColor="@color/colorPrimary"
+            app:lb_btnColor="#9984D4"
             android:layout_height="wrap_content"
             android:minHeight="0dp"
             android:layout_marginTop="40dp"
@@ -138,7 +139,7 @@
             android:layout_height="wrap_content"
             app:lb_resetAfterFailed="true"
             app:lb_btnRippleColor="#000000"
-            app:lb_btnColor="@color/colorPrimary"
+            app:lb_btnColor="#9984D4"
             app:lb_textColor="@android:color/white"
             app:lb_btnText="Sell"
             android:layout_width="300dp"
