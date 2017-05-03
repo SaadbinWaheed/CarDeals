@@ -163,12 +163,37 @@
         android:layout_height="match_parent"
         android:text="8000cc"
         android:layout_below="@+id/viewPager"
+        android:layout_toRightOf="@+id/engine"
         android:textSize="17sp"
         android:textAlignment="viewEnd"
         android:id="@+id/engineshow"
         android:paddingRight="10dp"
         android:textColor="@android:color/black"
         android:layout_alignParentEnd="true" />
+    <TextView
+        android:background="@android:color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="2017"
+        android:layout_below="@+id/add_id"
+        android:layout_toRightOf="@+id/reg_year"
+        android:textSize="17sp"
+        android:textAlignment="viewEnd"
+        android:id="@+id/reg_year_s"
+        android:paddingRight="10dp"
+        android:textColor="@android:color/black"
+        android:layout_alignParentEnd="true" />
+    <TextView
+        android:background="@android:color/white"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="1dp"
+        android:layout_height="match_parent"
+        android:layout_below="@id/add_id"
+        android:text="Registration Year"
+        android:textSize="17sp"
+        android:id="@+id/reg_year"
+        android:paddingLeft="10dp"
 
+        />
 </RelativeLayout>
 </ScrollView>

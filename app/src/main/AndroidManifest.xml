@@ -31,6 +31,7 @@
         <activity android:name=".Car_details" />
         <activity
             android:name=".SplashActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             >
             <intent-filter>
                 <action
