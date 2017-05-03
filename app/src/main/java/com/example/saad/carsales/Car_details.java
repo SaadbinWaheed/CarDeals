@@ -42,7 +42,7 @@ TextView carname,year,add,regyear,color,mileage;
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         customSwip = new Image_slide(this,imageResources);
         viewPager.setAdapter(customSwip);
-//        setUiPageViewController();
+        setUiPageViewController();
 
 
 
@@ -53,7 +53,7 @@ TextView carname,year,add,regyear,color,mileage;
         String address = details.getString("Address", "");
         String miles = details.getString("Mileage", "");
         Image_adapter car_img=new Image_adapter(Car_details.this,image);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+//        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         carname=(TextView) findViewById(R.id.car_name);
         color=(TextView) findViewById(R.id.exterior_colorshow);
         add=(TextView) findViewById(R.id.location);
@@ -64,7 +64,7 @@ TextView carname,year,add,regyear,color,mileage;
         carname.setText(car_name);
 
     }
-    private void setUiPageViewController() {
+    public void setUiPageViewController() {
 
         dotsCount = customSwip.getCount();
         dots = new ImageView[dotsCount];
@@ -80,7 +80,7 @@ TextView carname,year,add,regyear,color,mileage;
 
             params.setMargins(4, 0, 4, 0);
 
-            pager_indicator.addView(dots[i], params);
+//            pager_indicator.addView(dots[i], params);
         }
 
         dots[0].setImageDrawable(getResources().getDrawable(R.drawable.selecteditem_dot));
