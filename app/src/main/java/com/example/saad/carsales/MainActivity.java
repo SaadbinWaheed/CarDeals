@@ -7,17 +7,35 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dx.dxloadingbutton.lib.LoadingButton;
 import com.firebase.client.Firebase;
+import com.veer.shapeletter.ShapeLetter;
 
 public class MainActivity extends AppCompatActivity {
     CardView Buy,Sell;
     Button foldingCards_btn;
+    public int x;
+    String Name;
+    ShapeLetter sl;
+    TextView name_txt;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        Bundle b= getIntent().getExtras();
+        Name=b.getString("Email");
+        Toast.makeText(this,Name,Toast.LENGTH_SHORT).show();
+
+        sl=(ShapeLetter) findViewById(R.id.letter);
+        name_txt=(TextView) findViewById(R.id.name_txt);
+        name_txt.setText(Name);
+
+        sl.setTitleText(Name.substring(0,1).toUpperCase());
 
         Firebase.setAndroidContext(this);
 
@@ -51,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
                 }, 1000);
             }
         });
+
 
         final LoadingButton sell_lb = (LoadingButton)findViewById(R.id.sell_load);
         sell_lb.setOnClickListener(new View.OnClickListener() {

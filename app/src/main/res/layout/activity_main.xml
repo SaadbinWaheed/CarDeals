@@ -120,9 +120,10 @@
             android:layout_marginTop="40dp"
             app:lb_textColor="@android:color/white"
             app:lb_btnText="Buy"
-            android:layout_width="300dp"
-            android:layout_below="@+id/Arc"
-            android:layout_centerHorizontal="true" />
+            android:layout_width="match_parent"
+            android:layout_below="@+id/letter"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="40dp" />
 
         <com.dx.dxloadingbutton.lib.LoadingButton
             android:id="@+id/sell_load"
@@ -133,10 +134,35 @@
             app:lb_btnColor="#9984D4"
             app:lb_textColor="@android:color/white"
             app:lb_btnText="Sell"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_below="@+id/buy_load"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="40dp" />
+
+        <com.veer.shapeletter.ShapeLetter
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            app:letter="S"
+            app:letter_size="40dp"
+            app:letter_color="@android:color/white"
+            app:shape="oval"
+            app:shape_color="@color/primarypurple"
+            android:id="@+id/letter"
+            android:layout_marginTop="33dp"
+            android:layout_below="@+id/Arc"
+            android:layout_marginLeft="40dp"
+            android:layout_alignParentLeft="false" />
+
+        <TextView
+            android:text="Saad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/name_txt"
+            android:textSize="24sp"
+            android:layout_above="@+id/buy_load"
+            android:layout_toEndOf="@+id/letter"
+            android:layout_marginStart="10dp" />
 
     </RelativeLayout>
 </ScrollView>

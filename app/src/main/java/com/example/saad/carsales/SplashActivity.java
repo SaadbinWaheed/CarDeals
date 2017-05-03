@@ -7,16 +7,24 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.gospelware.liquidbutton.LiquidButton;
 
 
 public class SplashActivity extends AppCompatActivity {
 
+    FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash);
+
+        mAuth= FirebaseAuth.getInstance();
+
+
+
+
 
       //  final ImageView img_logo=(ImageView) findViewById(R.id.imageView);
         LiquidButton liquidButton = (LiquidButton) findViewById(R.id.button);
@@ -28,9 +36,22 @@ public class SplashActivity extends AppCompatActivity {
         liquidButton.setPourFinishListener(new LiquidButton.PourFinishListener() {
             @Override
             public void onPourFinish() {
-                Intent mainIntent = new Intent(SplashActivity.this,Sign_Signup.class);
-                SplashActivity.this.startActivity(mainIntent);
-                SplashActivity.this.finish();
+                //Signed in user
+                if (mAuth.getCurrentUser() !=null) {
+                    Intent mainIntent = new Intent(SplashActivity.this, MainActivity.class);
+                    Bundle b= new Bundle();
+                    b.putString("Email", mAuth.getCurrentUser().getEmail());
+                    mainIntent.putExtras(b);
+
+                    SplashActivity.this.startActivity(mainIntent);
+                    SplashActivity.this.finish();
+                }
+                else
+                {
+                    Intent mainIntent = new Intent(SplashActivity.this, Sign_Signup.class);
+                    SplashActivity.this.startActivity(mainIntent);
+                    SplashActivity.this.finish();
+                }
             }
 
             @Override

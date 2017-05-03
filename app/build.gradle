@@ -49,5 +49,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.github.imangazalievm:circlemenu:1.0.3'
     compile 'com.mikhaellopez:circularimageview:3.0.2'
+    compile 'com.github.karanvs:shapeletter:v1.0'
 }
 apply plugin: 'com.google.gms.google-services'
