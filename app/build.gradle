@@ -47,7 +47,7 @@ dependencies {
     compile 'com.gospelware.liquidbutton:liquidButtonLib:1.1.5'
     compile 'com.android.support:support-v4:25.3.1'
     testCompile 'junit:junit:4.12'
-
+    compile 'com.github.imangazalievm:circlemenu:1.0.3'
     compile 'com.mikhaellopez:circularimageview:3.0.2'
 }
 apply plugin: 'com.google.gms.google-services'

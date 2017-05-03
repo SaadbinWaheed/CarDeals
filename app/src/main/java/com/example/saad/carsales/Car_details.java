@@ -9,13 +9,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
-import com.example.saad.carsales.Adapters.Image_adapter;
-
 import java.util.ArrayList;
 
 public class Car_details extends AppCompatActivity {
     ArrayList<Integer> image=new ArrayList<Integer>();
-TextView carname,add,regyear,color,mileage;
+TextView carname,year,add,regyear,color,mileage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +22,6 @@ TextView carname,add,regyear,color,mileage;
         image.add(R.drawable.sell);
         image.add(R.drawable.car);
         image.add(R.drawable.buyer);
-
         SharedPreferences details = getSharedPreferences("my_prefs", 0);
         String car_name = details.getString("Model","");
         String clr=details.getString("Color","");
@@ -41,12 +38,10 @@ TextView carname,add,regyear,color,mileage;
         color=(TextView) findViewById(R.id.exterior_colorshow);
         add=(TextView) findViewById(R.id.location);
         mileage=(TextView) findViewById(R.id.miles);
-        regyear = (TextView) findViewById(R.id.reg_year);
         color.setText(clr);
         add.setText(address);
         mileage.setText(miles);
         carname.setText(car_name);
-        regyear.setText(reg_year);
     }
     @Override
     public void finish() {

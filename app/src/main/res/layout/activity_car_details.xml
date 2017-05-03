@@ -194,36 +194,11 @@
         android:textColor="@android:color/black"
         android:paddingRight="10dp"
         />
-
     <TextView
         android:background="@android:color/white"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_below="@id/Reg_city"
-        android:text="Registration Year"
-        android:textSize="15sp"
-        android:layout_marginTop="1dp"
-        android:id="@+id/registraion_year"
-        android:paddingLeft="10dp"
-        />
-    <TextView
-        android:textColor="@android:color/black"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_below="@id/Reg_city"
-        android:text="1984"
-        android:textSize="15sp"
-        android:textAlignment="viewEnd"
-        android:background="@android:color/white"
-        android:layout_alignParentEnd="true"
-        android:id="@+id/reg_year"
-        android:paddingRight="10dp"
-        android:layout_toEndOf="@+id/registraion_year" />
-    <TextView
-        android:background="@android:color/white"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_below="@id/registraion_year"
         android:text="Exterior Color"
         android:textSize="15sp"
         android:layout_marginTop="1dp"
@@ -234,25 +209,28 @@
         android:textColor="@android:color/black"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_below="@id/reg_year"
+        android:layout_below="@id/Reg_city"
         android:text="Black"
         android:textSize="15sp"
         android:textAlignment="viewEnd"
+        android:layout_toRightOf="@+id/exterior_color"
         android:background="@android:color/white"
         android:layout_alignParentEnd="true"
         android:id="@+id/exterior_colorshow"
         android:paddingRight="10dp"
-        android:layout_toEndOf="@+id/exterior_color" />
+        />
     <TextView
         android:background="@android:color/white"
         android:layout_width="wrap_content"
+        android:layout_marginTop="1dp"
         android:layout_height="match_parent"
+        android:layout_below="@id/exterior_color"
         android:text="Assembly"
         android:textSize="15sp"
         android:id="@+id/assembly"
         android:paddingLeft="10dp"
 
-        android:layout_below="@+id/exterior_color" />
+        />
     <TextView
         android:paddingRight="10dp"
         android:background="@android:color/white"
