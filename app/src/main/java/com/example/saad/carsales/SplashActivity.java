@@ -19,7 +19,7 @@ import com.gospelware.liquidbutton.LiquidButton;
 public class SplashActivity extends AppCompatActivity {
 
     FirebaseAuth mAuth;
-    String name,email;
+    String name,email,contact;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,38 +30,41 @@ public class SplashActivity extends AppCompatActivity {
         Firebase.setAndroidContext(this);
         Firebase ref=new Firebase("https://car-sales-f4f9c.firebaseio.com/").child("Users");
 
-        email=mAuth.getCurrentUser().getEmail();
-        ref.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Toast.makeText(SplashActivity.this,dataSnapshot.child("Email").getValue().toString(),Toast.LENGTH_SHORT).show();
-                if ( dataSnapshot.child("Email").getValue().toString().equals(email))
-                   name= dataSnapshot.child("Name").getValue().toString();
-                else
-                    name="Default";
-            }
+        if (mAuth.getCurrentUser() !=null) {
+            email = mAuth.getCurrentUser().getEmail();
+            ref.addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                    Toast.makeText(SplashActivity.this, dataSnapshot.child("Email").getValue().toString(), Toast.LENGTH_SHORT).show();
+                    if (dataSnapshot.child("Email").getValue().toString().equals(email))
+                    {name = dataSnapshot.child("Name").getValue().toString();
+                        contact = dataSnapshot.child("Contact info").getValue().toString();}
+                    else
+                        name = "Default";
+                        contact="000";
+                }
 
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                @Override
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
-            }
+                }
 
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                @Override
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
 
-            }
+                }
 
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                @Override
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
 
-            }
+                }
 
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
 
-            }
-        });
-
+                }
+            });
+        }
       //  final ImageView img_logo=(ImageView) findViewById(R.id.imageView);
         LiquidButton liquidButton = (LiquidButton) findViewById(R.id.button);
 
@@ -77,6 +80,7 @@ public class SplashActivity extends AppCompatActivity {
                     Intent mainIntent = new Intent(SplashActivity.this, MainActivity.class);
                     Bundle b= new Bundle();
                     b.putString("Name", name);
+                    b.putString("Contact Info", contact);
                     mainIntent.putExtras(b);
 
                     SplashActivity.this.startActivity(mainIntent);
@@ -84,6 +88,7 @@ public class SplashActivity extends AppCompatActivity {
                 }
                 else
                 {
+
                     Intent mainIntent = new Intent(SplashActivity.this, Sign_Signup.class);
                     SplashActivity.this.startActivity(mainIntent);
                     SplashActivity.this.finish();

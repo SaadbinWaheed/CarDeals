@@ -23,10 +23,18 @@ public class Signup_Form extends AppCompatActivity {
     EditText mail,name,pass,c_pass,contact;
     LoadingButton Proceed;
     FirebaseAuth mAuth;
+    String Name;
+    String contactInfo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.seller_login);
+
+        Bundle b= getIntent().getExtras();
+        Name=b.getString("Name");
+        contactInfo = b.getString("Contact Info");
+
+
         mail = (EditText) findViewById(R.id.s_mail);
         name = (EditText) findViewById(R.id.s_name);
         pass = (EditText) findViewById(R.id.s_pass);
@@ -34,6 +42,8 @@ public class Signup_Form extends AppCompatActivity {
         contact = (EditText) findViewById(R.id.s_contact);
         Proceed = (LoadingButton) findViewById(R.id.btn_proceed);
 
+        name.setText(Name);
+        contact.setText(contactInfo);
         mAuth=FirebaseAuth.getInstance();
         Firebase.setAndroidContext(this);
 

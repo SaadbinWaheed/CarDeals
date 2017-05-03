@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     CardView Buy,Sell;
     Button foldingCards_btn;
     public int x;
-    String Name;
+    String Name,contactInfo;
     ShapeLetter sl;
     TextView name_txt;
     FirebaseAuth mAuth;
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
         Bundle b= getIntent().getExtras();
         Name=b.getString("Name");
-        Toast.makeText(this,Name,Toast.LENGTH_SHORT).show();
+        contactInfo=b.getString("Contact Info");
 
         sl=(ShapeLetter) findViewById(R.id.letter);
         name_txt=(TextView) findViewById(R.id.name_txt);
@@ -145,6 +145,10 @@ public class MainActivity extends AppCompatActivity {
                             public void run() {
                 /* Create an Intent that will start the Menu-Activity. */
                                 Intent mainIntent = new Intent(MainActivity.this,AD_details.class);
+                                Bundle b= new Bundle();
+                                b.putString("Name", Name);
+                                b.putString("Contact Info", contactInfo);
+                                mainIntent.putExtras(b);
                                 startActivity(mainIntent);
                                 sell_lb.reset();
                             }

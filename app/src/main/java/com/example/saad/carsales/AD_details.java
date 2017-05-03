@@ -20,7 +20,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.client.Firebase;
+
 import java.io.IOException;
+import java.util.HashMap;
 
 public class AD_details extends AppCompatActivity {
     private Button b_getlocation;
@@ -28,7 +31,6 @@ public class AD_details extends AppCompatActivity {
     double longitude;
     double latitude;
     int img_nmbr;
-    String car_model;
     ImageView img1, img2, img3;
     TextView Model;
     Button done;
@@ -36,11 +38,21 @@ public class AD_details extends AppCompatActivity {
     ArrayAdapter MODELS;
     String[] CAR_MODELS;
     EditText modelYear, RegCity, Mileage,Price, color, S_Name, S_Contact, S_Address;
+    String key,Name,contactInfo,car_model;
+    Firebase ref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ad_details);
+
+        Bundle b= getIntent().getExtras();
+        Name=b.getString("Name");
+        contactInfo=b.getString("Contact Info");
+
+        ref=new Firebase("https://car-sales-f4f9c.firebaseio.com/");
+        key=ref.child("Adverts").push().getKey();
+
 
         modelYear = (EditText) findViewById(R.id.model_year);
         RegCity = (EditText) findViewById(R.id.Reg_city);
@@ -56,6 +68,9 @@ public class AD_details extends AppCompatActivity {
         img3 = (ImageView) findViewById(R.id.img3);
         Model = (TextView) findViewById(R.id.car_model);
         done = (Button) findViewById(R.id.details_done);
+
+        S_Contact.setText(contactInfo);
+        S_Name.setText(Name);
 
         CAR_MODELS = new String[]{"Honda Civic", "Honda City", "Hilux", "Corolla", "Mehran", "Audi", "Alto", "Cultus", "Mercedes", "BMW", "Vitz", "Bolan", "Cuore", "Kyber",
                 "Land Cruiser", "Range Rover", "Lamborghini", "Ferrari", "Prius", "Prado", "Hummer"};
@@ -111,25 +126,29 @@ public class AD_details extends AppCompatActivity {
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent passdetails = new Intent(AD_details.this, Car_details.class);
-                String address = S_Address.getText().toString();
-                String mileage = Mileage.getText().toString();
-                String contact = S_Contact.getText().toString();
-                String year = modelYear.getText().toString();
-                String regcity = RegCity.getText().toString();
-                String clr = color.getText().toString();
-                String prce = Price.getText().toString();
-                SharedPreferences prefs = getSharedPreferences("my_prefs", MODE_PRIVATE);
-                SharedPreferences.Editor edit = prefs.edit();
-                edit.putString("Model", car_model);
-                edit.putString("Address", address);
-                edit.putString("Color", clr);
-                edit.putString("Mileage", mileage);
-                edit.putString("Contact", contact);
-                edit.putString("Registration_Year", year);
-                edit.putString("Registration_City", regcity);
-                edit.putString("Price", prce);
-                edit.commit();
+                String model=Model.getText().toString();
+                String year=modelYear.getText().toString();
+                String regCity=RegCity.getText().toString();
+                String mileage=Mileage.getText().toString();
+                String bodyColor=color.getText().toString();
+                String price=Price.getText().toString();
+                String name=S_Name.getText().toString();
+                String contact=S_Contact.getText().toString();
+                String address=S_Address.getText().toString();
+
+                HashMap<String,String> hashMap=new HashMap<String, String>();
+                hashMap.put("Model",model);
+                hashMap.put("Model Year",year);
+                hashMap.put("Registration City",regCity);
+                hashMap.put("Mileage",mileage);
+                hashMap.put("Body Color",bodyColor);
+                hashMap.put("Price",price);
+                hashMap.put("Name",name);
+                hashMap.put("Contact",contact);
+                hashMap.put("Address",address);
+
+                ref.child("Adverts").child(key).setValue(hashMap);
+                Toast.makeText(AD_details.this,"Done",Toast.LENGTH_SHORT).show();
 
 
             }

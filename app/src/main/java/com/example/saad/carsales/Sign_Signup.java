@@ -9,7 +9,10 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.firebase.client.ChildEventListener;
+import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -21,13 +24,14 @@ public class Sign_Signup extends AppCompatActivity {
     Button Sign_in,Sign_up;
     CheckBox Show_Pass;
     FirebaseAuth firebaseAuth;
+    String name,contact;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_signup);
 
         firebaseAuth= FirebaseAuth.getInstance();
-
+        Firebase.setAndroidContext(this);
         if (firebaseAuth.getCurrentUser() != null)
             Toast.makeText(Sign_Signup.this,firebaseAuth.getCurrentUser().getEmail().toString(),Toast.LENGTH_LONG).show();
 
@@ -72,18 +76,61 @@ public class Sign_Signup extends AppCompatActivity {
 
     private void userLogin()
     {
-        String username=Email.getText().toString();
+        final String username=Email.getText().toString();
         String password=Password.getText().toString();
 
+        final Firebase ref=new Firebase("https://car-sales-f4f9c.firebaseio.com/").child("Users");
 
         firebaseAuth.signInWithEmailAndPassword(username,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(Task<AuthResult> task) {
                 if ( task.isSuccessful())
                 {
+                    if (firebaseAuth.getCurrentUser() !=null) {
+
+                        ref.addChildEventListener(new ChildEventListener() {
+                            @Override
+                            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                                Toast.makeText(Sign_Signup.this, dataSnapshot.child("Email").getValue().toString(), Toast.LENGTH_SHORT).show();
+                                if (dataSnapshot.child("Email").getValue().toString().equals(username)) {
+                                    name = dataSnapshot.child("Name").getValue().toString();
+                                    contact = dataSnapshot.child("Contact info").getValue().toString();
+                                }
+                                else
+                                    name = "Default";
+                                contact="000";
+                            }
+
+                            @Override
+                            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                            }
+
+                            @Override
+                            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                            }
+
+                            @Override
+                            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                            }
+
+                            @Override
+                            public void onCancelled(FirebaseError firebaseError) {
+
+                            }
+                        });
+                    }
+
 
                     Toast.makeText(Sign_Signup.this,"Logged in",Toast.LENGTH_LONG).show();
                     Intent signin=new Intent(Sign_Signup.this,MainActivity.class);
+                    Bundle b= new Bundle();
+                    b.putString("Name", name);
+                    b.putString("Contact Info", contact);
+                    signin.putExtras(b);
+
                     startActivity(signin);
                 }
 
