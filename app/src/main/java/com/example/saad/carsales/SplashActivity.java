@@ -6,7 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.firebase.client.ChildEventListener;
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
 import com.google.firebase.auth.FirebaseAuth;
 import com.gospelware.liquidbutton.LiquidButton;
 
@@ -14,6 +19,7 @@ import com.gospelware.liquidbutton.LiquidButton;
 public class SplashActivity extends AppCompatActivity {
 
     FirebaseAuth mAuth;
+    String name,email;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,10 +27,40 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         mAuth= FirebaseAuth.getInstance();
+        Firebase.setAndroidContext(this);
+        Firebase ref=new Firebase("https://car-sales-f4f9c.firebaseio.com/").child("Users");
 
+        email=mAuth.getCurrentUser().getEmail();
+        ref.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Toast.makeText(SplashActivity.this,dataSnapshot.child("Email").getValue().toString(),Toast.LENGTH_SHORT).show();
+                if ( dataSnapshot.child("Email").getValue().toString().equals(email))
+                   name= dataSnapshot.child("Name").getValue().toString();
+                else
+                    name="Default";
+            }
 
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
+            }
 
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
 
       //  final ImageView img_logo=(ImageView) findViewById(R.id.imageView);
         LiquidButton liquidButton = (LiquidButton) findViewById(R.id.button);
@@ -40,7 +76,7 @@ public class SplashActivity extends AppCompatActivity {
                 if (mAuth.getCurrentUser() !=null) {
                     Intent mainIntent = new Intent(SplashActivity.this, MainActivity.class);
                     Bundle b= new Bundle();
-                    b.putString("Email", mAuth.getCurrentUser().getEmail());
+                    b.putString("Name", name);
                     mainIntent.putExtras(b);
 
                     SplashActivity.this.startActivity(mainIntent);
