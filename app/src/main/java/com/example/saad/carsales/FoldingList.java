@@ -29,7 +29,7 @@ public class FoldingList extends AppCompatActivity {
     {
         List<Add> data= new ArrayList<>();
 
-        String[] titles={ "Audi", "BMW", "Land Cruiser", "Range Rover", "Lamborghini", "Ferrari","Prado", "Hummer"};
+        String[] titles={ "Audi", "BMW", "Land Cruiser", "Range Rover", "Lamborghini", "Ferrari", "Hummer"};
         String[] year={"2017", "2011", "2016", "2017","2018","2019","2050"};
         String[] carOwner={"Fahad", "Musab", "Saad", "Usaid","Malak","Raja","Notty Boi"};
 

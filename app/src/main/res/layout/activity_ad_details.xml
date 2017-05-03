@@ -135,12 +135,25 @@
         android:textColor="@android:color/black"
         android:background="@android:color/white"
         android:textSize="18sp"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:id="@+id/Price"
+        android:layout_below="@+id/body_color"
+        android:layout_marginTop="25dp"
+        android:hint="Price"
+        android:textAlignment="center"
+        android:inputType="number"
+        android:singleLine="true"
+        android:textColor="@android:color/black"
+        android:background="@android:color/white"
+        android:textSize="18sp"/>
     <Button
 
         android:layout_width="match_parent"
         android:layout_height="35dp"
         android:id="@+id/location"
-        android:layout_below="@+id/body_color"
+        android:layout_below="@+id/Price"
         android:layout_marginTop="25dp"
         android:text="Add Location"
         android:textAlignment="center"
