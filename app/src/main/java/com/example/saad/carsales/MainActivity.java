@@ -41,14 +41,14 @@ public class MainActivity extends AppCompatActivity {
 
         Firebase ref= new Firebase("https://car-sales-f4f9c.firebaseio.com/");
 
-        Button b = (Button) findViewById(R.id.trying);
-        b.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent n = new Intent(MainActivity.this,FoldingList.class);
-                startActivity(n);
-            }
-        });
+//        Button b = (Button) findViewById(R.id.trying);
+//        b.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent n = new Intent(MainActivity.this,FoldingList.class);
+//                startActivity(n);
+//            }
+//        });
 
         final LoadingButton buy_lb = (LoadingButton)findViewById(R.id.buy_load);
         buy_lb.setOnClickListener(new View.OnClickListener() {
