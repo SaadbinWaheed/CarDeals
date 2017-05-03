@@ -35,7 +35,7 @@ public class AD_details extends AppCompatActivity {
     ListView models;
     ArrayAdapter MODELS;
     String[] CAR_MODELS;
-    EditText modelYear, RegCity, Mileage, color, S_Name, S_Contact, S_Address;
+    EditText modelYear, RegCity, Mileage,Price, color, S_Name, S_Contact, S_Address;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +46,7 @@ public class AD_details extends AppCompatActivity {
         RegCity = (EditText) findViewById(R.id.Reg_city);
         Mileage = (EditText) findViewById(R.id.mileage);
         color = (EditText) findViewById(R.id.body_color);
+        Price = (EditText) findViewById(R.id.Price);
         S_Name = (EditText) findViewById(R.id.name);
         S_Address = (EditText) findViewById(R.id.seller_address);
         S_Contact = (EditText) findViewById(R.id.contact);
@@ -117,6 +118,7 @@ public class AD_details extends AppCompatActivity {
                 String year = modelYear.getText().toString();
                 String regcity = RegCity.getText().toString();
                 String clr = color.getText().toString();
+                String prce = Price.getText().toString();
                 SharedPreferences prefs = getSharedPreferences("my_prefs", MODE_PRIVATE);
                 SharedPreferences.Editor edit = prefs.edit();
                 edit.putString("Model", car_model);
@@ -126,6 +128,7 @@ public class AD_details extends AppCompatActivity {
                 edit.putString("Contact", contact);
                 edit.putString("Registration_Year", year);
                 edit.putString("Registration_City", regcity);
+                edit.putString("Price", prce);
                 edit.commit();
 
 
