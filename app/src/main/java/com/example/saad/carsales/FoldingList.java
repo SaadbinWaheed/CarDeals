@@ -1,10 +1,9 @@
 package com.example.saad.carsales;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.MotionEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,9 +22,6 @@ public class FoldingList extends AppCompatActivity {
 
          recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-
-
     }
 
 
@@ -33,9 +29,9 @@ public class FoldingList extends AppCompatActivity {
     {
         List<Add> data= new ArrayList<>();
 
-        String[] titles={"Corolla", "Mehran", "Bentley", "Civic"};
-        String[] year={"2017", "2011", "2016", "2017"};
-        String[] carOwner={"Fahad", "Musab", "Saad", "Usaid"};
+        String[] titles={ "Audi", "BMW", "Land Cruiser", "Range Rover", "Lamborghini", "Ferrari","Prado", "Hummer"};
+        String[] year={"2017", "2011", "2016", "2017","2018","2019","2050"};
+        String[] carOwner={"Fahad", "Musab", "Saad", "Usaid","Malak","Raja","Notty Boi"};
 
         for (int i=0;i<titles.length;i++)
         {

@@ -4,7 +4,7 @@
     android:id="@+id/activity_image_adapter"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.saad.carsales.Image_adapter">
+    tools:context="com.example.saad.carsales.Adapters.Image_adapter">
 <ImageView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"

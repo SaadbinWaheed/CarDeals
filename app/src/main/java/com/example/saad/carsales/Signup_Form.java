@@ -6,13 +6,12 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.dx.dxloadingbutton.lib.LoadingButton;
 
-public class Seller_Login extends AppCompatActivity {
+public class Signup_Form extends AppCompatActivity {
     EditText mail,name,pass,c_pass,contact;
     LoadingButton Proceed;
 
@@ -46,20 +45,20 @@ public class Seller_Login extends AppCompatActivity {
                                 !c_pass.getText().toString().equals("") &&
                                 !contact.getText().toString().equals("")) {
                             if (pass.getText().toString().equals(c_pass.getText().toString())) {
-                                //Toast.makeText(Seller_Login.this, "PROCEED", Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(Signup_Form.this, "PROCEED", Toast.LENGTH_SHORT).show();
                                 Check();
                                 Proceed.loadingSuccessful();
 
-                                Intent i = new Intent(Seller_Login.this, AD_details.class);
+                                Intent i = new Intent(Signup_Form.this, AD_details.class);
                                 startActivity(i);
                             } else {
-                                Toast.makeText(Seller_Login.this, "Password Confirmation Error ", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Signup_Form.this, "Password Confirmation Error ", Toast.LENGTH_SHORT).show();
                                 Check();
 
 
                             }
                         } else {
-                            Toast.makeText(Seller_Login.this, "Please Fill Information", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Signup_Form.this, "Please Fill Information", Toast.LENGTH_SHORT).show();
                             Check();
 
                         }

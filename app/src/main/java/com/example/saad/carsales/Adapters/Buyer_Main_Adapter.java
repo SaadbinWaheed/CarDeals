@@ -1,4 +1,4 @@
-package com.example.saad.carsales;
+package com.example.saad.carsales.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.saad.carsales.Car_details;
+import com.example.saad.carsales.R;
 
 import java.util.ArrayList;
 
@@ -38,7 +42,7 @@ public class Buyer_Main_Adapter extends RecyclerView.Adapter<Buyer_Main_Adapter.
         holder.ad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            //    Toast.makeText(context, "Ad Number "+String.valueOf(position+1), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Ad Number "+String.valueOf(position+1), Toast.LENGTH_SHORT).show();
                 Intent details=new Intent(context,Car_details.class);
                 context.startActivity(details);
             }

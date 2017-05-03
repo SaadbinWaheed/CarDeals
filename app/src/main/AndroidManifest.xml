@@ -25,7 +25,7 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".Seller_Login" />
+        <activity android:name=".Signup_Form" />
         <activity android:name=".Buyer_Main" />
         <activity android:name=".AD_details" />
         <activity android:name=".Car_details" />
