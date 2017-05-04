@@ -1,18 +1,9 @@
 package com.example.saad.carsales;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.firebase.client.ChildEventListener;
@@ -141,11 +132,13 @@ public class Buyer_Main extends AppCompatActivity {
 
                 titles.add(dataSnapshot.child("Model").getValue().toString());
                 year.add(dataSnapshot.child("Model Year").getValue().toString());
-                carOwner.add(dataSnapshot.child("Seller Name").getValue().toString());
+                carOwner.add(dataSnapshot.child("Name").getValue().toString());
 
                 current.setTitle(dataSnapshot.child("Model").getValue().toString());
                 current.setYear(dataSnapshot.child("Model Year").getValue().toString());
                 current.setCar_owner(dataSnapshot.child("Seller Name").getValue().toString());
+                current.setCar_owner(dataSnapshot.child("Name").getValue().toString());
+                current.setAdd_id(dataSnapshot.getKey().toString());
 
                 data.add(current);
                 adap.notifyDataSetChanged();

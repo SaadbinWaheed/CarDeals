@@ -108,25 +108,12 @@
         android:textColor="@android:color/black"
         android:background="@android:color/white"
         android:textSize="18sp"/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:id="@+id/Eng_cap"
-        android:layout_below="@+id/Reg_city"
-        android:layout_marginTop="25dp"
-        android:hint="Engine Capacity"
-        android:textAlignment="center"
-        android:inputType="text"
-        android:singleLine="true"
-        android:textColor="@android:color/black"
-        android:background="@android:color/white"
-        android:textSize="18sp"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="35dp"
         android:id="@+id/mileage"
-        android:layout_below="@+id/Eng_cap"
+        android:layout_below="@+id/Reg_city"
         android:layout_marginTop="25dp"
         android:hint="Mileage"
         android:textAlignment="center"

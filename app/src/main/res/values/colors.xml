@@ -3,8 +3,9 @@
     <color name="colorPrimary">#cc4052ba</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#581b998b</color>
-    <color name="purple">#2c0e35</color>
+    <color name="purple">#453449</color>
     <color name="primarypurple">#c3280d2e</color>
+    <color name="actionbar">#eb280d2e</color>
     <color name="year">#999999</color>
     <color name="title">#222222</color>
     <color name="SplashText">#969191</color>
