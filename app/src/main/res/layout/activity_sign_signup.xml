@@ -22,7 +22,8 @@
         android:textAlignment="textStart"
         android:inputType="textPassword"
         android:singleLine="true"
-        android:background="@drawable/rounded_corners" />
+        android:background="@drawable/rounded_corners"
+        android:text="123123" />
 
     <Button
         android:layout_width="wrap_content"
@@ -70,7 +71,8 @@
         android:layout_height="45dp"
         android:background="@drawable/rounded_corners"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:text="saad@a.com" />
 
 
 </RelativeLayout>

@@ -7,11 +7,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.firebase.client.ChildEventListener;
-import com.firebase.client.DataSnapshot;
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,50 +14,10 @@ public class FoldingList extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private Folder_Adapter adapter;
-    Firebase ref;
-    ArrayList<String> titles,year,carOwner;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_folding_list);
-
-        Firebase.setAndroidContext(this);
-
-        titles=new ArrayList<>();
-        year=new ArrayList<>();
-        carOwner=new ArrayList<>();
-
-        ref=new Firebase("https://car-sales-f4f9c.firebaseio.com/").child("Adverts");
-
-        ref.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                titles.add(dataSnapshot.child("Model").getKey());
-                year.add(dataSnapshot.child("Model Year").getKey());
-                carOwner.add(dataSnapshot.child("Seller Name").getKey());
-
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-
-            }
-        });
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -80,20 +35,22 @@ public class FoldingList extends AppCompatActivity {
     }
 
 
-    public List<Add> getData()
+    public static List<Add> getData()
     {
         List<Add> data= new ArrayList<>();
 
+        String[] titles={ "Audi", "BMW", "Land Cruiser", "Range Rover", "Lamborghini", "Ferrari", "Hummer"};
+        String[] year={"2017", "2011", "2016", "2017","2018","2019","2050"};
+        String[] carOwner={"Fahad", "Musab", "Saad", "Usaid","Malak","Raja","Notty Boi"};
 
-
-        for (int i=0;i<titles.size();i++)
+        for (int i=0;i<titles.length;i++)
         {
 
             Add current= new Add();
 
-            current.setTitle(titles.get(i));
-            current.setYear(year.get(i));
-            current.setCar_owner(carOwner.get(i));
+            current.setTitle(titles[i]);
+            current.setYear(year[i]);
+            current.setCar_owner(carOwner[i]);
 
             data.add(current);
 
