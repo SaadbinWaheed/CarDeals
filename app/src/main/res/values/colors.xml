@@ -14,8 +14,8 @@
     <color name="colorFAB1">#2196F3</color>
     <color name="colorFAB2">#E040FB</color>
 
-    <color name="material_login_login_color">#000000</color>
-    <color name="material_login_register_color">#00ff37</color>
+    <color name="material_login_login_color">#b0463274</color>
+    <color name="material_login_register_color">#ffffff</color>
     <color name="material_login_login_error_color">#ffbebe</color>
     <color name="material_login_register_error_color">#600002</color>
 </resources>

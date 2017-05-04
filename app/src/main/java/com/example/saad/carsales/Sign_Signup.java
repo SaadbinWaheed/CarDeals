@@ -81,10 +81,14 @@ public class Sign_Signup extends AppCompatActivity {
         final Firebase ref = new Firebase("https://car-sales-f4f9c.firebaseio.com/").child("Users");
 
         if (!(username.equals("") || password.equals(""))) {
+
+
             firebaseAuth.signInWithEmailAndPassword(username, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(Task<AuthResult> task) {
                     if (task.isSuccessful()) {
+
+                        Toast.makeText(Sign_Signup.this, username, Toast.LENGTH_SHORT).show();
                         if (firebaseAuth.getCurrentUser() != null) {
 
                             ref.addChildEventListener(new ChildEventListener() {
@@ -95,8 +99,18 @@ public class Sign_Signup extends AppCompatActivity {
                                         name = dataSnapshot.child("Name").getValue().toString();
                                         contact = dataSnapshot.child("Contact info").getValue().toString();
                                     } else
-                                        name = "Default";
-                                    contact = "000";
+                                    {name = "Default";
+                                    contact = "000";}
+
+
+                                    Toast.makeText(Sign_Signup.this, "Logged in", Toast.LENGTH_LONG).show();
+                                    Intent signin = new Intent(Sign_Signup.this, MainActivity.class);
+                                    Bundle b = new Bundle();
+                                    b.putString("Name", name);
+                                    b.putString("Contact Info", contact);
+                                    signin.putExtras(b);
+
+                                    startActivity(signin);
                                 }
 
                                 @Override
@@ -122,14 +136,7 @@ public class Sign_Signup extends AppCompatActivity {
                         }
 
 
-                        Toast.makeText(Sign_Signup.this, "Logged in", Toast.LENGTH_LONG).show();
-                        Intent signin = new Intent(Sign_Signup.this, MainActivity.class);
-                        Bundle b = new Bundle();
-                        b.putString("Name", name);
-                        b.putString("Contact Info", contact);
-                        signin.putExtras(b);
 
-                        startActivity(signin);
                     }
 
                 }
