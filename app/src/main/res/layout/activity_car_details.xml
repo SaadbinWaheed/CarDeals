@@ -123,7 +123,7 @@
         android:layout_below="@id/exterior_color"
         android:text="Add ID"
         android:textSize="17sp"
-        android:id="@+id/add_id"
+        android:id="@+id/contact"
         android:paddingLeft="10dp"
 
         />
@@ -136,10 +136,10 @@
         android:layout_below="@id/exterior_color"
         android:text="+923005361434"
         android:textAlignment="viewEnd"
-        android:layout_toRightOf="@+id/add_id"
+        android:layout_toRightOf="@+id/contact"
         android:textColor="@android:color/black"
         android:layout_alignParentEnd="true"
-        android:id="@+id/add_idshow"
+        android:id="@+id/txt_Contact"
         android:autoLink="phone"
         android:linksClickable="true"
         android:clickable="true"
@@ -152,7 +152,7 @@
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:text="2017"
-    android:layout_below="@+id/add_id"
+    android:layout_below="@+id/contact"
     android:layout_toRightOf="@+id/reg_year"
     android:textSize="17sp"
     android:textAlignment="viewEnd"
@@ -227,7 +227,7 @@
         android:id="@+id/reg_year"
         android:paddingLeft="10dp"
 
-        android:layout_below="@+id/add_id"
+        android:layout_below="@+id/contact"
         android:layout_alignParentStart="true" />
 </RelativeLayout>
 </ScrollView>

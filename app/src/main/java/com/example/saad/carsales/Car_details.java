@@ -19,12 +19,15 @@ import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 
 import java.util.ArrayList;
 
 public class Car_details extends AppCompatActivity implements ViewPager.OnPageChangeListener {
     ArrayList<Integer> image=new ArrayList<Integer>();
-TextView carname,year,add,regyear,color,mileage;
+TextView carname,year,location,regyear,color,mileage,contact,price;
+    String strCarName,strYear,strContact,strRegYear,strColor,strMileage,strRegCity,strPrice;
+
     ViewPager viewPager;
     Image_slide customSwipe;
 
@@ -46,6 +49,14 @@ TextView carname,year,add,regyear,color,mileage;
         setContentView(R.layout.activity_car_details);
         Firebase.setAndroidContext(this);
 
+        carname=(TextView) findViewById(R.id.car_name);
+        color=(TextView) findViewById(R.id.exterior_colorshow);
+        location=(TextView) findViewById(R.id.location);
+        mileage=(TextView) findViewById(R.id.mileage_s);
+        year=(TextView) findViewById(R.id.reg_year_s);
+        price=(TextView) findViewById(R.id.car_price);
+        contact=(TextView) findViewById(R.id.txt_Contact);
+
 
 
         passed_add_id=getIntent().getExtras().getString("Add ID");
@@ -53,7 +64,32 @@ TextView carname,year,add,regyear,color,mileage;
         ref=new Firebase("https://car-sales-f4f9c.firebaseio.com/");
         ref=ref.child("Adverts").child(passed_add_id);
 
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                strColor=dataSnapshot.child("Color").getValue().toString();
+                strMileage=dataSnapshot.child("Mileage").getValue().toString();
+                strYear=dataSnapshot.child("Model Year").getValue().toString();
+                strCarName=dataSnapshot.child("Model").getValue().toString();
+                strRegCity=dataSnapshot.child("Registration City").getValue().toString();
+                strPrice=dataSnapshot.child("Price").getValue().toString();
 
+                carname.setText(strCarName);
+                color.setText(strColor);
+                location.setText(strRegCity);
+                mileage.setText(strMileage);
+                price.setText(strPrice);
+                year.setText(strRegYear);
+                contact.setText(strContact);
+
+                //String strCarName,strYear,strAdd,strRegYear,strColor,strMileage;
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
 
 
 
