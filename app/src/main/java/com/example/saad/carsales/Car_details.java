@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
@@ -38,10 +39,23 @@ TextView carname,year,add,regyear,color,mileage;
             R.drawable.transmission};
 
     Firebase ref;
+    String passed_add_id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_car_details);
+        Firebase.setAndroidContext(this);
+
+
+
+        passed_add_id=getIntent().getExtras().getString("Add ID");
+
+        ref=new Firebase("https://car-sales-f4f9c.firebaseio.com/");
+        ref=ref.child("Adverts").child(passed_add_id);
+
+
+
+
 
         image.add(R.drawable.buyer);
         image.add(R.drawable.sell);

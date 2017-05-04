@@ -6,7 +6,7 @@ package com.example.saad.carsales;
 
 public class Add {
 
-    private String title, Car_owner, year;
+    private String title, Car_owner, year, Add_id;
 
     public Add() {
     }
@@ -40,4 +40,8 @@ public class Add {
     public void setCar_owner(String Car_owner) {
         this.Car_owner = Car_owner;
     }
+
+    public String getAdd_id() { return Add_id; }
+
+    public void setAdd_id(String Add_id) { this.Add_id= Add_id; }
 }

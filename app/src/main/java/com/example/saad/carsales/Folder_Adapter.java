@@ -7,6 +7,7 @@ package com.example.saad.carsales;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,7 +44,7 @@ public class Folder_Adapter extends RecyclerView.Adapter<Folder_Adapter.MyViewHo
     @Override
     public void onBindViewHolder(final Folder_Adapter.MyViewHolder holder, final int position) {
 
-        Add current = Add.get(position);
+        final Add current = Add.get(position);
         holder.title.setText(current.getTitle());
         holder.car_owner.setText("Owner Name: " + current.getCar_owner());
         holder.year.setText("Model year: " + current.getYear());
@@ -52,6 +53,10 @@ public class Folder_Adapter extends RecyclerView.Adapter<Folder_Adapter.MyViewHo
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(context,Car_details.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("Add ID",current.getAdd_id());
+                i.putExtras(bundle);
+
                 context.startActivity(i);
                 holder.fc.toggle(false);
             }
