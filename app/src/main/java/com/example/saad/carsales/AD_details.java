@@ -2,7 +2,6 @@ package com.example.saad.carsales;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -37,7 +36,7 @@ public class AD_details extends AppCompatActivity {
     ListView models;
     ArrayAdapter MODELS;
     String[] CAR_MODELS;
-    EditText modelYear, RegCity, Mileage,Price, color, S_Name, S_Contact, S_Address;
+    EditText modelYear, RegCity, Mileage,Engine_Capacity,Price, color, S_Name, S_Contact, S_Address;
     String key,Name,contactInfo,car_model;
     Firebase ref;
 
@@ -59,6 +58,7 @@ public class AD_details extends AppCompatActivity {
         Mileage = (EditText) findViewById(R.id.mileage);
         color = (EditText) findViewById(R.id.body_color);
         Price = (EditText) findViewById(R.id.Price);
+        Engine_Capacity = (EditText) findViewById(R.id.Eng_cap);
         S_Name = (EditText) findViewById(R.id.name);
         S_Address = (EditText) findViewById(R.id.seller_address);
         S_Contact = (EditText) findViewById(R.id.contact);
@@ -130,6 +130,7 @@ public class AD_details extends AppCompatActivity {
                 String year=modelYear.getText().toString();
                 String regCity=RegCity.getText().toString();
                 String mileage=Mileage.getText().toString();
+                String eng_cap = Engine_Capacity.getText().toString();
                 String bodyColor=color.getText().toString();
                 String price=Price.getText().toString();
                 String name=S_Name.getText().toString();
@@ -141,6 +142,7 @@ public class AD_details extends AppCompatActivity {
                 hashMap.put("Model Year",year);
                 hashMap.put("Registration City",regCity);
                 hashMap.put("Mileage",mileage);
+                hashMap.put("Engine Capacity",eng_cap);
                 hashMap.put("Body Color",bodyColor);
                 hashMap.put("Price",price);
                 hashMap.put("Name",name);
