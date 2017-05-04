@@ -25,7 +25,7 @@ import java.util.ArrayList;
 
 public class Car_details extends AppCompatActivity implements ViewPager.OnPageChangeListener {
     ArrayList<Integer> image=new ArrayList<Integer>();
-TextView carname,year,location,regyear,color,mileage,contact,price;
+TextView carname,location,regyear,color,mileage,contact,price;
     String strCarName,strYear,strContact,strRegYear,strColor,strMileage,strRegCity,strPrice;
 
     ViewPager viewPager;
@@ -53,7 +53,7 @@ TextView carname,year,location,regyear,color,mileage,contact,price;
         color=(TextView) findViewById(R.id.exterior_colorshow);
         location=(TextView) findViewById(R.id.location);
         mileage=(TextView) findViewById(R.id.mileage_s);
-        year=(TextView) findViewById(R.id.reg_year_s);
+        regyear=(TextView) findViewById(R.id.reg_year_s);
         price=(TextView) findViewById(R.id.car_price);
         contact=(TextView) findViewById(R.id.txt_Contact);
 
@@ -73,13 +73,14 @@ TextView carname,year,location,regyear,color,mileage,contact,price;
                 strCarName=dataSnapshot.child("Model").getValue().toString();
                 strRegCity=dataSnapshot.child("Registration City").getValue().toString();
                 strPrice=dataSnapshot.child("Price").getValue().toString();
+                strContact=dataSnapshot.child("Contact").getValue().toString();
 
                 carname.setText(strCarName);
                 color.setText(strColor);
                 location.setText(strRegCity);
                 mileage.setText(strMileage);
                 price.setText(strPrice);
-                year.setText(strRegYear);
+                regyear.setText(strYear);
                 contact.setText(strContact);
 
                 //String strCarName,strYear,strAdd,strRegYear,strColor,strMileage;
