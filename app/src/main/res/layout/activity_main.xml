@@ -110,36 +110,43 @@
     </android.support.v7.widget.CardView>
 
 
+        <TextView
+            android:text="Saad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/name_txt"
+            android:textSize="24sp"
+            android:layout_above="@+id/buy_load"
+            android:layout_toEndOf="@+id/letter"
+            android:layout_marginStart="10dp" />
+
         <com.dx.dxloadingbutton.lib.LoadingButton
             android:id="@+id/buy_load"
-            android:layout_gravity="center"
             app:lb_resetAfterFailed="true"
             app:lb_btnRippleColor="#000000"
             app:lb_btnColor="#9984D4"
             android:layout_height="wrap_content"
             android:minHeight="0dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="50dp"
             app:lb_textColor="@android:color/white"
             app:lb_btnText="Buy"
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_below="@+id/letter"
-            android:layout_centerHorizontal="true"
-            android:layout_marginLeft="40dp" />
+            android:layout_centerHorizontal="true" />
 
         <com.dx.dxloadingbutton.lib.LoadingButton
             android:id="@+id/sell_load"
-            android:layout_gravity="center"
             android:layout_height="wrap_content"
             app:lb_resetAfterFailed="true"
             app:lb_btnRippleColor="#000000"
             app:lb_btnColor="#9984D4"
             app:lb_textColor="@android:color/white"
             app:lb_btnText="Sell"
-            android:layout_width="match_parent"
+            android:layout_marginTop="15dp"
+            android:layout_width="300dp"
             android:layout_below="@+id/buy_load"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="40dp" />
+            android:layout_alignStart="@+id/buy_load"
+            android:layout_centerHorizontal="true" />
 
         <com.veer.shapeletter.ShapeLetter
             android:layout_width="56dp"
@@ -150,20 +157,10 @@
             app:shape="oval"
             app:shape_color="@color/primarypurple"
             android:id="@+id/letter"
-            android:layout_marginTop="33dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginStart="30dp"
             android:layout_below="@+id/Arc"
-            android:layout_marginLeft="40dp"
-            android:layout_alignParentLeft="false" />
-
-        <TextView
-            android:text="Saad"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/name_txt"
-            android:textSize="24sp"
-            android:layout_above="@+id/buy_load"
-            android:layout_toEndOf="@+id/letter"
-            android:layout_marginStart="10dp" />
+            android:layout_alignParentStart="true" />
 
     </RelativeLayout>
 </ScrollView>
