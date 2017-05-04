@@ -29,10 +29,12 @@
         android:layout_alignLeft="@+id/fab"
 
         android:visibility="invisible"
-        app:backgroundTint="@color/colorFAB2"
+        app:backgroundTint="@color/colorPrimary"
         app:elevation="6dp"
         app:pressedTranslationZ="12dp"
-        android:src="@drawable/ac" />
+        android:src="@drawable/plus"
+        app:srcCompat="@drawable/rounded_rectangle" />
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab1"
         android:layout_width="wrap_content"
@@ -44,7 +46,7 @@
 
         android:visibility="invisible"
         app:elevation="6dp"
-        app:backgroundTint="@color/colorFAB1"
+        app:backgroundTint="@android:color/holo_orange_dark"
         app:pressedTranslationZ="12dp"
         android:src="@drawable/plus" />
     <android.support.design.widget.FloatingActionButton
@@ -52,12 +54,13 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         app:fabSize="normal"
-        app:srcCompat="@drawable/car"
+        app:srcCompat="@drawable/search"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="62dp"
         android:layout_marginBottom="46dp"
-        android:id="@+id/fab" />
+        android:id="@+id/fab"
+        app:backgroundTint="@android:color/holo_blue_light" />
 
 
 </RelativeLayout>
