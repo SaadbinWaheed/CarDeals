@@ -60,6 +60,9 @@ public class MainActivity extends AppCompatActivity {
                                         new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int which) {
                                                 mAuth.signOut();
+                                                Intent intent=new Intent(MainActivity.this,Sign_Signup.class);
+                                                startActivity(intent);
+
 
                                             }
                                         });

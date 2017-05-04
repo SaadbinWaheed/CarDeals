@@ -30,10 +30,6 @@ public class Signup_Form extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.seller_login);
 
-        Bundle b= getIntent().getExtras();
-        Name=b.getString("Name");
-        contactInfo = b.getString("Contact Info");
-
 
         mail = (EditText) findViewById(R.id.s_mail);
         name = (EditText) findViewById(R.id.s_name);

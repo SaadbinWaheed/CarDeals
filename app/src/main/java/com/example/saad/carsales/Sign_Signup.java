@@ -74,68 +74,74 @@ public class Sign_Signup extends AppCompatActivity {
     }
 
 
-    private void userLogin()
-    {
-        final String username=Email.getText().toString();
-        String password=Password.getText().toString();
+    private void userLogin() {
+        final String username = Email.getText().toString();
+        String password = Password.getText().toString();
 
-        final Firebase ref=new Firebase("https://car-sales-f4f9c.firebaseio.com/").child("Users");
+        final Firebase ref = new Firebase("https://car-sales-f4f9c.firebaseio.com/").child("Users");
 
-        firebaseAuth.signInWithEmailAndPassword(username,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(Task<AuthResult> task) {
-                if ( task.isSuccessful())
-                {
-                    if (firebaseAuth.getCurrentUser() !=null) {
+        if (!(username.equals("") || password.equals(""))) {
+            firebaseAuth.signInWithEmailAndPassword(username, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        if (firebaseAuth.getCurrentUser() != null) {
 
-                        ref.addChildEventListener(new ChildEventListener() {
-                            @Override
-                            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                                Toast.makeText(Sign_Signup.this, dataSnapshot.child("Email").getValue().toString(), Toast.LENGTH_SHORT).show();
-                                if (dataSnapshot.child("Email").getValue().toString().equals(username)) {
-                                    name = dataSnapshot.child("Name").getValue().toString();
-                                    contact = dataSnapshot.child("Contact info").getValue().toString();
+                            ref.addChildEventListener(new ChildEventListener() {
+                                @Override
+                                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                                    Toast.makeText(Sign_Signup.this, dataSnapshot.child("Email").getValue().toString(), Toast.LENGTH_SHORT).show();
+                                    if (dataSnapshot.child("Email").getValue().toString().equals(username)) {
+                                        name = dataSnapshot.child("Name").getValue().toString();
+                                        contact = dataSnapshot.child("Contact info").getValue().toString();
+                                    } else
+                                        name = "Default";
+                                    contact = "000";
                                 }
-                                else
-                                    name = "Default";
-                                contact="000";
-                            }
 
-                            @Override
-                            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                                @Override
+                                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
-                            }
+                                }
 
-                            @Override
-                            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                                @Override
+                                public void onChildRemoved(DataSnapshot dataSnapshot) {
 
-                            }
+                                }
 
-                            @Override
-                            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                                @Override
+                                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
 
-                            }
+                                }
 
-                            @Override
-                            public void onCancelled(FirebaseError firebaseError) {
+                                @Override
+                                public void onCancelled(FirebaseError firebaseError) {
 
-                            }
-                        });
+                                }
+                            });
+                        }
+
+
+                        Toast.makeText(Sign_Signup.this, "Logged in", Toast.LENGTH_LONG).show();
+                        Intent signin = new Intent(Sign_Signup.this, MainActivity.class);
+                        Bundle b = new Bundle();
+                        b.putString("Name", name);
+                        b.putString("Contact Info", contact);
+                        signin.putExtras(b);
+
+                        startActivity(signin);
                     }
 
-
-                    Toast.makeText(Sign_Signup.this,"Logged in",Toast.LENGTH_LONG).show();
-                    Intent signin=new Intent(Sign_Signup.this,MainActivity.class);
-                    Bundle b= new Bundle();
-                    b.putString("Name", name);
-                    b.putString("Contact Info", contact);
-                    signin.putExtras(b);
-
-                    startActivity(signin);
                 }
+            });
+        }
+        else
+        {
+            Toast.makeText(Sign_Signup.this, "Fill in the Username and Password", Toast.LENGTH_LONG).show();
+        }
 
-            }
-        });
+
+
     }
 
 
