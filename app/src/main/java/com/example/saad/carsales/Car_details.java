@@ -13,6 +13,12 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.firebase.client.ChildEventListener;
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+
 import java.util.ArrayList;
 
 public class Car_details extends AppCompatActivity implements ViewPager.OnPageChangeListener {
@@ -31,10 +37,12 @@ TextView carname,year,add,regyear,color,mileage;
             R.drawable.civic,
             R.drawable.transmission};
 
+    Firebase ref;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_car_details);
+
         image.add(R.drawable.buyer);
         image.add(R.drawable.sell);
         image.add(R.drawable.car);

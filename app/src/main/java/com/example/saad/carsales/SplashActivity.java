@@ -35,7 +35,6 @@ public class SplashActivity extends AppCompatActivity {
             ref.addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                    Toast.makeText(SplashActivity.this, dataSnapshot.child("Email").getValue().toString(), Toast.LENGTH_SHORT).show();
                     if (dataSnapshot.child("Email").getValue().toString().equals(email))
                     {name = dataSnapshot.child("Name").getValue().toString();
                         contact = dataSnapshot.child("Contact info").getValue().toString();}
