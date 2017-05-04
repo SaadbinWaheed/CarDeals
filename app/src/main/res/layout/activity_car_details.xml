@@ -60,13 +60,12 @@
 
 <TextView
 
-    android:layout_marginTop="5dp"
     android:background="@android:color/white"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:layout_below="@id/viewPager"
     android:text="Engine Capacity"
-    android:textSize="15sp"
+    android:textSize="17sp"
     android:id="@+id/engine"
     android:paddingLeft="10dp"
 
@@ -98,17 +97,7 @@
         android:textColor="@android:color/black"
         android:paddingRight="10dp"
         />
-    <TextView
-        android:background="@android:color/white"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_below="@id/Reg_city"
-        android:text="Exterior Color"
-        android:textSize="17sp"
-        android:layout_marginTop="1dp"
-        android:id="@+id/exterior_color"
-        android:paddingLeft="10dp"
-        />
+
     <TextView
         android:textColor="@android:color/black"
         android:layout_width="wrap_content"
@@ -116,6 +105,7 @@
         android:layout_below="@id/Reg_city"
         android:text="Black"
         android:textSize="17sp"
+        android:layout_marginTop="1dp"
         android:textAlignment="viewEnd"
         android:layout_toRightOf="@+id/exterior_color"
         android:background="@android:color/white"
@@ -158,28 +148,31 @@
         android:editable="false" />
 
     <TextView
-        android:background="@android:color/white"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:text="8000cc"
-        android:layout_below="@+id/viewPager"
-        android:layout_toRightOf="@+id/engine"
-        android:textSize="17sp"
-        android:textAlignment="viewEnd"
-        android:id="@+id/engineshow"
-        android:paddingRight="10dp"
-        android:textColor="@android:color/black"
-        android:layout_alignParentEnd="true" />
+    android:background="@android:color/white"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:text="2017"
+    android:layout_below="@+id/add_id"
+    android:layout_toRightOf="@+id/reg_year"
+    android:textSize="17sp"
+    android:textAlignment="viewEnd"
+    android:id="@+id/reg_year_s"
+    android:paddingRight="10dp"
+        android:layout_marginTop="1dp"
+    android:textColor="@android:color/black"
+    android:layout_alignParentEnd="true" />
+
     <TextView
         android:background="@android:color/white"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:text="2017"
-        android:layout_below="@+id/add_id"
-        android:layout_toRightOf="@+id/reg_year"
+        android:text="12435"
+        android:layout_below="@+id/reg_year"
+        android:layout_toRightOf="@+id/mileage"
         android:textSize="17sp"
+        android:layout_marginTop="1dp"
         android:textAlignment="viewEnd"
-        android:id="@+id/reg_year_s"
+        android:id="@+id/mileage_s"
         android:paddingRight="10dp"
         android:textColor="@android:color/black"
         android:layout_alignParentEnd="true" />
@@ -188,12 +181,53 @@
         android:layout_width="wrap_content"
         android:layout_marginTop="1dp"
         android:layout_height="match_parent"
-        android:layout_below="@id/add_id"
-        android:text="Registration Year"
+        android:layout_below="@id/reg_year"
+        android:text="Mileage"
         android:textSize="17sp"
-        android:id="@+id/reg_year"
+        android:id="@+id/mileage"
         android:paddingLeft="10dp"
 
         />
+
+    <TextView
+        android:background="@android:color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="Exterior Color"
+        android:textSize="17sp"
+        android:id="@+id/exterior_color"
+        android:layout_marginTop="1dp"
+        android:paddingLeft="10dp"
+        android:layout_alignBaseline="@+id/exterior_colorshow"
+        android:layout_alignBottom="@+id/exterior_colorshow"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:background="@android:color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="8000cc"
+        android:textSize="17sp"
+        android:textAlignment="viewEnd"
+        android:id="@+id/engineshow"
+        android:paddingRight="10dp"
+        android:layout_toRightOf="@+id/engine"
+        android:textColor="@android:color/black"
+        android:layout_alignBaseline="@+id/engine"
+        android:layout_alignBottom="@+id/engine"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:background="@android:color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="Registration Year"
+        android:textSize="17sp"
+        android:layout_marginTop="1dp"
+        android:id="@+id/reg_year"
+        android:paddingLeft="10dp"
+
+        android:layout_below="@+id/add_id"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>
 </ScrollView>

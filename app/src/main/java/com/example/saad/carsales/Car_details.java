@@ -25,7 +25,7 @@ public class Car_details extends AppCompatActivity implements ViewPager.OnPageCh
     ArrayList<Integer> image=new ArrayList<Integer>();
 TextView carname,year,add,regyear,color,mileage;
     ViewPager viewPager;
-    Image_slide customSwip;
+    Image_slide customSwipe;
 
     public int dotsCount=5;
     public ImageView[] dots;
@@ -48,32 +48,32 @@ TextView carname,year,add,regyear,color,mileage;
         image.add(R.drawable.car);
         image.add(R.drawable.buyer);
         viewPager = (ViewPager) findViewById(R.id.viewPager);
-        customSwip = new Image_slide(this,imageResources);
-        viewPager.setAdapter(customSwip);
+        customSwipe = new Image_slide(this,imageResources);
+        viewPager.setAdapter(customSwipe);
         setUiPageViewController();
 
 
         SharedPreferences details = getSharedPreferences("my_prefs", 0);
-        String car_name = details.getString("Model","");
+    /*    String car_name = details.getString("Model","");
         String clr=details.getString("Color","");
         String reg_year = details.getString("Registraion_Year", "");
         String address = details.getString("Address", "");
-        String miles = details.getString("Mileage", "");
+        String miles = details.getString("Mileage", "");*/
         Image_adapter car_img=new Image_adapter(Car_details.this,image);
 //        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        carname=(TextView) findViewById(R.id.car_name);
+     /*   carname=(TextView) findViewById(R.id.car_name);
         color=(TextView) findViewById(R.id.exterior_colorshow);
         add=(TextView) findViewById(R.id.location);
 //        mileage=(TextView) findViewById(R.id.miles);
         color.setText(clr);
         add.setText(address);
 //        mileage.setText(miles);
-        carname.setText(car_name);
+        carname.setText(car_name);*/
 
     }
     public void setUiPageViewController() {
 
-        dotsCount = customSwip.getCount();
+        dotsCount = customSwipe.getCount();
         dots = new ImageView[dotsCount];
 
         for (int i = 0; i < dotsCount; i++) {

@@ -17,6 +17,8 @@ import com.firebase.client.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.veer.shapeletter.ShapeLetter;
 
+import static com.veer.shapeletter.R.styleable.ShapeLetter;
+
 public class MainActivity extends AppCompatActivity {
     CardView Buy,Sell;
     Button foldingCards_btn;
