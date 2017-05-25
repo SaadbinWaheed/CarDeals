@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dx.dxloadingbutton.lib.LoadingButton;
+import com.example.saad.carsales.Adapters.Ads_Approve;
 import com.firebase.client.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.veer.shapeletter.ShapeLetter;
@@ -43,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
         name_txt.setText(Name);
 
         sl.setTitleText(Name.substring(0,1).toUpperCase());
-
         sl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -103,7 +103,14 @@ public class MainActivity extends AppCompatActivity {
 //                startActivity(n);
 //            }
 //        });
-
+final LoadingButton ads=(LoadingButton)findViewById(R.id.ads_load);
+        ads.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent ads_approve=new Intent(MainActivity.this, Ads_Approve.class);
+                startActivity(ads_approve);
+            }
+        });
         final LoadingButton buy_lb = (LoadingButton)findViewById(R.id.buy_load);
         buy_lb.setOnClickListener(new View.OnClickListener() {
             @Override

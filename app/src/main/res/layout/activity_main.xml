@@ -124,7 +124,7 @@
             android:id="@+id/buy_load"
             app:lb_resetAfterFailed="true"
             app:lb_btnRippleColor="#000000"
-            app:lb_btnColor="#9984D4"
+            app:lb_btnColor="#8eacbb"
             android:layout_height="wrap_content"
             android:minHeight="0dp"
             android:layout_marginTop="50dp"
@@ -139,7 +139,7 @@
             android:layout_height="wrap_content"
             app:lb_resetAfterFailed="true"
             app:lb_btnRippleColor="#000000"
-            app:lb_btnColor="#9984D4"
+            app:lb_btnColor="#8eacbb"
             app:lb_textColor="@android:color/white"
             app:lb_btnText="Sell"
             android:layout_marginTop="15dp"
@@ -147,7 +147,19 @@
             android:layout_below="@+id/buy_load"
             android:layout_alignStart="@+id/buy_load"
             android:layout_centerHorizontal="true" />
-
+        <com.dx.dxloadingbutton.lib.LoadingButton
+            android:id="@+id/ads_load"
+            android:layout_height="wrap_content"
+            app:lb_resetAfterFailed="true"
+            app:lb_btnRippleColor="#000000"
+            app:lb_btnColor="#8eacbb"
+            app:lb_textColor="@android:color/white"
+            app:lb_btnText="Ads Approve"
+            android:layout_marginTop="15dp"
+            android:layout_width="300dp"
+            android:layout_below="@+id/sell_load"
+            android:layout_alignStart="@+id/buy_load"
+            android:layout_centerHorizontal="true" />
         <com.veer.shapeletter.ShapeLetter
             android:layout_width="56dp"
             android:layout_height="56dp"

@@ -61,19 +61,24 @@ public class Signup_Form extends AppCompatActivity {
                                 !pass.getText().toString().equals("") &&
                                 !c_pass.getText().toString().equals("") &&
                                 !contact.getText().toString().equals("")) {
+
                             if (pass.getText().toString().equals(c_pass.getText().toString())) {
                                 //Toast.makeText(Signup_Form.this, "PROCEED", Toast.LENGTH_SHORT).show();
                                 Check();
                                 Proceed.loadingSuccessful();
                                 signup();
 
-                            } else {
+                            }
+
+                            else {
                                 Toast.makeText(Signup_Form.this, "Password Confirmation Error ", Toast.LENGTH_SHORT).show();
                                 Check();
 
 
                             }
-                        } else {
+                        }
+
+                        else {
                             Toast.makeText(Signup_Form.this, "Please Fill Information", Toast.LENGTH_SHORT).show();
                             Check();
 
@@ -91,25 +96,34 @@ public class Signup_Form extends AppCompatActivity {
 
 
     void Check(){
+
         if(mail.getText().toString().equals(""))
             mail.setBackgroundColor(Color.parseColor("#ffa0ab"));
+
         if(name.getText().toString().equals(""))
             name.setBackgroundColor(Color.parseColor("#ffa0ab"));
+
         if(pass.getText().toString().equals(""))
             pass.setBackgroundColor(Color.parseColor("#ffa0ab"));
+
         if(c_pass.getText().toString().equals(""))
             c_pass.setBackgroundColor(Color.parseColor("#ffa0ab"));
+
         if(contact.getText().toString().equals(""))
             contact.setBackgroundColor(Color.parseColor("#ffa0ab"));
 
         if(!mail.getText().toString().equals(""))
             mail.setBackgroundColor(Color.parseColor("#ffffff"));
+
         if(!name.getText().toString().equals(""))
             name.setBackgroundColor(Color.parseColor("#ffffff"));
+
         if(!pass.getText().toString().equals(""))
             pass.setBackgroundColor(Color.parseColor("#ffffff"));
+
         if(!c_pass.getText().toString().equals(""))
             c_pass.setBackgroundColor(Color.parseColor("#ffffff"));
+
         if(!contact.getText().toString().equals(""))
             contact.setBackgroundColor(Color.parseColor("#ffffff"));
 
