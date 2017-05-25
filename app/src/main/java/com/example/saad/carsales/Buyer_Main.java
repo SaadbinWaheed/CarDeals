@@ -145,7 +145,6 @@ public class Buyer_Main extends AppCompatActivity {
 
                 current.setTitle(dataSnapshot.child("Model").getValue().toString());
                 current.setYear(dataSnapshot.child("Model Year").getValue().toString());
-                current.setCar_owner(dataSnapshot.child("Seller Name").getValue().toString());
                 current.setCar_owner(dataSnapshot.child("Name").getValue().toString());
                 current.setAdd_id(dataSnapshot.getKey().toString());
 
