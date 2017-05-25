@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:text="    Add Photos     "
 
-            android:textSize="17sp"
+            android:textSize="16sp"
             android:textAlignment="center"
             android:layout_below="@+id/img1"
             android:layout_toEndOf="@+id/img1"
@@ -62,7 +62,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/images"
         android:text="CAR DETAILS"
-        android:textColor="@color/primarypurple"
+        android:textColor="@android:color/black"
         android:textStyle="bold"
         android:textSize="20sp"
         android:layout_marginTop="25dp"/>
@@ -78,7 +78,7 @@
         android:singleLine="true"
         android:textColor="@android:color/black"
         android:background="@android:color/white"
-        android:textSize="17sp"
+        android:textSize="18sp"
         android:elegantTextHeight="false"
         android:ellipsize="start"
         android:textAlignment="center" />
@@ -94,7 +94,7 @@
         android:singleLine="true"
         android:textColor="@android:color/black"
         android:background="@android:color/white"
-        android:textSize="17sp"/>
+        android:textSize="18sp"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="35dp"
@@ -107,7 +107,7 @@
         android:singleLine="true"
         android:textColor="@android:color/black"
         android:background="@android:color/white"
-        android:textSize="17sp"/>
+        android:textSize="18sp"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -121,12 +121,25 @@
         android:singleLine="true"
         android:textColor="@android:color/black"
         android:background="@android:color/white"
-        android:textSize="17sp"/>
+        android:textSize="18sp"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:id="@+id/Eng_cap"
+        android:layout_below="@+id/mileage"
+        android:layout_marginTop="25dp"
+        android:hint="Engine Capacity"
+        android:textAlignment="center"
+        android:inputType="number"
+        android:singleLine="true"
+        android:textColor="@android:color/black"
+        android:background="@android:color/white"
+        android:textSize="18sp"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="35dp"
         android:id="@+id/body_color"
-        android:layout_below="@+id/mileage"
+        android:layout_below="@+id/Eng_cap"
         android:layout_marginTop="25dp"
         android:hint="Body Color"
         android:textAlignment="center"
@@ -134,7 +147,7 @@
         android:singleLine="true"
         android:textColor="@android:color/black"
         android:background="@android:color/white"
-        android:textSize="17sp"/>
+        android:textSize="18sp"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="35dp"
@@ -147,20 +160,19 @@
         android:singleLine="true"
         android:textColor="@android:color/black"
         android:background="@android:color/white"
-        android:textSize="17sp"/>
+        android:textSize="18sp"/>
     <Button
-        android:layout_centerHorizontal="true"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
+
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
         android:id="@+id/location"
-        android:elevation="6dp"
         android:layout_below="@+id/Price"
         android:layout_marginTop="25dp"
         android:text="Add Location"
         android:textAlignment="center"
         android:singleLine="true"
         android:textColor="@android:color/white"
-        android:background="#9984D4"
+        android:background="@android:color/black"
         android:textSize="18sp"/>
 
     <TextView
@@ -169,7 +181,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/location"
         android:text="PERSONAL INFO"
-        android:textColor="@color/primarypurple"
+        android:textColor="@android:color/black"
         android:textStyle="bold"
         android:textSize="20sp"
         android:layout_marginTop="25dp"/>
@@ -185,7 +197,7 @@
         android:singleLine="true"
         android:textColor="@android:color/black"
         android:background="@android:color/white"
-        android:textSize="17sp"/>
+        android:textSize="18sp"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="35dp"
@@ -198,7 +210,7 @@
         android:singleLine="true"
         android:textColor="@android:color/black"
         android:background="@android:color/white"
-        android:textSize="17sp"/>
+        android:textSize="18sp"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="35dp"
@@ -211,18 +223,17 @@
         android:singleLine="true"
         android:textColor="@android:color/black"
         android:background="@android:color/white"
-        android:textSize="17sp"/>
+        android:textSize="18sp"/>
 
     <Button
         android:id="@+id/details_done"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:text="DONE"
-        android:textSize="17sp"
+        android:textSize="18sp"
         android:textColor="@android:color/white"
-        android:background="#9984D4"
+        android:background="@color/primarypurple"
         android:elevation="6dp"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
         android:layout_below="@id/seller_address"/>
 </RelativeLayout>

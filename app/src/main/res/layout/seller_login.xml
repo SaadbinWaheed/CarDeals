@@ -90,7 +90,7 @@
         android:minHeight="0dp"
         android:layout_marginTop="40dp"
         app:lb_textColor="@android:color/white"
-        app:lb_btnText="Buy"
+        app:lb_btnText="Proceed"
         android:layout_width="300dp"
         android:layout_below="@+id/s_contact"
         android:layout_centerHorizontal="true" />

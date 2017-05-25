@@ -88,6 +88,8 @@ public class Folder_Adapter extends RecyclerView.Adapter<Folder_Adapter.MyViewHo
         public TextView title, year, car_owner;
             public Button info;
             FoldingCell fc;
+
+
             //        // attach click listener to folding cell
 //        fc.setOnClickListener(new View.OnClickListener() {
 //            @Override

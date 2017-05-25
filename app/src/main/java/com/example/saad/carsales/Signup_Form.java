@@ -150,7 +150,7 @@ public class Signup_Form extends AppCompatActivity {
                             String key=ref.child("Users").push().getKey();
                             ref.child("Users").child(key).child("Name").setValue(Name);
                             ref.child("Users").child(key).child("Email").setValue(email);
-                            ref.child("Users").child(key).child("Contact Info").setValue(contactinfo);
+                            ref.child("Users").child(key).child("Contact info").setValue(contactinfo);
 
 
                             Intent i = new Intent(Signup_Form.this, AD_details.class);
