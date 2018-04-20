@@ -12,6 +12,8 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -79,7 +81,7 @@ public class Buyer_Main extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 animateFAB();
-                Toast.makeText(Buyer_Main.this, "Cars", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Buyer_Main.this, "Car Model", Toast.LENGTH_LONG).show();
 
                 LayoutInflater inflater = LayoutInflater.from(Buyer_Main.this);
                 View dialog_layout = inflater.inflate(R.layout.list, null);
@@ -88,12 +90,13 @@ public class Buyer_Main extends AppCompatActivity {
                 models = (ListView) dialog_layout.findViewById(R.id.list);
                 db.setView(dialog_layout);
                 final AlertDialog ad = db.show();
+                ad.setTitle("Car Model");
                 models.setAdapter(MODELS);
 
                 models.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        Toast.makeText(Buyer_Main.this, CAR_MODELS[i], Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(Buyer_Main.this, CAR_MODELS[i], Toast.LENGTH_SHORT).show();
                         selection = CAR_MODELS[i];
                         ad.dismiss();
                         Filter_Cars(selection);
@@ -105,27 +108,28 @@ public class Buyer_Main extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 animateFAB();
-                Toast.makeText(Buyer_Main.this, "Years", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Buyer_Main.this, "Manufacture Year", Toast.LENGTH_LONG).show();
 
-                Filter_Year("5");
-                /*LayoutInflater inflater = LayoutInflater.from(Buyer_Main.this);
-                View dialog_layout = inflater.inflate(R.layout.list, null);
+              //  Filter_Year("5");
+                LayoutInflater inflater = LayoutInflater.from(Buyer_Main.this);
+                View dialog_layout = inflater.inflate(R.layout.search, null);
                 AlertDialog.Builder db = new AlertDialog.Builder(Buyer_Main.this);
 
-                models = (ListView) dialog_layout.findViewById(R.id.list);
+              //  models = (EditText) dialog_layout.findViewById(R.id.Sea);
+                final EditText data = (EditText)dialog_layout.findViewById(R.id.Search);
+                Button go = (Button) dialog_layout.findViewById(R.id.go);
                 db.setView(dialog_layout);
                 final AlertDialog ad = db.show();
-                models.setAdapter(MODELS);
+                ad.setTitle("Manufacture Year");
+                //models.setAdapter(MODELS);
 
-                models.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                go.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        Toast.makeText(Buyer_Main.this, CAR_MODELS[i], Toast.LENGTH_SHORT).show();
-                        selection = CAR_MODELS[i];
+                    public void onClick(View view) {
                         ad.dismiss();
-                        Filter_Cars(selection);
+                        Filter_Year(data.getText().toString());
                     }
-                });*/
+                });
             }
         });
     }
@@ -195,7 +199,7 @@ public class Buyer_Main extends AppCompatActivity {
             fab1.setClickable(false);
             fab2.setClickable(false);
             isFabOpen = false;
-            //Log.d("Raj", "close");
+
 
         } else {
 
@@ -232,7 +236,7 @@ public class Buyer_Main extends AppCompatActivity {
     }
     public void Filter_Year(String value) {
         data = new ArrayList<>();
-        Toast.makeText(this, "Default: 5", Toast.LENGTH_SHORT).show();
+       // Toast.makeText(this, "Default: 5", Toast.LENGTH_SHORT).show();
         for (int i = 0; i < year.size(); i++) {
             if (year.get(i).equals(value)) {
                 Add current = new Add();
