@@ -57,8 +57,8 @@
         app:srcCompat="@drawable/search"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="62dp"
-        android:layout_marginBottom="46dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="30dp"
         android:id="@+id/fab"
         app:backgroundTint="@android:color/holo_blue_light" />
 

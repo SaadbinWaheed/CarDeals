@@ -13,7 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dx.dxloadingbutton.lib.LoadingButton;
-import com.example.saad.carsales.Adapters.Ads_Approve;
 import com.firebase.client.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.veer.shapeletter.ShapeLetter;
@@ -28,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     ShapeLetter sl;
     TextView name_txt;
     FirebaseAuth mAuth;
+    private boolean clicked = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,7 +103,8 @@ public class MainActivity extends AppCompatActivity {
 //                startActivity(n);
 //            }
 //        });
-final LoadingButton ads=(LoadingButton)findViewById(R.id.ads_load);
+
+        final LoadingButton ads=(LoadingButton)findViewById(R.id.ads_load);
         ads.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,27 +116,31 @@ final LoadingButton ads=(LoadingButton)findViewById(R.id.ads_load);
         buy_lb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                buy_lb.startLoading(); //start loading
+                if (!clicked) {
+                    clicked = true;
+                    buy_lb.startLoading(); //start loading
 
-                new Handler().postDelayed(new Runnable(){
-                    @Override
-                    public void run() {
-                /* Create an Intent that will start the Menu-Activity. */
-                        buy_lb.loadingSuccessful();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            /* Create an Intent that will start the Menu-Activity. */
+                            buy_lb.loadingSuccessful();
 
-                        new Handler().postDelayed(new Runnable(){
-                            @Override
-                            public void run() {
-                /* Create an Intent that will start the Menu-Activity. */
-                                Intent mainIntent = new Intent(MainActivity.this,Buyer_Main.class);
-                                startActivity(mainIntent);
-                                buy_lb.reset();
-                            }
-                        }, 1000);
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    /* Create an Intent that will start the Menu-Activity. */
+                                    Intent mainIntent = new Intent(MainActivity.this, Buyer_Main.class);
+                                    startActivity(mainIntent);
+                                    buy_lb.reset();
+                                    clicked = false;
+                                }
+                            }, 1000);
 
 
-                    }
-                }, 1000);
+                        }
+                    }, 1000);
+                }
             }
         });
 
@@ -144,31 +149,35 @@ final LoadingButton ads=(LoadingButton)findViewById(R.id.ads_load);
         sell_lb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sell_lb.startLoading(); //start loading
+                if(!clicked) {
+                    clicked = true;
+                    sell_lb.startLoading(); //start loading
 
-                new Handler().postDelayed(new Runnable(){
-                    @Override
-                    public void run() {
-                /* Create an Intent that will start the Menu-Activity. */
-                        sell_lb.loadingSuccessful();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            /* Create an Intent that will start the Menu-Activity. */
+                            sell_lb.loadingSuccessful();
 
-                        new Handler().postDelayed(new Runnable(){
-                            @Override
-                            public void run() {
-                /* Create an Intent that will start the Menu-Activity. */
-                                Intent mainIntent = new Intent(MainActivity.this,AD_details.class);
-                                Bundle b= new Bundle();
-                                b.putString("Name", Name);
-                                b.putString("Contact Info", contactInfo);
-                                mainIntent.putExtras(b);
-                                startActivity(mainIntent);
-                                sell_lb.reset();
-                            }
-                        }, 1000);
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    /* Create an Intent that will start the Menu-Activity. */
+                                    Intent mainIntent = new Intent(MainActivity.this, AD_details.class);
+                                    Bundle b = new Bundle();
+                                    b.putString("Name", Name);
+                                    b.putString("Contact Info", contactInfo);
+                                    mainIntent.putExtras(b);
+                                    startActivity(mainIntent);
+                                    sell_lb.reset();
+                                    clicked = false;
+                                }
+                            }, 1000);
 
 
-                    }
-                }, 1000);
+                        }
+                    }, 1000);
+                }
             }
         });
 
