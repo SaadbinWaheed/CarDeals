@@ -1,4 +1,4 @@
-package com.example.saad.carsales;
+package com.example.saad.carsales.Adapters;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

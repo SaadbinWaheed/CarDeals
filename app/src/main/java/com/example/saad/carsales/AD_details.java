@@ -149,6 +149,8 @@ public class AD_details extends AppCompatActivity {
                 hashMap.put("Name",name);
                 hashMap.put("Contact",contact);
                 hashMap.put("Address",address);
+                hashMap.put("Long", String.valueOf(longitude));
+                hashMap.put("Lat", String.valueOf(latitude));
 
                 ref.child("Adverts").child(key).setValue(hashMap);
                 Toast.makeText(AD_details.this,"Done",Toast.LENGTH_SHORT).show();

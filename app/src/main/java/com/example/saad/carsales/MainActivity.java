@@ -10,14 +10,12 @@ import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.dx.dxloadingbutton.lib.LoadingButton;
+import com.example.saad.carsales.Adapters.Ads_Approve;
 import com.firebase.client.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.veer.shapeletter.ShapeLetter;
-
-import static com.veer.shapeletter.R.styleable.ShapeLetter;
 
 public class MainActivity extends AppCompatActivity {
     CardView Buy,Sell;
