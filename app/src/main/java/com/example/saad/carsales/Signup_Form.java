@@ -25,6 +25,7 @@ public class Signup_Form extends AppCompatActivity {
     FirebaseAuth mAuth;
     String Name;
     String contactInfo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
