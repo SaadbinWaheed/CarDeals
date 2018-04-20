@@ -34,8 +34,8 @@ public class TrackGPS extends Service implements LocationListener {
     boolean canGetLocation = false;
 
     Location loc = null;
-    double latitude = 0;
-    double longitude = 0;
+    double latitude;
+    double longitude;
 
 
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10;

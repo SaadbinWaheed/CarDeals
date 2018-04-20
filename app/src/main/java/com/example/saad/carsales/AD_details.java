@@ -19,6 +19,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.saad.carsales.Adapters.Ads_Approve;
 import com.firebase.client.Firebase;
 
 import java.io.IOException;
@@ -151,7 +152,8 @@ public class AD_details extends AppCompatActivity {
 
                 ref.child("Adverts").child(key).setValue(hashMap);
                 Toast.makeText(AD_details.this,"Done",Toast.LENGTH_SHORT).show();
-
+                Intent intent = new Intent(AD_details.this, Ads_Approve.class);
+                startActivity(intent);
 
             }
         });
