@@ -67,7 +67,7 @@ TextView carname,location,regyear,color,mileage,contact,price;
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                strColor=dataSnapshot.child("Color").getValue().toString();
+                strColor=dataSnapshot.child("Body Color").getValue().toString();
                 strMileage=dataSnapshot.child("Mileage").getValue().toString();
                 strYear=dataSnapshot.child("Model Year").getValue().toString();
                 strCarName=dataSnapshot.child("Model").getValue().toString();

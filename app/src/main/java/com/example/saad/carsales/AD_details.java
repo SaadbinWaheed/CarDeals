@@ -27,7 +27,7 @@ import java.util.HashMap;
 
 public class AD_details extends AppCompatActivity {
     private Button b_getlocation;
-    private TrackGPS gps;
+    private TrackGPS gps = null;
     double longitude;
     double latitude;
     int img_nmbr;
@@ -69,6 +69,7 @@ public class AD_details extends AppCompatActivity {
         img3 = (ImageView) findViewById(R.id.img3);
         Model = (TextView) findViewById(R.id.car_model);
         done = (Button) findViewById(R.id.details_done);
+        b_getlocation = (Button) findViewById(R.id.location);
 
         S_Contact.setText(contactInfo);
         S_Name.setText(Name);
@@ -154,19 +155,19 @@ public class AD_details extends AppCompatActivity {
 
                 ref.child("Adverts").child(key).setValue(hashMap);
                 Toast.makeText(AD_details.this,"Done",Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(AD_details.this, Ads_Approve.class);
+                Intent intent = new Intent(AD_details.this, MainActivity.class);
                 startActivity(intent);
 
             }
         });
-        b_getlocation = (Button) findViewById(R.id.location);
 
         b_getlocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                gps = new TrackGPS(AD_details.this);
-
+                if (gps==null)
+                    gps = new TrackGPS(AD_details.this);
+                gps.getLocation();
 
                 if(gps.canGetLocation()){
 
@@ -189,7 +190,7 @@ public class AD_details extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        gps.stopUsingGPS();
+        gps.stopUsingGPS();
     }
 
 

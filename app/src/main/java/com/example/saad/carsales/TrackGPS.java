@@ -46,10 +46,10 @@ public class TrackGPS extends Service implements LocationListener {
 
     public TrackGPS(Context mContext) {
         this.mContext = mContext;
-        getLocation();
+        //getLocation();
     }
 
-    private Location getLocation() {
+    public Location getLocation() {
 
         try {
             locationManager = (LocationManager) mContext.getSystemService(LOCATION_SERVICE);
@@ -101,7 +101,7 @@ public class TrackGPS extends Service implements LocationListener {
                                     MIN_TIME_BW_UPDATES,
                                     MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
                            // Log.d("GPS Enabled", "GPS Enabled");
-                            Toast.makeText(mContext, "TRYING", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(mContext, "Getting Location", Toast.LENGTH_SHORT).show();
                             if (locationManager != null) {
                                 loc = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                                 if (loc != null) {

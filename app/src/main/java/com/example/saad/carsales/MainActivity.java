@@ -180,9 +180,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
-        Buy = (CardView) findViewById(R.id.card_buy);
-        Sell = (CardView) findViewById(R.id.car_sell);
+        Buy = findViewById(R.id.card_buy);
+        Sell = findViewById(R.id.car_sell);
 
         Sell.setOnClickListener(new View.OnClickListener() {
             @Override

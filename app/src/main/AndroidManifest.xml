@@ -44,7 +44,7 @@
         <activity android:name=".Sign_Signup" />
         <activity android:name=".FoldingCards" />
         <activity android:name=".FoldingList" />
-        <activity android:name=".Adapters.Ads_Approve"></activity>
+        <activity android:name=".Adapters.Ads_Approve" />
     </application>
 
 </manifest>

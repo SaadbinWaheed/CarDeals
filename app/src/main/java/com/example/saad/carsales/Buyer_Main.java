@@ -30,12 +30,14 @@ public class Buyer_Main extends AppCompatActivity {
     RecyclerView RV;
     Folder_Adapter adap;
     ArrayList<String> titles,year,carOwner;
+    ArrayList<Float> Long,Lat;
     Firebase ref;
     String[] CAR_MODELS;
     ArrayAdapter MODELS;
     ListView models;
     String selection;
 
+    private TrackGPS gps = null;
     private Boolean isFabOpen = false;
     private FloatingActionButton fab,fab1,fab2;
     private Animation fab_open,fab_close,rotate_forward,rotate_backward;
@@ -55,15 +57,15 @@ public class Buyer_Main extends AppCompatActivity {
                 "Land Cruiser", "Range Rover", "Lamborghini", "Ferrari", "Prius", "Prado", "Hummer"};
         MODELS = new ArrayAdapter<String>(this, R.layout.text_view, CAR_MODELS);
 
-        fab = (FloatingActionButton)findViewById(R.id.fab);
-        fab1 = (FloatingActionButton)findViewById(R.id.fab1);
-        fab2 = (FloatingActionButton)findViewById(R.id.fab2);
+        fab = findViewById(R.id.fab);
+        fab1 = findViewById(R.id.fab1);
+        fab2 = findViewById(R.id.fab2);
         fab_open = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open);
         fab_close = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fab_close);
         rotate_forward = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rot_forward);
         rotate_backward = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rot_backward);
 
-        RV = (RecyclerView) findViewById(R.id.RV);
+        RV = findViewById(R.id.RV);
         adap = new Folder_Adapter(this,getData());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         RV.setAdapter(adap);
@@ -87,7 +89,7 @@ public class Buyer_Main extends AppCompatActivity {
                 View dialog_layout = inflater.inflate(R.layout.list, null);
                 AlertDialog.Builder db = new AlertDialog.Builder(Buyer_Main.this);
 
-                models = (ListView) dialog_layout.findViewById(R.id.list);
+                models = dialog_layout.findViewById(R.id.list);
                 db.setView(dialog_layout);
                 final AlertDialog ad = db.show();
                 ad.setTitle("Car Model");
@@ -110,18 +112,16 @@ public class Buyer_Main extends AppCompatActivity {
                 animateFAB();
                 Toast.makeText(Buyer_Main.this, "Manufacture Year", Toast.LENGTH_LONG).show();
 
-              //  Filter_Year("5");
+
                 LayoutInflater inflater = LayoutInflater.from(Buyer_Main.this);
                 View dialog_layout = inflater.inflate(R.layout.search, null);
                 AlertDialog.Builder db = new AlertDialog.Builder(Buyer_Main.this);
 
-              //  models = (EditText) dialog_layout.findViewById(R.id.Sea);
-                final EditText data = (EditText)dialog_layout.findViewById(R.id.Search);
-                Button go = (Button) dialog_layout.findViewById(R.id.go);
+                final EditText data = dialog_layout.findViewById(R.id.Search);
+                Button go = dialog_layout.findViewById(R.id.go);
                 db.setView(dialog_layout);
                 final AlertDialog ad = db.show();
                 ad.setTitle("Manufacture Year");
-                //models.setAdapter(MODELS);
 
                 go.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -132,25 +132,33 @@ public class Buyer_Main extends AppCompatActivity {
                 });
             }
         });
+
+        if (gps == null)
+            gps = new TrackGPS(Buyer_Main.this);
+        gps.getLocation();
+        Toast.makeText(Buyer_Main.this,"Longitude:"+String.valueOf(gps.longitude)+"\nLatitude:"+String.valueOf(gps.latitude),Toast.LENGTH_SHORT).show();
+
     }
     List<Add> data;
-    public List<Add> getData()
-    {
+    public List<Add> getData() {
          data= new ArrayList<>();
 
         ref.child("Adverts").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Add current= new Add();
-
                 titles.add(dataSnapshot.child("Model").getValue().toString());
                 year.add(dataSnapshot.child("Model Year").getValue().toString());
                 carOwner.add(dataSnapshot.child("Name").getValue().toString());
+          //      Long.add(Float.valueOf(dataSnapshot.child("Long").getValue().toString()));
+           //     Lat.add(Float.valueOf(dataSnapshot.child("Lat").getValue().toString()));
 
                 current.setTitle(dataSnapshot.child("Model").getValue().toString());
                 current.setYear(dataSnapshot.child("Model Year").getValue().toString());
                 current.setCar_owner(dataSnapshot.child("Name").getValue().toString());
                 current.setAdd_id(dataSnapshot.getKey().toString());
+      //          current.setLat(Float.valueOf(dataSnapshot.child("Lat").getValue().toString()));
+      //          current.setLong(Float.valueOf(dataSnapshot.child("Long").getValue().toString()));
 
                 data.add(current);
                 adap.notifyDataSetChanged();
@@ -234,6 +242,7 @@ public class Buyer_Main extends AppCompatActivity {
             RV.setAdapter(adap);
         }
     }
+
     public void Filter_Year(String value) {
         data = new ArrayList<>();
        // Toast.makeText(this, "Default: 5", Toast.LENGTH_SHORT).show();
