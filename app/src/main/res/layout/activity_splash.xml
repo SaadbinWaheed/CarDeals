@@ -19,7 +19,7 @@
         android:layout_alignParentTop="true" />
 
     <TextView
-        android:text="TextView"
+        android:text="   "
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="110dp"

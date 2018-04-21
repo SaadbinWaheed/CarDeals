@@ -109,7 +109,7 @@ public class AD_details extends AppCompatActivity {
                 View dialog_layout = inflater.inflate(R.layout.list, null);
                 AlertDialog.Builder db = new AlertDialog.Builder(AD_details.this);
 
-                models = (ListView) dialog_layout.findViewById(R.id.list);
+                models = dialog_layout.findViewById(R.id.list);
                 db.setView(dialog_layout);
                 final AlertDialog ad = db.show();
                 models.setAdapter(MODELS);
@@ -156,6 +156,10 @@ public class AD_details extends AppCompatActivity {
                 ref.child("Adverts").child(key).setValue(hashMap);
                 Toast.makeText(AD_details.this,"Done",Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(AD_details.this, MainActivity.class);
+                Bundle b = new Bundle();
+                b.putString("Name", Name);
+                b.putString("Contact Info", contactInfo);
+                intent.putExtras(b);
                 startActivity(intent);
             }
         });

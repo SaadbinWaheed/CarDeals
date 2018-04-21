@@ -33,7 +33,6 @@ public void onBindViewHolder(MyViewHolder holder, int position) {
             holder.photos.setImageResource(img.get(position));
         }
 
-
 @Override
 public int getItemCount() {
         return img.size();

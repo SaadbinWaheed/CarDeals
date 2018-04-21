@@ -35,7 +35,6 @@ public class Sign_Signup extends AppCompatActivity {
         if (firebaseAuth.getCurrentUser() != null)
             Toast.makeText(Sign_Signup.this,firebaseAuth.getCurrentUser().getEmail().toString(),Toast.LENGTH_LONG).show();
 
-
         Sign_in = (Button) findViewById(R.id.signin);
         Show_Pass = (CheckBox) findViewById(R.id.show_pass);
         Email = (EditText) findViewById(R.id.email);
@@ -53,7 +52,7 @@ public class Sign_Signup extends AppCompatActivity {
                 }
             }
         });
-        Sign_up = (Button) findViewById(R.id.signup);
+        Sign_up = findViewById(R.id.signup);
 
         Sign_up.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,14 +64,12 @@ public class Sign_Signup extends AppCompatActivity {
         Sign_in.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent signin=new Intent(Sign_Signup.this,MainActivity.class);
-//                startActivity(signin);
+
                 Toast.makeText(Sign_Signup.this,"Checking",Toast.LENGTH_LONG).show();
                 userLogin();
             }
         });
     }
-
 
     private void userLogin() {
         final String username = Email.getText().toString();
@@ -135,8 +132,6 @@ public class Sign_Signup extends AppCompatActivity {
                             });
                         }
 
-
-
                     }
 
                 }
@@ -146,8 +141,6 @@ public class Sign_Signup extends AppCompatActivity {
         {
             Toast.makeText(Sign_Signup.this, "Fill in the Username and Password", Toast.LENGTH_LONG).show();
         }
-
-
 
     }
 

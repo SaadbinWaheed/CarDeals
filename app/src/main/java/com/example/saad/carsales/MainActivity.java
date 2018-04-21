@@ -34,11 +34,11 @@ public class MainActivity extends AppCompatActivity {
         mAuth=FirebaseAuth.getInstance();
 
         Bundle b= getIntent().getExtras();
-        Name=b.getString("Name");
+        Name = b.getString("Name","Default");
         contactInfo=b.getString("Contact Info");
 
-        sl=(ShapeLetter) findViewById(R.id.letter);
-        name_txt=(TextView) findViewById(R.id.name_txt);
+        sl= findViewById(R.id.letter);
+        name_txt= findViewById(R.id.name_txt);
         name_txt.setText(Name);
 
         sl.setTitleText(Name.substring(0,1).toUpperCase());
@@ -62,8 +62,6 @@ public class MainActivity extends AppCompatActivity {
                                                 mAuth.signOut();
                                                 Intent intent=new Intent(MainActivity.this,Sign_Signup.class);
                                                 startActivity(intent);
-
-
                                             }
                                         });
                                 dlgAlert.setNegativeButton("No",

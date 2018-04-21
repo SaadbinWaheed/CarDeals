@@ -142,7 +142,8 @@ public class Buyer_Main extends AppCompatActivity {
     List<Add> data;
     public List<Add> getData() {
          data= new ArrayList<>();
-
+         Long = new ArrayList<>();
+         Lat = new ArrayList<>();
         ref.child("Adverts").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {

@@ -89,6 +89,7 @@
         android:layout_below="@+id/car_model"
         android:layout_marginTop="25dp"
         android:hint="Model Year"
+        android:maxLength="4"
         android:textAlignment="center"
         android:inputType="number"
         android:singleLine="true"
