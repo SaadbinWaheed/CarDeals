@@ -164,7 +164,7 @@
     <Button
 
         android:layout_width="match_parent"
-        android:layout_height="35dp"
+        android:layout_height="50dp"
         android:id="@+id/location"
         android:layout_below="@+id/Price"
         android:layout_marginTop="25dp"
@@ -172,7 +172,7 @@
         android:textAlignment="center"
         android:singleLine="true"
         android:textColor="@android:color/white"
-        android:background="@android:color/black"
+        android:background="@color/primarypurple"
         android:textSize="18sp"/>
 
     <TextView
