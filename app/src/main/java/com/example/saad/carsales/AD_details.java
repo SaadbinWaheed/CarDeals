@@ -157,29 +157,25 @@ public class AD_details extends AppCompatActivity {
                 Toast.makeText(AD_details.this,"Done",Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(AD_details.this, MainActivity.class);
                 startActivity(intent);
-
             }
         });
 
         b_getlocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 if (gps==null)
                     gps = new TrackGPS(AD_details.this);
                 gps.getLocation();
 
                 if(gps.canGetLocation()){
 
-
                     longitude = gps.getLongitude();
                     latitude = gps .getLatitude();
-
                     Toast.makeText(AD_details.this,"Longitude:"+String.valueOf(longitude)+"\nLatitude:"+String.valueOf(latitude),Toast.LENGTH_SHORT).show();
+
                 }
                 else
                 {
-
                     gps.showSettingsAlert();
                 }
 
@@ -190,9 +186,8 @@ public class AD_details extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        gps.stopUsingGPS();
+        //gps.stopUsingGPS();
     }
-
 
     void Image_Pick_Intent(){
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
@@ -223,12 +218,7 @@ public class AD_details extends AppCompatActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
-
-
-
             }
-            //Now you can do whatever you want with your inpustream, save it as file, upload to a server, decode a bitmap...
         }
     }
 }

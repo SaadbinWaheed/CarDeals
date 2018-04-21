@@ -150,15 +150,15 @@ public class Buyer_Main extends AppCompatActivity {
                 titles.add(dataSnapshot.child("Model").getValue().toString());
                 year.add(dataSnapshot.child("Model Year").getValue().toString());
                 carOwner.add(dataSnapshot.child("Name").getValue().toString());
-          //      Long.add(Float.valueOf(dataSnapshot.child("Long").getValue().toString()));
-           //     Lat.add(Float.valueOf(dataSnapshot.child("Lat").getValue().toString()));
+                Long.add(Float.valueOf(dataSnapshot.child("Long").getValue().toString()));
+                Lat.add(Float.valueOf(dataSnapshot.child("Lat").getValue().toString()));
 
                 current.setTitle(dataSnapshot.child("Model").getValue().toString());
                 current.setYear(dataSnapshot.child("Model Year").getValue().toString());
                 current.setCar_owner(dataSnapshot.child("Name").getValue().toString());
                 current.setAdd_id(dataSnapshot.getKey().toString());
-      //          current.setLat(Float.valueOf(dataSnapshot.child("Lat").getValue().toString()));
-      //          current.setLong(Float.valueOf(dataSnapshot.child("Long").getValue().toString()));
+                current.setLat(Float.valueOf(dataSnapshot.child("Lat").getValue().toString()));
+                current.setLong(Float.valueOf(dataSnapshot.child("Long").getValue().toString()));
 
                 data.add(current);
                 adap.notifyDataSetChanged();
@@ -193,7 +193,6 @@ public class Buyer_Main extends AppCompatActivity {
 //
 //
 //        }
-
         return data;
     }
 

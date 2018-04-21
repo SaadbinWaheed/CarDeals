@@ -116,10 +116,8 @@ public class TrackGPS extends Service implements LocationListener {
                         } catch (SecurityException e) {
                             Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_LONG).show();
                         }
-
                 }
             }
-
 
         } catch (Exception e) {
             e.printStackTrace();

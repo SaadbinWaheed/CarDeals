@@ -142,21 +142,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-        final LoadingButton sell_lb = (LoadingButton)findViewById(R.id.sell_load);
+        final LoadingButton sell_lb = findViewById(R.id.sell_load);
         sell_lb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(!clicked) {
                     clicked = true;
                     sell_lb.startLoading(); //start loading
-
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             /* Create an Intent that will start the Menu-Activity. */
                             sell_lb.loadingSuccessful();
-
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
