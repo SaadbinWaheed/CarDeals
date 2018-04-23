@@ -1,5 +1,6 @@
 package com.example.saad.carsales;
 
+import android.location.Location;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
@@ -29,17 +30,19 @@ public class Buyer_Main extends AppCompatActivity {
 
     RecyclerView RV;
     Folder_Adapter adap;
-    ArrayList<String> titles,year,carOwner;
-    ArrayList<Float> Long,Lat;
+    ArrayList<String> titles,year,carOwner,price;
     Firebase ref;
     String[] CAR_MODELS;
     ArrayAdapter MODELS;
     ListView models;
     String selection;
+    Location myloc;
+    List<Add> data,nearest;
+    ArrayList<Location> coords;
 
     private TrackGPS gps = null;
     private Boolean isFabOpen = false;
-    private FloatingActionButton fab,fab1,fab2;
+    private FloatingActionButton main_search,search_model,search_year,search_price;
     private Animation fab_open,fab_close,rotate_forward,rotate_backward;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,9 +60,10 @@ public class Buyer_Main extends AppCompatActivity {
                 "Land Cruiser", "Range Rover", "Lamborghini", "Ferrari", "Prius", "Prado", "Hummer"};
         MODELS = new ArrayAdapter<String>(this, R.layout.text_view, CAR_MODELS);
 
-        fab = findViewById(R.id.fab);
-        fab1 = findViewById(R.id.fab1);
-        fab2 = findViewById(R.id.fab2);
+        main_search = findViewById(R.id.fab);
+        search_model = findViewById(R.id.fab1);
+        search_year = findViewById(R.id.fab2);
+        search_price = findViewById(R.id.fab3);
         fab_open = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open);
         fab_close = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fab_close);
         rotate_forward = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rot_forward);
@@ -71,7 +75,7 @@ public class Buyer_Main extends AppCompatActivity {
         RV.setAdapter(adap);
         RV.setLayoutManager(mLayoutManager);
 
-        fab.setOnClickListener(new View.OnClickListener() {
+        main_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 animateFAB();
@@ -79,7 +83,7 @@ public class Buyer_Main extends AppCompatActivity {
             }
         });
 
-        fab1.setOnClickListener(new View.OnClickListener() {
+        search_model.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 animateFAB();
@@ -106,7 +110,7 @@ public class Buyer_Main extends AppCompatActivity {
                 });
             }
         });
-        fab2.setOnClickListener(new View.OnClickListener() {
+        search_year.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 animateFAB();
@@ -127,7 +131,35 @@ public class Buyer_Main extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         ad.dismiss();
-                        Filter_Year(data.getText().toString());
+                        if(data.getText().toString().length() > 4 || data.getText().toString().length()<4)
+                            Toast.makeText(Buyer_Main.this, "Invalid Date!!!", Toast.LENGTH_SHORT).show();
+                        else
+                            Filter_Year(data.getText().toString());
+                    }
+                });
+            }
+        });
+        search_price.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                animateFAB();
+                Toast.makeText(Buyer_Main.this, "Price", Toast.LENGTH_LONG).show();
+
+                LayoutInflater inflater = LayoutInflater.from(Buyer_Main.this);
+                View dialog_layout = inflater.inflate(R.layout.search, null);
+                AlertDialog.Builder db = new AlertDialog.Builder(Buyer_Main.this);
+
+                final EditText data = dialog_layout.findViewById(R.id.Search);
+                Button go = dialog_layout.findViewById(R.id.go);
+                db.setView(dialog_layout);
+                final AlertDialog ad = db.show();
+                ad.setTitle("Manufacture Year");
+
+                go.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ad.dismiss();
+                        Filter_Price(data.getText().toString());
                     }
                 });
             }
@@ -136,14 +168,17 @@ public class Buyer_Main extends AppCompatActivity {
         if (gps == null)
             gps = new TrackGPS(Buyer_Main.this);
         gps.getLocation();
-        Toast.makeText(Buyer_Main.this,"Longitude:"+String.valueOf(gps.longitude)+"\nLatitude:"+String.valueOf(gps.latitude),Toast.LENGTH_SHORT).show();
-
+       // Toast.makeText(Buyer_Main.this,"Longitude:"+String.valueOf(gps.longitude)+"\nLatitude:"+String.valueOf(gps.latitude),Toast.LENGTH_SHORT).show();
+        myloc = new Location("Start");
+        myloc.setLongitude(gps.getLongitude());
+        myloc.setLatitude(gps.getLatitude());
     }
-    List<Add> data;
+
     public List<Add> getData() {
          data= new ArrayList<>();
-         Long = new ArrayList<>();
-         Lat = new ArrayList<>();
+         nearest = new ArrayList<>();
+         coords = new ArrayList<>();
+         price = new ArrayList<>();
         ref.child("Adverts").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -151,8 +186,12 @@ public class Buyer_Main extends AppCompatActivity {
                 titles.add(dataSnapshot.child("Model").getValue().toString());
                 year.add(dataSnapshot.child("Model Year").getValue().toString());
                 carOwner.add(dataSnapshot.child("Name").getValue().toString());
-                Long.add(Float.valueOf(dataSnapshot.child("Long").getValue().toString()));
-                Lat.add(Float.valueOf(dataSnapshot.child("Lat").getValue().toString()));
+                price.add(dataSnapshot.child("Price").getValue().toString());
+                Location temp = new Location("Start");
+                temp.setLongitude(Float.valueOf(dataSnapshot.child("Long").getValue().toString()));
+                temp.setLatitude(Float.valueOf(dataSnapshot.child("Lat").getValue().toString()));
+                coords.add(temp);
+                float dist = myloc.distanceTo(temp) / 1000;
 
                 current.setTitle(dataSnapshot.child("Model").getValue().toString());
                 current.setYear(dataSnapshot.child("Model Year").getValue().toString());
@@ -162,6 +201,10 @@ public class Buyer_Main extends AppCompatActivity {
                 current.setLong(Float.valueOf(dataSnapshot.child("Long").getValue().toString()));
 
                 data.add(current);
+                if (dist <= 10 && dist > 0.5) {
+                    nearest.add(current);
+                    Toast.makeText(Buyer_Main.this, String.valueOf(dist), Toast.LENGTH_SHORT).show();
+                }
                 adap.notifyDataSetChanged();
             }
 
@@ -194,28 +237,32 @@ public class Buyer_Main extends AppCompatActivity {
 //
 //
 //        }
-        return data;
+        return nearest;
     }
 
     public void animateFAB(){
 
         if(isFabOpen){
 
-            fab.startAnimation(rotate_backward);
-            fab1.startAnimation(fab_close);
-            fab2.startAnimation(fab_close);
-            fab1.setClickable(false);
-            fab2.setClickable(false);
+            main_search.startAnimation(rotate_backward);
+            search_model.startAnimation(fab_close);
+            search_year.startAnimation(fab_close);
+            search_price.startAnimation(fab_close);
+            search_model.setClickable(false);
+            search_year.setClickable(false);
+            search_price.setClickable(false);
             isFabOpen = false;
 
 
         } else {
 
-            fab.startAnimation(rotate_forward);
-            fab1.startAnimation(fab_open);
-            fab2.startAnimation(fab_open);
-            fab1.setClickable(true);
-            fab2.setClickable(true);
+            main_search.startAnimation(rotate_forward);
+            search_model.startAnimation(fab_open);
+            search_year.startAnimation(fab_open);
+            search_price.startAnimation(fab_open);
+            search_model.setClickable(true);
+            search_year.setClickable(true);
+            search_price.setClickable(true);
             RV.setClickable(false);
             isFabOpen = true;
             //Log.d("Raj","open");
@@ -258,4 +305,23 @@ public class Buyer_Main extends AppCompatActivity {
             RV.setAdapter(adap);
         }
     }
+
+    public void Filter_Price(String value) {
+        data = new ArrayList<>();
+        // Toast.makeText(this, "Default: 5", Toast.LENGTH_SHORT).show();
+        for (int i = 0; i < price.size(); i++) {
+            if (price.get(i).equals(value)) {
+                Add current = new Add();
+                current.setTitle(titles.get(i));
+                current.setYear(year.get(i));
+                current.setCar_owner(carOwner.get(i));
+                data.add(current);
+            }
+            adap = new Folder_Adapter(this, data);
+            RV.setAdapter(adap);
+        }
+    }
+
 }
+
+
