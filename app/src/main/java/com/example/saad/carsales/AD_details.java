@@ -1,14 +1,19 @@
 package com.example.saad.carsales;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -18,9 +23,17 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import com.example.saad.carsales.Adapters.Ads_Approve;
 import com.firebase.client.Firebase;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageMetadata;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -32,6 +45,7 @@ public class AD_details extends AppCompatActivity {
     double latitude;
     int img_nmbr;
     ImageView img1, img2, img3;
+    VideoView vid;
     TextView Model;
     Button done;
     ListView models;
@@ -40,11 +54,19 @@ public class AD_details extends AppCompatActivity {
     EditText modelYear, RegCity, Mileage,Engine_Capacity,Price, color, S_Name, S_Contact, S_Address;
     String key,Name,contactInfo,car_model;
     Firebase ref;
+    FirebaseStorage storage;
+    StorageReference videoRef;
+    String VideoDownloadLink;
+    private static final int REQUEST_TAKE_GALLERY_VIDEO = 2;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ad_details);
+
+        storage = FirebaseStorage.getInstance();
+        videoRef = storage.getReferenceFromUrl("gs://car-sales-f4f9c.appspot.com/");
 
         Bundle b= getIntent().getExtras();
         Name=b.getString("Name");
@@ -67,6 +89,8 @@ public class AD_details extends AppCompatActivity {
         img1 = (ImageView) findViewById(R.id.img1);
         img2 = (ImageView) findViewById(R.id.img2);
         img3 = (ImageView) findViewById(R.id.img3);
+        vid = (VideoView) findViewById(R.id.vid);
+
         Model = (TextView) findViewById(R.id.car_model);
         done = (Button) findViewById(R.id.details_done);
         b_getlocation = (Button) findViewById(R.id.location);
@@ -99,6 +123,18 @@ public class AD_details extends AppCompatActivity {
             public void onClick(View view) {
                 img_nmbr = 3;
                 Image_Pick_Intent();
+            }
+        });
+
+        vid.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Intent intent = new Intent();
+                intent.setType("video/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent,"Select Video"),REQUEST_TAKE_GALLERY_VIDEO);
+
+                return false;
             }
         });
 
@@ -202,7 +238,9 @@ public class AD_details extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 0 && resultCode == Activity.RESULT_OK) {
+        if (resultCode == RESULT_OK) {
+
+        if (requestCode == 0) {
             if (data == null) {
                 Toast.makeText(this, "Error Fetching Data", Toast.LENGTH_SHORT).show();
                 return;
@@ -224,5 +262,83 @@ public class AD_details extends AppCompatActivity {
                 }
             }
         }
+
+            if (requestCode == REQUEST_TAKE_GALLERY_VIDEO) {
+                Uri selectedImageUri = data.getData();
+
+                // OI FILE Manager
+                String filemanagerstring = selectedImageUri.getPath();
+
+                // MEDIA GALLERY
+                String selectedImagePath = getPath(selectedImageUri);
+
+
+                if (selectedImageUri != null) {
+
+                    vid.setVideoPath(filemanagerstring);
+                    vid.requestFocus();
+                    vid.start();
+                    Bitmap bitmap2 = ThumbnailUtils.createVideoThumbnail(filemanagerstring, MediaStore.Video.Thumbnails.MICRO_KIND);
+
+                    String filename = filemanagerstring.substring(filemanagerstring.lastIndexOf("/")+1);
+                    // Create a storage reference from our app
+
+                    videoRef = videoRef.child("/videos/" + "/" + filename);
+                    Toast.makeText(this,selectedImageUri.toString(),Toast.LENGTH_LONG).show();
+
+                    uploadVideo(selectedImageUri);
+
+//                    Intent intent = new Intent(AD_details.this,
+//                            VideoplayAvtivity.class);
+//                    intent.putExtra("path", selectedImagePath);
+//                    startActivity(intent);
+                    Toast.makeText(this,selectedImagePath,Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+
+
     }
+
+
+
+    // UPDATED!
+    public String getPath(Uri uri) {
+        String[] projection = { MediaStore.Video.Media.DATA };
+        Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
+        if (cursor != null) {
+            // HERE YOU WILL GET A NULLPOINTER IF CURSOR IS NULL
+            // THIS CAN BE, IF YOU USED OI FILE MANAGER FOR PICKING THE MEDIA
+            int column_index = cursor
+                    .getColumnIndexOrThrow(MediaStore.Video.Media.DATA);
+            cursor.moveToFirst();
+            return cursor.getString(column_index);
+        } else
+            return null;
+    }
+
+    private void uploadVideo(Uri videoUri) {
+        if(videoUri != null){
+            UploadTask uploadTask = videoRef.putFile(videoUri);
+            VideoDownloadLink = String.valueOf(videoRef.getDownloadUrl());
+            uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                    if(task.isSuccessful())
+                        Toast.makeText(AD_details.this, "Upload Complete", Toast.LENGTH_SHORT).show();
+                }
+
+            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                    Toast.makeText(AD_details.this,"Uploading", Toast.LENGTH_SHORT).show();
+
+                }
+            });
+        }else {
+            Toast.makeText(AD_details.this, "Nothing to upload", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
 }

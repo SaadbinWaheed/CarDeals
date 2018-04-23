@@ -100,7 +100,7 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onProgressUpdate(float progress)
             {
-                progress_txt.setText(String.format("%.2f", progress * 100) + "%");
+                progress_txt.setText(String.format("%.1f", progress * 100) + "%");
             }
         });
         //liquidButton.startPour();
