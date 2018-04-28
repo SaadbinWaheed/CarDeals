@@ -50,14 +50,6 @@
         android:layout_alignParentStart="true" />
 
 
-
-
-
-
-
-
-
-
 <TextView
 
     android:background="@android:color/white"
@@ -229,5 +221,11 @@
 
         android:layout_below="@+id/contact"
         android:layout_alignParentStart="true" />
+    <VideoView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:id="@+id/video"
+        android:layout_below="@id/mileage"/>
 </RelativeLayout>
+
 </ScrollView>

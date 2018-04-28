@@ -101,7 +101,7 @@ public class TrackGPS extends Service implements LocationListener {
                                     MIN_TIME_BW_UPDATES,
                                     MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
                            // Log.d("GPS Enabled", "GPS Enabled");
-                            Toast.makeText(mContext, "Getting Location", Toast.LENGTH_SHORT).show();
+                          //  Toast.makeText(mContext, "Getting Location", Toast.LENGTH_SHORT).show();
                             if (locationManager != null) {
                                 loc = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                                 if (loc != null) {
@@ -163,6 +163,7 @@ public class TrackGPS extends Service implements LocationListener {
 
         alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
+
                 dialog.cancel();
             }
         });

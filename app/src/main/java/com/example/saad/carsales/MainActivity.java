@@ -20,7 +20,6 @@ import com.veer.shapeletter.ShapeLetter;
 public class MainActivity extends AppCompatActivity {
     CardView Buy,Sell;
     Button foldingCards_btn;
-    public int x;
     String Name,contactInfo;
     ShapeLetter sl;
     TextView name_txt;
@@ -34,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         mAuth=FirebaseAuth.getInstance();
 
         Bundle b= getIntent().getExtras();
-        Name = b.getString("Name","Default");
+        Name = b.getString("Name");
         contactInfo=b.getString("Contact Info");
 
         sl= findViewById(R.id.letter);

@@ -154,7 +154,8 @@
             android:layout_width="300dp"
             android:layout_below="@+id/sell_load"
             android:layout_alignStart="@+id/buy_load"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:visibility="invisible"/>
         <com.veer.shapeletter.ShapeLetter
             android:layout_width="56dp"
             android:layout_height="56dp"

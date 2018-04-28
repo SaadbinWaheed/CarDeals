@@ -30,14 +30,14 @@ public class Buyer_Main extends AppCompatActivity {
 
     RecyclerView RV;
     Folder_Adapter adap;
-    ArrayList<String> titles,year,carOwner,price;
+    ArrayList<String> titles,year,carOwner,price,adKeys;
     Firebase ref;
     String[] CAR_MODELS;
     ArrayAdapter MODELS;
     ListView models;
     String selection;
     Location myloc;
-    List<Add> data,nearest;
+    List<Add> data,nearest,filter;
     ArrayList<Location> coords;
 
     private TrackGPS gps = null;
@@ -48,6 +48,14 @@ public class Buyer_Main extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buyer__main);
+
+        if (gps == null)
+            gps = new TrackGPS(Buyer_Main.this);
+        gps.getLocation();
+        // Toast.makeText(Buyer_Main.this,"Longitude:"+String.valueOf(gps.longitude)+"\nLatitude:"+String.valueOf(gps.latitude),Toast.LENGTH_SHORT).show();
+        myloc = new Location("Start");
+        myloc.setLongitude(gps.getLongitude());
+        myloc.setLatitude(gps.getLatitude());
 
         Firebase.setAndroidContext(this);
 
@@ -165,13 +173,7 @@ public class Buyer_Main extends AppCompatActivity {
             }
         });
 
-        if (gps == null)
-            gps = new TrackGPS(Buyer_Main.this);
-        gps.getLocation();
-       // Toast.makeText(Buyer_Main.this,"Longitude:"+String.valueOf(gps.longitude)+"\nLatitude:"+String.valueOf(gps.latitude),Toast.LENGTH_SHORT).show();
-        myloc = new Location("Start");
-        myloc.setLongitude(gps.getLongitude());
-        myloc.setLatitude(gps.getLatitude());
+
     }
 
     public List<Add> getData() {
@@ -179,9 +181,12 @@ public class Buyer_Main extends AppCompatActivity {
          nearest = new ArrayList<>();
          coords = new ArrayList<>();
          price = new ArrayList<>();
+         adKeys = new ArrayList<>();
         ref.child("Adverts").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+               // Toast.makeText(Buyer_Main.this, dataSnapshot.getKey(), Toast.LENGTH_SHORT).show();
+               // adKeys.add(dataSnapshot.getKey());
                 Add current= new Add();
                 titles.add(dataSnapshot.child("Model").getValue().toString());
                 year.add(dataSnapshot.child("Model Year").getValue().toString());
@@ -196,14 +201,15 @@ public class Buyer_Main extends AppCompatActivity {
                 current.setTitle(dataSnapshot.child("Model").getValue().toString());
                 current.setYear(dataSnapshot.child("Model Year").getValue().toString());
                 current.setCar_owner(dataSnapshot.child("Name").getValue().toString());
-                current.setAdd_id(dataSnapshot.getKey().toString());
+                current.setAdd_id(dataSnapshot.getKey());
+                current.setKey(dataSnapshot.getKey());
                 current.setLat(Float.valueOf(dataSnapshot.child("Lat").getValue().toString()));
                 current.setLong(Float.valueOf(dataSnapshot.child("Long").getValue().toString()));
 
                 data.add(current);
-                if (dist <= 10 && dist > 0.5) {
+                if (dist <= 10 && dist > 0) {
                     nearest.add(current);
-                    Toast.makeText(Buyer_Main.this, String.valueOf(dist), Toast.LENGTH_SHORT).show();
+                  //  Toast.makeText(Buyer_Main.this, String.valueOf(dist), Toast.LENGTH_SHORT).show();
                 }
                 adap.notifyDataSetChanged();
             }
@@ -228,16 +234,8 @@ public class Buyer_Main extends AppCompatActivity {
 
             }
         });
-//        Toast.makeText(this,Integer.toString(titles.size()),Toast.LENGTH_SHORT).show();
-//        for (int i=0;i<titles.size();i++)
-//        {
-//
-//
-//
-//
-//
-//        }
-        return nearest;
+
+        return data;
     }
 
     public void animateFAB(){
@@ -252,6 +250,8 @@ public class Buyer_Main extends AppCompatActivity {
             search_year.setClickable(false);
             search_price.setClickable(false);
             isFabOpen = false;
+            adap = new Folder_Adapter(this, data);
+            RV.setAdapter(adap);
 
 
         } else {
@@ -265,13 +265,15 @@ public class Buyer_Main extends AppCompatActivity {
             search_price.setClickable(true);
             RV.setClickable(false);
             isFabOpen = true;
+            adap = new Folder_Adapter(this, nearest);
+            RV.setAdapter(adap);
             //Log.d("Raj","open");
 
         }
     }
 
     public void Filter_Cars(String value){
-        data= new ArrayList<>();
+        filter= new ArrayList<>();
 
         for (int i = 0; i<titles.size(); i++){
             if (titles.get(i).equals(value)){
@@ -279,45 +281,39 @@ public class Buyer_Main extends AppCompatActivity {
                 temp_year.add(year.get(i));
                 temp_owner.add(carOwner.get(i));*/
 
-                Add current= new Add();
-                current.setTitle(titles.get(i));
-                current.setYear(year.get(i));
-                current.setCar_owner(carOwner.get(i));
-                data.add(current);
+                Add current=data.get(i);
+
+                filter.add(current);
             }
-            adap = new Folder_Adapter(this,data);
+            adap = new Folder_Adapter(this,filter);
             RV.setAdapter(adap);
         }
     }
 
     public void Filter_Year(String value) {
-        data = new ArrayList<>();
+        filter = new ArrayList<>();
        // Toast.makeText(this, "Default: 5", Toast.LENGTH_SHORT).show();
         for (int i = 0; i < year.size(); i++) {
             if (year.get(i).equals(value)) {
-                Add current = new Add();
-                current.setTitle(titles.get(i));
-                current.setYear(year.get(i));
-                current.setCar_owner(carOwner.get(i));
-                data.add(current);
+                Add current = data.get(i);
+
+                filter.add(current);
             }
-            adap = new Folder_Adapter(this, data);
+            adap = new Folder_Adapter(this, filter);
             RV.setAdapter(adap);
         }
     }
 
     public void Filter_Price(String value) {
-        data = new ArrayList<>();
+        filter = new ArrayList<>();
         // Toast.makeText(this, "Default: 5", Toast.LENGTH_SHORT).show();
         for (int i = 0; i < price.size(); i++) {
             if (price.get(i).equals(value)) {
-                Add current = new Add();
-                current.setTitle(titles.get(i));
-                current.setYear(year.get(i));
-                current.setCar_owner(carOwner.get(i));
-                data.add(current);
+                Add current = data.get(i);
+
+                filter.add(current);
             }
-            adap = new Folder_Adapter(this, data);
+            adap = new Folder_Adapter(this, filter);
             RV.setAdapter(adap);
         }
     }

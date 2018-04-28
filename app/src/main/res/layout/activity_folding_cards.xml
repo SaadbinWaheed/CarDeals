@@ -116,7 +116,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/price"
+                android:id="@+id/price_car"
 
                 android:text="PKR 2 lacs"
                 android:layout_below="@+id/title"

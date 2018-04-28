@@ -6,7 +6,7 @@ package com.example.saad.carsales;
 
 public class Add {
 
-    private String title, Car_owner, year, Add_id;
+    private String title,price, Car_owner, year, Add_id,key;
     private float Long,Lat;
 
     public Add() {
@@ -61,4 +61,14 @@ public class Add {
     public float getLong() {
         return Long;
     }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public String getKey(){return this.key;}
+
+    public void setPrice(String p){this.price = p;}
+
+    public String getPrice(){return this.price;}
 }

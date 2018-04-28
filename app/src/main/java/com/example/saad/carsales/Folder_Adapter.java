@@ -46,6 +46,7 @@ public class Folder_Adapter extends RecyclerView.Adapter<Folder_Adapter.MyViewHo
 
         final Add current = Add.get(position);
         holder.title.setText(current.getTitle());
+        holder.price.setText(current.getPrice());
         holder.car_owner.setText("Owner Name: " + current.getCar_owner());
         holder.year.setText("Model year: " + current.getYear());
 
@@ -56,6 +57,7 @@ public class Folder_Adapter extends RecyclerView.Adapter<Folder_Adapter.MyViewHo
                 Bundle bundle = new Bundle();
                 bundle.putString("Add ID",current.getAdd_id());
                 i.putExtras(bundle);
+                i.putExtra("Key",current.getKey());
 
                 context.startActivity(i);
                 holder.fc.toggle(false);
@@ -85,7 +87,7 @@ public class Folder_Adapter extends RecyclerView.Adapter<Folder_Adapter.MyViewHo
 
         public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView title, year, car_owner;
+        public TextView title, year, car_owner,price;
             public Button info;
             FoldingCell fc;
 
@@ -100,6 +102,7 @@ public class Folder_Adapter extends RecyclerView.Adapter<Folder_Adapter.MyViewHo
         public MyViewHolder(View view) {
             super(view);
             title = (TextView) view.findViewById(R.id.title);
+            price = (TextView) view.findViewById(R.id.price_car);
             car_owner = (TextView) view.findViewById(R.id.car_owner);
             year = (TextView) view.findViewById(R.id.year);
             info = (Button) view.findViewById(R.id.info);

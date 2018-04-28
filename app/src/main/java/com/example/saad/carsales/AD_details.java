@@ -2,9 +2,11 @@ package com.example.saad.carsales;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,6 +14,7 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -26,7 +29,15 @@ import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.example.saad.carsales.Adapters.Ads_Approve;
+import com.firebase.client.ChildEventListener;
+import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.FirebaseStorage;
@@ -35,6 +46,7 @@ import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 
@@ -58,6 +70,8 @@ public class AD_details extends AppCompatActivity {
     StorageReference videoRef;
     String VideoDownloadLink;
     private static final int REQUEST_TAKE_GALLERY_VIDEO = 2;
+    private boolean images_picked = false;
+    ProgressDialog dia ;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -72,8 +86,11 @@ public class AD_details extends AppCompatActivity {
         Name=b.getString("Name");
         contactInfo=b.getString("Contact Info");
 
+        dia = new ProgressDialog(AD_details.this);
+
         ref=new Firebase("https://car-sales-f4f9c.firebaseio.com/");
         key=ref.child("Adverts").push().getKey();
+
 
 
         modelYear = (EditText) findViewById(R.id.model_year);
@@ -164,39 +181,8 @@ public class AD_details extends AppCompatActivity {
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String model=Model.getText().toString();
-                String year=modelYear.getText().toString();
-                String regCity=RegCity.getText().toString();
-                String mileage=Mileage.getText().toString();
-                String eng_cap = Engine_Capacity.getText().toString();
-                String bodyColor=color.getText().toString();
-                String price=Price.getText().toString();
-                String name=S_Name.getText().toString();
-                String contact=S_Contact.getText().toString();
-                String address=S_Address.getText().toString();
-
-                HashMap<String,String> hashMap=new HashMap<String, String>();
-                hashMap.put("Model",model);
-                hashMap.put("Model Year",year);
-                hashMap.put("Registration City",regCity);
-                hashMap.put("Mileage",mileage);
-                hashMap.put("Engine Capacity",eng_cap);
-                hashMap.put("Body Color",bodyColor);
-                hashMap.put("Price",price);
-                hashMap.put("Name",name);
-                hashMap.put("Contact",contact);
-                hashMap.put("Address",address);
-                hashMap.put("Long", String.valueOf(longitude));
-                hashMap.put("Lat", String.valueOf(latitude));
-
-                ref.child("Adverts").child(key).setValue(hashMap);
-                Toast.makeText(AD_details.this,"Done",Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(AD_details.this, MainActivity.class);
-                Bundle b = new Bundle();
-                b.putString("Name", Name);
-                b.putString("Contact Info", contactInfo);
-                intent.putExtras(b);
-                startActivity(intent);
+                if(images_picked)
+                    uploadVideo(video);
             }
         });
 
@@ -211,6 +197,10 @@ public class AD_details extends AppCompatActivity {
 
                     longitude = gps.getLongitude();
                     latitude = gps .getLatitude();
+                    if(longitude==0.0 && latitude==0.0)
+                        Toast.makeText(AD_details.this, "Please try again", Toast.LENGTH_SHORT).show();
+                    else
+                        Toast.makeText(AD_details.this, "Location added!", Toast.LENGTH_SHORT).show();
                     Toast.makeText(AD_details.this,"Longitude:"+String.valueOf(longitude)+"\nLatitude:"+String.valueOf(latitude),Toast.LENGTH_SHORT).show();
 
                 }
@@ -235,6 +225,9 @@ public class AD_details extends AppCompatActivity {
         intent.setType("image/*");
         startActivityForResult(intent, 0);
     }
+
+    Uri video;
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -256,6 +249,7 @@ public class AD_details extends AppCompatActivity {
                         img2.setImageBitmap(bitmap);
                     }else if (img_nmbr == 3){
                         img3.setImageBitmap(bitmap);
+                        images_picked = true;
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -264,16 +258,17 @@ public class AD_details extends AppCompatActivity {
         }
 
             if (requestCode == REQUEST_TAKE_GALLERY_VIDEO) {
-                Uri selectedImageUri = data.getData();
+                Uri selectedVideoUri = data.getData();
 
                 // OI FILE Manager
-                String filemanagerstring = selectedImageUri.getPath();
+                String filemanagerstring = selectedVideoUri.getPath()+".mp4";
 
                 // MEDIA GALLERY
-                String selectedImagePath = getPath(selectedImageUri);
+                String selectedImagePath = getPath(selectedVideoUri);
 
+                Toast.makeText(this,filemanagerstring,Toast.LENGTH_LONG).show();
 
-                if (selectedImageUri != null) {
+                if (selectedVideoUri != null) {
 
                     vid.setVideoPath(filemanagerstring);
                     vid.requestFocus();
@@ -283,16 +278,17 @@ public class AD_details extends AppCompatActivity {
                     String filename = filemanagerstring.substring(filemanagerstring.lastIndexOf("/")+1);
                     // Create a storage reference from our app
 
-                    videoRef = videoRef.child("/videos/" + "/" + filename);
-                    Toast.makeText(this,selectedImageUri.toString(),Toast.LENGTH_LONG).show();
+                    Toast.makeText(AD_details.this, filename, Toast.LENGTH_SHORT).show();
+                    videoRef = videoRef.child("Adverts/"+key+"/" + filename);
+                   // Toast.makeText(this,selectedImageUri.toString(),Toast.LENGTH_LONG).show();
 
-                    uploadVideo(selectedImageUri);
+                    video = selectedVideoUri;
+                    //uploadVideo(selectedImageUri);
 
 //                    Intent intent = new Intent(AD_details.this,
 //                            VideoplayAvtivity.class);
 //                    intent.putExtra("path", selectedImagePath);
 //                    startActivity(intent);
-                    Toast.makeText(this,selectedImagePath,Toast.LENGTH_LONG).show();
                 }
             }
         }
@@ -300,9 +296,86 @@ public class AD_details extends AppCompatActivity {
 
     }
 
+    private void uploadFile(Bitmap bitmap, final String im) {
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReferenceFromUrl("gs://car-sales-f4f9c.appspot.com");
+        StorageReference mountainImagesRef = storageRef.child("Adverts/"+key+"/"+ im + ".jpg");
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 20, baos);
+        byte[] data = baos.toByteArray();
+        UploadTask uploadTask = mountainImagesRef.putBytes(data);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle unsuccessful uploads
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                Uri downloadUrl = taskSnapshot.getDownloadUrl();
+             //   Toast.makeText(AD_details.this, downloadUrl.toString(), Toast.LENGTH_SHORT).show();
+                if (im=="2") {
+                    Toast.makeText(AD_details.this, "Done", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(AD_details.this, MainActivity.class);
+                    Bundle b = new Bundle();
+                    b.putString("Name", Name);
+                    b.putString("Contact Info", contactInfo);
+                    intent.putExtras(b);
+                    dia.hide();
+                    startActivity(intent);
+                    finish();
+                }
+            }
+        });
 
+    }
 
-    // UPDATED!
+    private void UploadData(){
+        String model=Model.getText().toString();
+        String year=modelYear.getText().toString();
+        String regCity=RegCity.getText().toString();
+        String mileage=Mileage.getText().toString();
+        String eng_cap = Engine_Capacity.getText().toString();
+        String bodyColor=color.getText().toString();
+        String price=Price.getText().toString();
+        String name=S_Name.getText().toString();
+        String contact=S_Contact.getText().toString();
+        String address=S_Address.getText().toString();
+
+        if(model.equals("") || year.equals("") || regCity.equals("") || eng_cap.equals("") || bodyColor.equals("") || price.equals("") || name.equals("") || contact.equals("") || address.equals("") ) {
+            Toast.makeText(AD_details.this, "Please fill all fields", Toast.LENGTH_LONG).show();
+        }
+        else {
+            dia = new ProgressDialog(AD_details.this);
+            dia.setTitle("Uploading Images");
+            dia.show();
+            HashMap<String, String> hashMap = new HashMap<String, String>();
+            hashMap.put("Model", model);
+            hashMap.put("Model Year", year);
+            hashMap.put("Registration City", regCity);
+            hashMap.put("Mileage", mileage);
+            hashMap.put("Engine Capacity", eng_cap);
+            hashMap.put("Body Color", bodyColor);
+            hashMap.put("Price", price);
+            hashMap.put("Name", name);
+            hashMap.put("Contact", contact);
+            hashMap.put("Address", address);
+            hashMap.put("Long", String.valueOf(longitude));
+            hashMap.put("Lat", String.valueOf(latitude));
+            hashMap.put("Pic1", key + "/1.jpg");
+            hashMap.put("Pic2", key + "/2.jpg");
+            hashMap.put("Pic3", key + "/3.jpg");
+            hashMap.put("Video", VideoDownloadLink);
+
+            uploadFile(((BitmapDrawable) img1.getDrawable()).getBitmap(), "1");
+            uploadFile(((BitmapDrawable) img2.getDrawable()).getBitmap(), "2");
+            uploadFile(((BitmapDrawable) img3.getDrawable()).getBitmap(), "3");
+
+            ref.child("Adverts").child(key).setValue(hashMap);
+        }
+    }
+
     public String getPath(Uri uri) {
         String[] projection = { MediaStore.Video.Media.DATA };
         Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
@@ -318,6 +391,7 @@ public class AD_details extends AppCompatActivity {
     }
 
     private void uploadVideo(Uri videoUri) {
+        vid.pause();
         if(videoUri != null){
             UploadTask uploadTask = videoRef.putFile(videoUri);
             VideoDownloadLink = String.valueOf(videoRef.getDownloadUrl());
@@ -326,13 +400,15 @@ public class AD_details extends AppCompatActivity {
                 public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                     if(task.isSuccessful())
                         Toast.makeText(AD_details.this, "Upload Complete", Toast.LENGTH_SHORT).show();
+                    UploadData();
                 }
 
             }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(AD_details.this,"Uploading", Toast.LENGTH_SHORT).show();
-
+                   // Toast.makeText(AD_details.this,"Uploading Video", Toast.LENGTH_SHORT).show();
+                    dia.setTitle("Uploading Video!!");
+                    dia.show();
                 }
             });
         }else {

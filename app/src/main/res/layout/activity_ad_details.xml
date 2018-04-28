@@ -69,7 +69,7 @@
 
         <VideoView
             android:id="@+id/vid"
-            android:layout_width="110dp"
+            android:layout_width="311dp"
             android:layout_height="110dp"
             android:layout_centerHorizontal="true"
             android:src="@drawable/plus" />

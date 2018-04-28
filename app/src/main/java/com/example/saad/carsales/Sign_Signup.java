@@ -24,7 +24,7 @@ public class Sign_Signup extends AppCompatActivity {
     Button Sign_in,Sign_up;
     CheckBox Show_Pass;
     FirebaseAuth firebaseAuth;
-    String name,contact;
+    String name = "", contact = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,8 +32,8 @@ public class Sign_Signup extends AppCompatActivity {
 
         firebaseAuth= FirebaseAuth.getInstance();
         Firebase.setAndroidContext(this);
-        if (firebaseAuth.getCurrentUser() != null)
-            Toast.makeText(Sign_Signup.this,firebaseAuth.getCurrentUser().getEmail().toString(),Toast.LENGTH_LONG).show();
+  //      if (firebaseAuth.getCurrentUser() != null)
+  //          Toast.makeText(Sign_Signup.this,firebaseAuth.getCurrentUser().getEmail(),Toast.LENGTH_LONG).show();
 
         Sign_in = (Button) findViewById(R.id.signin);
         Show_Pass = (CheckBox) findViewById(R.id.show_pass);
@@ -65,7 +65,7 @@ public class Sign_Signup extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(Sign_Signup.this,"Checking",Toast.LENGTH_LONG).show();
+                Toast.makeText(Sign_Signup.this,"Signing in",Toast.LENGTH_LONG).show();
                 userLogin();
             }
         });
@@ -85,29 +85,32 @@ public class Sign_Signup extends AppCompatActivity {
                 public void onComplete(Task<AuthResult> task) {
                     if (task.isSuccessful()) {
 
-                        Toast.makeText(Sign_Signup.this, username, Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(Sign_Signup.this, username, Toast.LENGTH_SHORT).show();
                         if (firebaseAuth.getCurrentUser() != null) {
 
                             ref.addChildEventListener(new ChildEventListener() {
                                 @Override
                                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                                    Toast.makeText(Sign_Signup.this, dataSnapshot.child("Email").getValue().toString(), Toast.LENGTH_SHORT).show();
-                                    if (dataSnapshot.child("Email").getValue().toString().equals(username)) {
+                            //        Toast.makeText(Sign_Signup.this, dataSnapshot.child("Email").getValue().toString()+"\n"+String.valueOf(dataSnapshot.child("Email").getValue().toString().equals(username)), Toast.LENGTH_SHORT).show();
+                                    String temp = dataSnapshot.child("Email").getValue().toString();
+                                    if (temp.equals(username)) {
                                         name = dataSnapshot.child("Name").getValue().toString();
                                         contact = dataSnapshot.child("Contact info").getValue().toString();
-                                    } else
-                                    {name = "Default";
-                                    contact = "000";}
 
+                                    }
 
-                                    Toast.makeText(Sign_Signup.this, "Logged in", Toast.LENGTH_LONG).show();
-                                    Intent signin = new Intent(Sign_Signup.this, MainActivity.class);
-                                    Bundle b = new Bundle();
-                                    b.putString("Name", name);
-                                    b.putString("Contact Info", contact);
-                                    signin.putExtras(b);
+                                    if (!name.equals("") || !contact.equals("")) {
+                                        Intent signin = new Intent(Sign_Signup.this, MainActivity.class);
+                                        Bundle b = new Bundle();
+                                        b.putString("Name", name);
+                                        b.putString("Contact Info", contact);
+                                        signin.putExtras(b);
 
-                                    startActivity(signin);
+                                        startActivity(signin);
+                                    }
+                                 //   Toast.makeText(Sign_Signup.this, name+"\n"+contact, Toast.LENGTH_SHORT).show();
+                                   // Toast.makeText(Sign_Signup.this, "Logged in", Toast.LENGTH_LONG).show();
+
                                 }
 
                                 @Override
@@ -128,6 +131,7 @@ public class Sign_Signup extends AppCompatActivity {
                                 @Override
                                 public void onCancelled(FirebaseError firebaseError) {
 
+                                    Toast.makeText(Sign_Signup.this, firebaseError.getMessage(), Toast.LENGTH_LONG).show();
                                 }
                             });
                         }

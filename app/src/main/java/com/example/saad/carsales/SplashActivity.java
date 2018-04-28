@@ -1,7 +1,11 @@
 package com.example.saad.carsales;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.view.WindowManager;
@@ -15,20 +19,32 @@ import com.firebase.client.FirebaseError;
 import com.google.firebase.auth.FirebaseAuth;
 import com.gospelware.liquidbutton.LiquidButton;
 
+import java.io.File;
+
 
 public class SplashActivity extends AppCompatActivity {
 
     FirebaseAuth mAuth;
     String name,email,contact;
+    TrackGPS GPS;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash);
 
+        File rootPath = SplashActivity.this.getDir("Car_Deals", Context.MODE_PRIVATE);;
+        Toast.makeText(SplashActivity.this, rootPath.getAbsolutePath(), Toast.LENGTH_LONG).show();
+       /* if(!rootPath.exists()) {
+            Toast.makeText(SplashActivity.this, String.valueOf(rootPath.mkdir()), Toast.LENGTH_SHORT).show();
+            Toast.makeText(SplashActivity.this, rootPath.getAbsolutePath(), Toast.LENGTH_SHORT).show();
+        }*/
+
         name = "Default";
         contact="000";
-        
+
+        GPS = new TrackGPS(SplashActivity.this);
+
         mAuth= FirebaseAuth.getInstance();
         Firebase.setAndroidContext(this);
         Firebase ref=new Firebase("https://car-sales-f4f9c.firebaseio.com/").child("Users");
@@ -41,9 +57,6 @@ public class SplashActivity extends AppCompatActivity {
                     if (dataSnapshot.child("Email").getValue().toString().equals(email))
                     {name = dataSnapshot.child("Name").getValue().toString();
                         contact = dataSnapshot.child("Contact info").getValue().toString();}
-                    else
-                        name = "Default";
-                        contact="000";
                 }
 
                 @Override
@@ -79,14 +92,31 @@ public class SplashActivity extends AppCompatActivity {
             public void onPourFinish() {
                 //Signed in user
                 if (mAuth.getCurrentUser() !=null) {
-                    Intent mainIntent = new Intent(SplashActivity.this, MainActivity.class);
-                    Bundle b= new Bundle();
-                    b.putString("Name", name);
-                    b.putString("Contact Info", contact);
-                    mainIntent.putExtras(b);
+                    GPS.getLocation();
+                   if(GPS.canGetLocation) {
+                       Intent mainIntent = new Intent(SplashActivity.this, MainActivity.class);
+                       Bundle b = new Bundle();
+                       b.putString("Name", name);
+                       b.putString("Contact Info", contact);
+                       mainIntent.putExtras(b);
 
-                    SplashActivity.this.startActivity(mainIntent);
-                    SplashActivity.this.finish();
+                       startActivity(mainIntent);
+                       finish();
+                   }
+                   else{
+                       /*GPS.showSettingsAlert();
+                       finish();*/
+                       AlertDialog.Builder ab = new AlertDialog.Builder(SplashActivity.this);
+                       ab.setTitle("Please enable your GPS");
+                       ab.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                           @Override
+                           public void onClick(DialogInterface dialog, int which) {
+                               finish();
+                                dialog.cancel();
+                           }
+                       });
+                       ab.show();
+                   }
                 }
                 else
                 {
