@@ -33,8 +33,8 @@ public class SplashActivity extends AppCompatActivity {
 //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash);
 
-        File rootPath = SplashActivity.this.getDir("Car_Deals", Context.MODE_PRIVATE);;
-        Toast.makeText(SplashActivity.this, rootPath.getAbsolutePath(), Toast.LENGTH_LONG).show();
+   //     File rootPath = SplashActivity.this.getDir("Car_Deals", Context.MODE_PRIVATE);;
+     //   Toast.makeText(SplashActivity.this, rootPath.getAbsolutePath(), Toast.LENGTH_LONG).show();
        /* if(!rootPath.exists()) {
             Toast.makeText(SplashActivity.this, String.valueOf(rootPath.mkdir()), Toast.LENGTH_SHORT).show();
             Toast.makeText(SplashActivity.this, rootPath.getAbsolutePath(), Toast.LENGTH_SHORT).show();

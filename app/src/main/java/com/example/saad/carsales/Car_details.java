@@ -1,5 +1,7 @@
 package com.example.saad.carsales;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -15,8 +17,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
@@ -39,8 +44,8 @@ import java.util.ArrayList;
 
 public class Car_details extends AppCompatActivity implements ViewPager.OnPageChangeListener {
     ArrayList<Integer> image=new ArrayList<Integer>();
-    TextView carname,location,regyear,color,mileage,contact,price;
-    String strCarName,strYear,strContact,strRegYear,strColor,strMileage,strRegCity,strPrice,vid;
+    TextView carname,location,regyear,color,mileage,contact,price,video_down;
+    String strCarName,strYear,strContact,strColor,strMileage,strRegCity,strPrice,vid;
 
     ViewPager viewPager;
     Image_slide customSwipe;
@@ -48,12 +53,6 @@ public class Car_details extends AppCompatActivity implements ViewPager.OnPageCh
     public int dotsCount=5;
     public ImageView[] dots;
     public LinearLayout pager_indicator;
-    private int [] imageResources ={
-            R.drawable.icon,
-            R.drawable.icon3,
-            R.drawable.icon,
-            R.drawable.civic,
-            R.drawable.transmission};
 
     Firebase ref;
     String passed_add_id,Key;
@@ -71,14 +70,14 @@ public class Car_details extends AppCompatActivity implements ViewPager.OnPageCh
         regyear=(TextView) findViewById(R.id.reg_year_s);
         price=(TextView) findViewById(R.id.car_price);
         contact=(TextView) findViewById(R.id.txt_Contact);
-
-
+        video_down = findViewById(R.id.down_vid);
+        viewPager = findViewById(R.id.viewPager);
 
         passed_add_id=getIntent().getExtras().getString("Add ID");
         Key = getIntent().getStringExtra("Key");
-        imgArr[0] = Key+"/1.jpg";
-        imgArr[1] = Key+"/2.jpg";
-        imgArr[2] = Key+"/3.jpg";
+        imgArr[0] = "Adverts/"+Key+"/1.jpg";
+        imgArr[1] = "Adverts/"+Key+"/2.jpg";
+        imgArr[2] = "Adverts/"+Key+"/3.jpg";
 
         ref=new Firebase("https://car-sales-f4f9c.firebaseio.com/");
         ref=ref.child("Adverts").child(Key);
@@ -99,18 +98,14 @@ public class Car_details extends AppCompatActivity implements ViewPager.OnPageCh
                 color.setText(strColor);
                 location.setText(strRegCity);
                 mileage.setText(strMileage);
-                price.setText(strPrice);
+                price.setText("PKR "+strPrice);
                 regyear.setText(strYear);
                 contact.setText(strContact);
 
-                VideoView video=findViewById(R.id.video);
-                video.setVideoURI(Uri.parse(vid));
-                video.start();
                 downImages(imgArr,0);
                 downImages(imgArr,1);
                 downImages(imgArr,2);
 
-                //String strCarName,strYear,strAdd,strRegYear,strColor,strMileage;
             }
 
             @Override
@@ -119,36 +114,70 @@ public class Car_details extends AppCompatActivity implements ViewPager.OnPageCh
             }
         });
 
-        viewPager = findViewById(R.id.viewPager);
+        video_down.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    downloadFile();
+                } catch (IOException e) {
+                    Toast.makeText(Car_details.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
     }
+    ProgressDialog dia;
 
-    private void downloadFile() {
+    private void downloadFile() throws IOException {
+        dia = new ProgressDialog(Car_details.this);
+        dia.setMessage("Downloading Video!!");
+        dia.show();
         FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference storageRef = storage.getReferenceFromUrl("<your_bucket>");
-        StorageReference  islandRef = storageRef.child("file.txt");
+        StorageReference storageRef = storage.getReferenceFromUrl("gs://car-sales-f4f9c.appspot.com");
+        StorageReference  islandRef = storageRef.child("Adverts/"+Key+"/video.mp4");
 
-        File rootPath = new File(Environment.getExternalStorageDirectory(), "file_name");
+        //Toast.makeText(this, islandRef.getPath(), Toast.LENGTH_SHORT).show();
+        File rootPath = new File(Environment.getExternalStorageDirectory(), Key);
+        //Toast.makeText(this, rootPath.getAbsolutePath(), Toast.LENGTH_SHORT).show();
         if(!rootPath.exists()) {
             rootPath.mkdirs();
         }
 
-        final File localFile = new File(rootPath,"imageName.txt");
+       // final File localFile = new File(rootPath,"video.mp4");
+
+        final File localFile = File.createTempFile(Key+"Vid", "mp4");
 
         islandRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                 //Log.e("firebase ",";local tem file created  created " +localFile.toString());
-                Toast.makeText(Car_details.this, "Video Downloaded", Toast.LENGTH_LONG).show();
+                Toast.makeText(Car_details.this, localFile.getAbsolutePath(), Toast.LENGTH_LONG).show();
+                dia.dismiss();
+                Video_View(localFile.getAbsolutePath());
                 //  updateDb(timestamp,localFile.toString(),position);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
                // Log.e("firebase ",";local tem file not created  created " +exception.toString());
+                dia.dismiss();
                 Toast.makeText(Car_details.this, exception.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    public void Video_View(String path){
+        LayoutInflater factory = LayoutInflater.from(this);
+        final View deleteDialogView = factory.inflate(R.layout.vid_view, null);
+        final AlertDialog dia = new AlertDialog.Builder(this).create();
+        dia.setView(deleteDialogView);
+        final VideoView myVideoView = dia.findViewById(R.id.video_view);
+        myVideoView.setVideoPath(path);
+        myVideoView.setMediaController(new MediaController(this));
+        myVideoView.requestFocus();
+        myVideoView.start();
+
+        dia.show();
     }
 
     public void downImages(String[] path, final int pos){
@@ -157,7 +186,6 @@ public class Car_details extends AppCompatActivity implements ViewPager.OnPageCh
             @Override
             public void onSuccess(Uri uri) {
                 imgArr[pos] = uri.toString();
-                Toast.makeText(Car_details.this, String.valueOf(pos), Toast.LENGTH_SHORT).show();
                 if (pos == 2){
                     customSwipe = new Image_slide(Car_details.this,imgArr);
                     viewPager.setAdapter(customSwipe);

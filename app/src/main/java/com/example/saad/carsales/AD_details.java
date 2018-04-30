@@ -57,7 +57,7 @@ public class AD_details extends AppCompatActivity {
     double latitude;
     int img_nmbr;
     ImageView img1, img2, img3;
-    VideoView vid;
+    TextView vid;
     TextView Model;
     Button done;
     ListView models;
@@ -106,7 +106,7 @@ public class AD_details extends AppCompatActivity {
         img1 = (ImageView) findViewById(R.id.img1);
         img2 = (ImageView) findViewById(R.id.img2);
         img3 = (ImageView) findViewById(R.id.img3);
-        vid = (VideoView) findViewById(R.id.vid);
+        vid =  findViewById(R.id.vid);
 
         Model = (TextView) findViewById(R.id.car_model);
         done = (Button) findViewById(R.id.details_done);
@@ -266,21 +266,21 @@ public class AD_details extends AppCompatActivity {
                 // MEDIA GALLERY
                 String selectedImagePath = getPath(selectedVideoUri);
 
-                Toast.makeText(this,filemanagerstring,Toast.LENGTH_LONG).show();
+                //Toast.makeText(this,filemanagerstring,Toast.LENGTH_LONG).show();
+                vid.setText(filemanagerstring);
 
                 if (selectedVideoUri != null) {
 
-                    vid.setVideoPath(filemanagerstring);
-                    vid.requestFocus();
-                    vid.start();
+                   ImageView Thumb = findViewById(R.id.thumb);
                     Bitmap bitmap2 = ThumbnailUtils.createVideoThumbnail(filemanagerstring, MediaStore.Video.Thumbnails.MICRO_KIND);
+
+                    Thumb.setImageBitmap(bitmap2);
 
                     String filename = filemanagerstring.substring(filemanagerstring.lastIndexOf("/")+1);
                     // Create a storage reference from our app
 
-                    Toast.makeText(AD_details.this, filename, Toast.LENGTH_SHORT).show();
-                    videoRef = videoRef.child("Adverts/"+key+"/" + filename);
-                   // Toast.makeText(this,selectedImageUri.toString(),Toast.LENGTH_LONG).show();
+                 //   Toast.makeText(AD_details.this, filename, Toast.LENGTH_SHORT).show();
+                    videoRef = videoRef.child("Adverts/"+key+"/video.mp4");
 
                     video = selectedVideoUri;
                     //uploadVideo(selectedImageUri);
@@ -348,7 +348,7 @@ public class AD_details extends AppCompatActivity {
         }
         else {
             dia = new ProgressDialog(AD_details.this);
-            dia.setTitle("Uploading Images");
+            dia.setMessage("Uploading Images");
             dia.show();
             HashMap<String, String> hashMap = new HashMap<String, String>();
             hashMap.put("Model", model);
@@ -391,7 +391,6 @@ public class AD_details extends AppCompatActivity {
     }
 
     private void uploadVideo(Uri videoUri) {
-        vid.pause();
         if(videoUri != null){
             UploadTask uploadTask = videoRef.putFile(videoUri);
             VideoDownloadLink = String.valueOf(videoRef.getDownloadUrl());
@@ -407,7 +406,7 @@ public class AD_details extends AppCompatActivity {
                 @Override
                 public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
                    // Toast.makeText(AD_details.this,"Uploading Video", Toast.LENGTH_SHORT).show();
-                    dia.setTitle("Uploading Video!!");
+                    dia.setMessage("Uploading Video!!");
                     dia.show();
                 }
             });

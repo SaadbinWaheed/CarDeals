@@ -60,38 +60,32 @@
 
     </RelativeLayout>
 
-    <RelativeLayout
+    <ImageView
+        android:id="@+id/thumb"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_below="@+id/images"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="15dp"/>
+
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/background_light"
-        android:id="@+id/video"
-        android:layout_below="@+id/images">
+        android:layout_below="@+id/thumb"
+        android:id="@+id/vid"
+        android:text="Tap to select Video."
+        android:textSize="16sp"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_marginTop="15dp"
+        android:textAlignment="center"
 
-        <VideoView
-            android:id="@+id/vid"
-            android:layout_width="311dp"
-            android:layout_height="110dp"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/plus" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/vid"
-
-            android:layout_centerHorizontal="true"
-            android:text="Add Video"
-            android:textAlignment="center"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="16sp" />
-
-    </RelativeLayout>
+        />
 
     <TextView
         android:id="@+id/details_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/video"
+        android:layout_below="@+id/vid"
         android:text="CAR DETAILS"
         android:textColor="@android:color/black"
         android:textStyle="bold"

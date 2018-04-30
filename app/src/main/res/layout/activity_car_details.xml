@@ -221,11 +221,18 @@
 
         android:layout_below="@+id/contact"
         android:layout_alignParentStart="true" />
-    <VideoView
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:id="@+id/video"
-        android:layout_below="@id/mileage"/>
+        android:layout_height="wrap_content"
+        android:id="@+id/down_vid"
+        android:layout_below="@+id/mileage"
+        android:text="Download Video!"
+        android:layout_centerInParent="true"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="16sp"
+        android:layout_marginTop="15dp"/>
+
 </RelativeLayout>
 
 </ScrollView>
