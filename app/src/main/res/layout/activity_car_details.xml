@@ -113,31 +113,32 @@
         android:layout_marginTop="1dp"
         android:layout_height="match_parent"
         android:layout_below="@id/exterior_color"
-        android:text="Add ID"
+        android:text="Contact Number"
         android:textSize="17sp"
         android:id="@+id/contact"
         android:paddingLeft="10dp"
 
         />
+
     <TextView
-        android:paddingRight="10dp"
-        android:background="@android:color/white"
+        android:id="@+id/txt_Contact"
         android:layout_width="wrap_content"
-        android:layout_marginTop="1dp"
         android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
         android:layout_below="@id/exterior_color"
+        android:layout_marginTop="1dp"
+        android:layout_toRightOf="@+id/contact"
+        android:autoLink="phone"
+        android:background="@android:color/white"
+        android:clickable="true"
+        android:editable="false"
+        android:linksClickable="true"
+        android:paddingRight="10dp"
         android:text="+923005361434"
         android:textAlignment="viewEnd"
-        android:layout_toRightOf="@+id/contact"
-        android:textColor="@android:color/black"
-        android:layout_alignParentEnd="true"
-        android:id="@+id/txt_Contact"
-        android:autoLink="phone"
-        android:linksClickable="true"
-        android:clickable="true"
         android:textAppearance="@style/TextAppearance.AppCompat"
-        android:textSize="17sp"
-        android:editable="false" />
+        android:textColor="@android:color/black"
+        android:textSize="17sp" />
 
     <TextView
     android:background="@android:color/white"

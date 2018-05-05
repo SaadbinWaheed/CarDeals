@@ -109,9 +109,9 @@ public class Buyer_Main extends AppCompatActivity {
 
                 models.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                         //Toast.makeText(Buyer_Main.this, CAR_MODELS[i], Toast.LENGTH_SHORT).show();
-                        selection = CAR_MODELS[i];
+                        selection = CAR_MODELS[position];
                         ad.dismiss();
                         Filter_Cars(selection);
                     }
@@ -138,11 +138,13 @@ public class Buyer_Main extends AppCompatActivity {
                 go.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        ad.dismiss();
+
                         if(data.getText().toString().length() > 4 || data.getText().toString().length()<4)
                             Toast.makeText(Buyer_Main.this, "Invalid Date!!!", Toast.LENGTH_SHORT).show();
-                        else
+                        else {
+                            ad.dismiss();
                             Filter_Year(data.getText().toString());
+                        }
                     }
                 });
             }
@@ -207,7 +209,7 @@ public class Buyer_Main extends AppCompatActivity {
                 current.setLong(Float.valueOf(dataSnapshot.child("Long").getValue().toString()));
 
                 data.add(current);
-                if (dist <= 10 && dist > 0) {
+                if (dist <= 10 && nearest.size()<=20) {
                     nearest.add(current);
                   //  Toast.makeText(Buyer_Main.this, String.valueOf(dist), Toast.LENGTH_SHORT).show();
                 }

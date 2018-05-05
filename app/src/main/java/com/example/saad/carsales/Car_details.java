@@ -17,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -36,6 +37,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
@@ -131,30 +133,33 @@ public class Car_details extends AppCompatActivity implements ViewPager.OnPageCh
     private void downloadFile() throws IOException {
         dia = new ProgressDialog(Car_details.this);
         dia.setMessage("Downloading Video!!");
+        /*dia.setProgress(0);
+        dia.setIndeterminate(false);*/
         dia.show();
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReferenceFromUrl("gs://car-sales-f4f9c.appspot.com");
         StorageReference  islandRef = storageRef.child("Adverts/"+Key+"/video.mp4");
 
         //Toast.makeText(this, islandRef.getPath(), Toast.LENGTH_SHORT).show();
-        File rootPath = new File(Environment.getExternalStorageDirectory(), Key);
-        //Toast.makeText(this, rootPath.getAbsolutePath(), Toast.LENGTH_SHORT).show();
-        if(!rootPath.exists()) {
-            rootPath.mkdirs();
-        }
+        File rootPath = new File(Environment.getExternalStorageDirectory(), "/CarDeals Videos");
+        //Toast.makeText(this, rootPath.getAbsolutePath(), Toast.LENGTH_LONG).show();
 
-       // final File localFile = new File(rootPath,"video.mp4");
 
-        final File localFile = File.createTempFile(Key+"Vid", "mp4");
+        final File localFile = new File(rootPath+Key+".mp4");
+
+       // final File localFile = File.createTempFile("Vid", ".mp4",this.getCacheDir());
 
         islandRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                 //Log.e("firebase ",";local tem file created  created " +localFile.toString());
-                Toast.makeText(Car_details.this, localFile.getAbsolutePath(), Toast.LENGTH_LONG).show();
+                Toast.makeText(Car_details.this, localFile.getPath(), Toast.LENGTH_LONG).show();
                 dia.dismiss();
-                Video_View(localFile.getAbsolutePath());
-                //  updateDb(timestamp,localFile.toString(),position);
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(localFile.getPath()));
+                intent.setDataAndType(Uri.parse(localFile.getPath()), "video/*");
+                startActivity(intent);
+              //  Video_View(localFile.getAbsolutePath());
+                //Video_View(localFile.getAbsolutePath());
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -163,21 +168,37 @@ public class Car_details extends AppCompatActivity implements ViewPager.OnPageCh
                 dia.dismiss();
                 Toast.makeText(Car_details.this, exception.getMessage(), Toast.LENGTH_LONG).show();
             }
+        }).addOnProgressListener(new OnProgressListener<FileDownloadTask.TaskSnapshot>() {
+            @Override
+            public void onProgress(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                long val = taskSnapshot.getBytesTransferred()/taskSnapshot.getTotalByteCount();
+                dia.setProgress((int)val*100);
+            }
         });
     }
 
     public void Video_View(String path){
+        //try {
+        Log.e("Location",path);
         LayoutInflater factory = LayoutInflater.from(this);
         final View deleteDialogView = factory.inflate(R.layout.vid_view, null);
         final AlertDialog dia = new AlertDialog.Builder(this).create();
         dia.setView(deleteDialogView);
-        final VideoView myVideoView = dia.findViewById(R.id.video_view);
+        //final VideoView myVideoView = dia.findViewById(R.id.video_view_dia);
+        final VideoView myVideoView = findViewById(R.id.video_view);
         myVideoView.setVideoPath(path);
         myVideoView.setMediaController(new MediaController(this));
         myVideoView.requestFocus();
         myVideoView.start();
 
-        dia.show();
+        //dia.show();
+//        }
+//        catch (Exception e)
+//        {
+//            Toast.makeText(Car_details.this, e.toString(), Toast.LENGTH_LONG).show();
+//            Log.e("VideoPlaying Exception",e.getMessage());
+//
+//        }
     }
 
     public void downImages(String[] path, final int pos){

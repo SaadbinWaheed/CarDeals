@@ -12,11 +12,7 @@ public class Add {
     public Add() {
     }
 
-    public Add(String title, String Car_owner, String year) {
-        this.title = title;
-        this.Car_owner = Car_owner;
-        this.year = year;
-    }
+
 
     public String getTitle() {
         return title;

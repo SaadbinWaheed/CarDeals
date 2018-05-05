@@ -3,6 +3,7 @@ package com.example.saad.carsales;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -73,7 +74,6 @@ public class AD_details extends AppCompatActivity {
     private boolean images_picked = false;
     ProgressDialog dia ;
 
-    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -143,18 +143,20 @@ public class AD_details extends AppCompatActivity {
             }
         });
 
-        vid.setOnTouchListener(new View.OnTouchListener() {
+        vid.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                Intent intent = new Intent();
+            public void onClick(View v) {
+                /*Intent intent = new Intent();
                 intent.setType("video/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(Intent.createChooser(intent,"Select Video"),REQUEST_TAKE_GALLERY_VIDEO);
-
-                return false;
+*/
+                final Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+                photoPickerIntent.setType("*/*");
+                photoPickerIntent.putExtra(Intent.EXTRA_MIME_TYPES, new String[]{"image/*", "video/*"});
+                startActivityForResult(photoPickerIntent, REQUEST_TAKE_GALLERY_VIDEO);
             }
         });
-
         Model.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -261,10 +263,10 @@ public class AD_details extends AppCompatActivity {
                 Uri selectedVideoUri = data.getData();
 
                 // OI FILE Manager
-                String filemanagerstring = selectedVideoUri.getPath()+".mp4";
+                String filemanagerstring = selectedVideoUri.getPath();
 
                 // MEDIA GALLERY
-                String selectedImagePath = getPath(selectedVideoUri);
+                String selectedVideoPath = getRealPathFromUri(AD_details.this,selectedVideoUri);
 
                 //Toast.makeText(this,filemanagerstring,Toast.LENGTH_LONG).show();
                 vid.setText(filemanagerstring);
@@ -272,17 +274,22 @@ public class AD_details extends AppCompatActivity {
                 if (selectedVideoUri != null) {
 
                    ImageView Thumb = findViewById(R.id.thumb);
-                    Bitmap bitmap2 = ThumbnailUtils.createVideoThumbnail(filemanagerstring, MediaStore.Video.Thumbnails.MICRO_KIND);
+                    Bitmap bitmap2 = ThumbnailUtils.createVideoThumbnail(selectedVideoPath, MediaStore.Video.Thumbnails.MICRO_KIND);
 
                     Thumb.setImageBitmap(bitmap2);
 
                     String filename = filemanagerstring.substring(filemanagerstring.lastIndexOf("/")+1);
                     // Create a storage reference from our app
 
-                 //   Toast.makeText(AD_details.this, filename, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AD_details.this, filemanagerstring, Toast.LENGTH_LONG).show();
                     videoRef = videoRef.child("Adverts/"+key+"/video.mp4");
 
                     video = selectedVideoUri;
+
+                    /*Intent intent = new Intent(Intent.ACTION_VIEW, selectedVideoUri);
+                    intent.setDataAndType(Uri.parse(selectedVideoPath), "video/*");
+                    startActivity(intent);*/
+
                     //uploadVideo(selectedImageUri);
 
 //                    Intent intent = new Intent(AD_details.this,
@@ -388,6 +395,21 @@ public class AD_details extends AppCompatActivity {
             return cursor.getString(column_index);
         } else
             return null;
+    }
+
+    public static String getRealPathFromUri(Context context, Uri contentUri) {
+        Cursor cursor = null;
+        try {
+            String[] proj = {MediaStore.Images.Media.DATA};
+            cursor = context.getContentResolver().query(contentUri, proj, null, null, null);
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+            return cursor.getString(column_index);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
     }
 
     private void uploadVideo(Uri videoUri) {

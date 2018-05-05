@@ -39,6 +39,7 @@ public class Sign_Signup extends AppCompatActivity {
         Show_Pass = (CheckBox) findViewById(R.id.show_pass);
         Email = (EditText) findViewById(R.id.email);
         Password = (EditText) findViewById(R.id.password);
+        Sign_up = findViewById(R.id.signup);
 
         final int inputtype = Password.getInputType();
         Show_Pass.setOnClickListener(new View.OnClickListener() {
@@ -52,7 +53,6 @@ public class Sign_Signup extends AppCompatActivity {
                 }
             }
         });
-        Sign_up = findViewById(R.id.signup);
 
         Sign_up.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,7 +77,7 @@ public class Sign_Signup extends AppCompatActivity {
 
         final Firebase ref = new Firebase("https://car-sales-f4f9c.firebaseio.com/").child("Users");
 
-        if (!(username.equals("") || password.equals(""))) {
+        if (!(username.equals("")&& password.equals(""))) {
 
 
             firebaseAuth.signInWithEmailAndPassword(username, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
